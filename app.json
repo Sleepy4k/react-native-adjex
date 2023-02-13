@@ -1,34 +1,37 @@
 {
-  "expo": {
-    "name": "adjex-project",
-    "slug": "snack-b47cd477-0a77-4e02-a2ff-347f36f8ad1b",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "description": "Mobile app for adject project"
-  }
+    "expo": {
+        "name": "adjex",
+        "slug": "snack-1b53cb40-bead-465f-b810-86275ef90939",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/banner.png",
+        "userInterfaceStyle": "light",
+        "splash": {
+            "image": "./assets/banner.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#1C3144"
+        },
+        "updates": {
+            "fallbackToCacheTimeout": 0
+        },
+        "assetBundlePatterns": ["**/*"],
+        "ios": {
+            "supportsTablet": true,
+            "bundleIdentifier": "id.my.benjamin4k.adjex"
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/banner.png",
+                "backgroundColor": "#1C3144"
+            },
+            "package": "id.my.benjamin4k.adjex"
+        },
+        "web": {
+            "favicon": "./assets/banner.png"
+        },
+        "description": "Bersama adjex membangun negeri",
+        "extra": {
+            "apiUrl": "https://reqres.in/api"
+        }
+    }
 }
