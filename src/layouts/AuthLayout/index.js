@@ -1,13 +1,16 @@
 // Import Core Libraries
-import { useState, useCallback } from 'react';
-import { useRoute } from '@react-navigation/native';
-import { View, ScrollView, RefreshControl, SafeAreaView } from 'react-native';
+import { useState, useCallback } from "react";
+import { useRoute } from "@react-navigation/native";
+import { View, RefreshControl, SafeAreaView } from "react-native";
 
 // Import Styles
-import styles from './styles';
+import styles from "./styles";
 
 // Import Helpers
-import { Wait } from '../../helpers';
+import { Wait } from "../../helpers";
+
+// Import Components
+import { Content } from "../../components";
 
 export default function AuthLayout({ navigation, children }) {
   const route = useRoute().name;
@@ -17,18 +20,18 @@ export default function AuthLayout({ navigation, children }) {
     setRefreshing(true);
     Wait(2000)
       .then(() => setRefreshing(false))
-      .finally(() => navigation.replace('Tab', { screen: route }));
+      .finally(() => navigation.replace("Tab", { screen: route }));
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
+      <Content
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
+        }
+      >
         <View>{children}</View>
-      </ScrollView>
+      </Content>
     </SafeAreaView>
   );
 }

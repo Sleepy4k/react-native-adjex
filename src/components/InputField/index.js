@@ -1,16 +1,16 @@
 // Import Core Libraries
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import { View, Text, TextInput } from 'react-native';
+import { useState } from "react";
+import PropTypes from "prop-types";
+import { View, Text, TextInput } from "react-native";
 
 // Import Consts
-import { Colors } from '../../constant';
+import { Colors } from "../../constant";
 
 // Import Styles
-import styles from './styles';
+import styles from "./styles";
 
 // Import Components
-import { Icon } from '../index';
+import { Icon } from "../index";
 
 const InputField = ({
   icon,
@@ -46,14 +46,15 @@ const InputField = ({
               : isFocused
               ? Colors.darkBlue
               : Colors.light,
-            alignItems: 'center',
+            alignItems: "center",
           },
-        ]}>
+        ]}
+      >
         <Icon name={icon} style={styles.inputIcon} color={Colors.darkBlue} />
         <TextInput
           autoCorrect={false}
           editable={editable}
-          returnKeyType={'next'}
+          returnKeyType={"next"}
           style={styles.inputText}
           keyboardType={inputType}
           placeholder={placeholder}
@@ -69,9 +70,9 @@ const InputField = ({
           onBlur={() => setIsFocused(false)}
           {...props}
         />
-        {inputType == 'password' ? (
+        {inputType == "password" ? (
           <Icon
-            name={hidePassword ? 'eye-off-outline' : 'eye-outline'}
+            name={hidePassword ? "eye-off-outline" : "eye-outline"}
             style={styles.inputPasswordIcon}
             color={Colors.darkBlue}
             onPress={() => setHidePassword(!hidePassword)}
@@ -106,20 +107,20 @@ InputField.propTypes = {
 };
 
 InputField.defaultProps = {
-  icon: 'person',
-  error: '',
-  label: '',
+  icon: "person",
+  error: "",
+  label: "",
   editable: true,
   hideInput: false,
   onFocused: () => {},
-  inputType: 'default',
-  placeholder: '',
+  inputType: "default",
+  placeholder: "",
   inputFunction: () => {},
-  defaultValue: '',
+  defaultValue: "",
   inputMaxLength: 100,
   placeholderColor: Colors.grey,
 
-  customIcon: '',
+  customIcon: "",
   customFunction: () => {},
   customIconColor: Colors.darkBlue,
 };

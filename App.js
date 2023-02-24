@@ -1,21 +1,19 @@
 // Import Core Libraries
-import { StatusBar } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from "@react-navigation/native";
 
 // Import Navigation
-import { RootNav } from './src/navigations';
+import { RootNav } from "./src/navigations";
+
+// Import Components
+import { CustomStatusBar } from "./src/components";
 
 const App = () => {
-    return (
-        <NavigationContainer>
-            <StatusBar
-                barStyle='light-content'
-                backgroundColor='#1a234c'
-                translucent
-            />
-            <RootNav />
-        </NavigationContainer>
-    );
+  return (
+    <NavigationContainer>
+      <CustomStatusBar />
+      <RootNav />
+    </NavigationContainer>
+  );
 };
 
 export default App;

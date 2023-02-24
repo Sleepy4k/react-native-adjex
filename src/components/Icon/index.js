@@ -1,12 +1,12 @@
 // Import Core Libraries
-import PropTypes from 'prop-types';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import PropTypes from "prop-types";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 // Import Styles
-import styles from './styles';
+import styles from "./styles";
 
 // Import Consts
-import { Colors } from '../../constant';
+import { Colors } from "../../constant";
 
 const Icon = ({ name, size, color, style, ...props }) => {
   return (
@@ -28,7 +28,7 @@ Icon.propTypes = {
 };
 
 Icon.defaultProps = {
-  name: 'person',
+  name: "person",
   style: styles.icon,
   size: 20,
   color: Colors.darkBlue,

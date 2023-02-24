@@ -1,37 +1,37 @@
 {
-    "expo": {
-        "name": "adjex",
-        "slug": "snack-1b53cb40-bead-465f-b810-86275ef90939",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./assets/banner.png",
-        "userInterfaceStyle": "light",
-        "splash": {
-            "image": "./assets/banner.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#1C3144"
-        },
-        "updates": {
-            "fallbackToCacheTimeout": 0
-        },
-        "assetBundlePatterns": ["**/*"],
-        "ios": {
-            "supportsTablet": true,
-            "bundleIdentifier": "id.my.benjamin4k.adjex"
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/banner.png",
-                "backgroundColor": "#1C3144"
-            },
-            "package": "id.my.benjamin4k.adjex"
-        },
-        "web": {
-            "favicon": "./assets/banner.png"
-        },
-        "description": "Bersama adjex membangun negeri",
-        "extra": {
-            "apiUrl": "https://reqres.in/api"
-        }
+  "expo": {
+    "name": "adjex",
+    "slug": "snack-1b53cb40-bead-465f-b810-86275ef90939",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/banner.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/banner.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1C3144"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "id.my.benjamin4k.adjex"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/banner.png",
+        "backgroundColor": "#1C3144"
+      },
+      "package": "id.my.benjamin4k.adjex"
+    },
+    "web": {
+      "favicon": "./assets/banner.png"
+    },
+    "description": "Bersama adjex membangun negeri",
+    "extra": {
+      "apiUrl": "http://192.168.1.7:3000/api"
     }
+  }
 }

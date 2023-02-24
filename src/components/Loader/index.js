@@ -1,12 +1,12 @@
 // Import Core Libraries
-import PropTypes from 'prop-types';
-import { View, Text, ActivityIndicator } from 'react-native';
+import PropTypes from "prop-types";
+import { View, Text, ActivityIndicator } from "react-native";
 
 // Import Consts
-import { Colors } from '../../constant';
+import { Colors } from "../../constant";
 
 // Import Styles
-import styles from './styles';
+import styles from "./styles";
 
 const Loader = ({ text, visible }) => {
   return (
@@ -27,7 +27,7 @@ Loader.propTypes = {
 };
 
 Loader.defaultProps = {
-  text: 'Loading...',
+  text: "Loading...",
   visible: false,
 };
 
