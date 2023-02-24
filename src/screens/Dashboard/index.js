@@ -1,12 +1,12 @@
 // Import Core Libraries
-import PropTypes from 'prop-types';
-import { View, Image, Text } from 'react-native';
+import PropTypes from "prop-types";
+import { View, Image, Text, TouchableOpacity } from "react-native";
 
 // Import Styles
-import styles from './styles';
+import styles from "./styles";
 
 // Import Layouts
-import { AuthLayout } from '../../layouts';
+import { AuthLayout } from "../../layouts";
 
 const Dashboard = ({ navigation }) => {
   return (
@@ -16,38 +16,46 @@ const Dashboard = ({ navigation }) => {
           <Image
             style={[styles.adjexBanner, styles.bannerLayout]}
             resizeMode="cover"
-            source={require('../../../assets/banner.png')}
+            source={require("../../../assets/banner.png")}
           />
         </View>
         <Text style={[styles.dashboard, styles.dashboardPosition]}>
-          {'Dashboard'}
+          {"Dashboard"}
         </Text>
         <Image
           style={styles.dasboardScreenChild}
           resizeMode="cover"
-          source={require('../../../assets/rectangle-50.png')}
+          source={require("../../../assets/rectangle-50.png")}
         />
         <View style={[styles.rectangleParent, styles.dashboardPosition]}>
-          <Image
-            style={[styles.rectangleIcon, styles.groupLayout]}
-            resizeMode="cover"
-            source={require('../../../assets/rectangle-221.png')}
-          />
-          <Image
-            style={[styles.groupTop, styles.groupChildLayout]}
-            resizeMode="cover"
-            source={require('../../../assets/rectangle-23.png')}
-          />
-          <Image
-            style={[styles.groupItem, styles.groupLayout]}
-            resizeMode="cover"
-            source={require('../../../assets/rectangle-22.png')}
-          />
-          <Image
-            style={[styles.groupInner, styles.groupChildLayout]}
-            resizeMode="cover"
-            source={require('../../../assets/rectangle-52.png')}
-          />
+          <TouchableOpacity>
+            <Image
+              style={[styles.rectangleIcon, styles.groupLayout]}
+              resizeMode="cover"
+              source={require("../../../assets/rectangle-221.png")}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Image
+              style={[styles.groupTop, styles.groupChildLayout]}
+              resizeMode="cover"
+              source={require("../../../assets/rectangle-23.png")}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Image
+              style={[styles.groupItem, styles.groupLayout]}
+              resizeMode="cover"
+              source={require("../../../assets/rectangle-22.png")}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Image
+              style={[styles.groupInner, styles.groupChildLayout]}
+              resizeMode="cover"
+              source={require("../../../assets/rectangle-52.png")}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     </AuthLayout>

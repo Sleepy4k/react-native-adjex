@@ -1,22 +1,22 @@
 // Import Core Libraries
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 // Import Consts
-import { Colors } from '../../constant';
+import { Colors } from "../../constant";
 
 // Import Helpers
-import { Responsive } from '../../helpers';
+import { Responsive } from "../../helpers";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: Colors.white,
   },
   content: {
     flex: 1,
-    width: '100%',
+    width: "100%",
     paddingTop: Responsive.vertical(24),
     borderTopLeftRadius: Responsive.vertical(24),
     borderTopRightRadius: Responsive.vertical(24),
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   children: {
     paddingTop: Responsive.vertical(50),
     paddingHorizontal: Responsive.horizontal(20),
-  }
+  },
 });
 
 export default styles;

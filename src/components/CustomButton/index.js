@@ -1,9 +1,9 @@
 // Import Core Libraries
-import PropTypes from 'prop-types';
-import { Text, TouchableOpacity } from 'react-native';
+import PropTypes from "prop-types";
+import { Text, TouchableOpacity } from "react-native";
 
 // Import Styles
-import styles from './styles';
+import styles from "./styles";
 
 const CustomButton = ({ label, styles, disabled, onPress }) => {
   return (
@@ -11,7 +11,8 @@ const CustomButton = ({ label, styles, disabled, onPress }) => {
       onPress={onPress}
       disabled={disabled}
       activeOpacity={0.7}
-      style={styles}>
+      style={styles}
+    >
       <Text style={styles.buttonText}>{label}</Text>
     </TouchableOpacity>
   );
@@ -25,7 +26,7 @@ CustomButton.propTypes = {
 };
 
 CustomButton.defaultProps = {
-  label: '',
+  label: "",
   styles: styles.buttonTouchable,
   disabled: false,
   onPress: () => {},

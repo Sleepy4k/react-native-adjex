@@ -1,15 +1,15 @@
 // Import Core Libraries
-import { useState, useCallback } from 'react';
-import { View, SafeAreaView, RefreshControl } from 'react-native';
+import { useState, useCallback } from "react";
+import { View, SafeAreaView, RefreshControl } from "react-native";
 
 // Import Styles
-import styles from './styles';
+import styles from "./styles";
 
 // Import Helpers
-import { Wait } from '../../helpers';
+import { Wait } from "../../helpers";
 
 // Import Components
-import { Content } from '../../components';
+import { Content } from "../../components";
 
 export default function GuestLayout({ children }) {
   const [refreshing, setRefreshing] = useState(false);
@@ -24,10 +24,7 @@ export default function GuestLayout({ children }) {
       <Content
         style={styles.content}
         refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
         <View style={styles.children}>{children}</View>

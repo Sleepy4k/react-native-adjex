@@ -1,24 +1,24 @@
 // Import Core Libraries
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import { View, Image, Text, Alert, Keyboard } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState } from "react";
+import PropTypes from "prop-types";
+import { View, Image, Text, Alert, Keyboard } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Import Styles
-import styles from './styles';
+import styles from "./styles";
 
 // Import Layouts
-import { AuthLayout } from '../../layouts';
+import { AuthLayout } from "../../layouts";
 
 // Import Helpers
-import { Notifcation } from '../../helpers';
+import { Notifcation } from "../../helpers";
 
 // Import Components
-import { InputField } from '../../components';
+import { InputField } from "../../components";
 
 const Search = ({ navigation }) => {
-  const [error, setError] = useState('');
-  const [search, setSearch] = useState('');
+  const [error, setError] = useState("");
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
 
   const validate = async () => {
@@ -27,10 +27,10 @@ const Search = ({ navigation }) => {
     let isValid = true;
 
     if (!search) {
-      setError('Please input search');
+      setError("Please input search");
       isValid = false;
     } else if (search.length > 255) {
-      setError('Search cannot exceed 255 characters');
+      setError("Search cannot exceed 255 characters");
       isValid = false;
     }
 
@@ -40,31 +40,31 @@ const Search = ({ navigation }) => {
   };
 
   const submit = async () => {
-    const authUser = await AsyncStorage.getItem('authUser');
-    const guestSearch = await AsyncStorage.getItem('guestSearch');
+    const authUser = await AsyncStorage.getItem("authUser");
+    const guestSearch = await AsyncStorage.getItem("guestSearch");
 
     if (guestSearch && !authUser) {
       const search = JSON.parse(guestSearch);
 
       if (search.total > 5) {
         Alert.alert(
-          'Please login',
-          'You have exceeded the maximum search limit',
+          "Please login",
+          "You have exceeded the maximum search limit",
           [
             {
-              text: 'Login',
-              onPress: () => navigation.navigate('Stack', { screen: 'Login' }),
+              text: "Login",
+              onPress: () => navigation.navigate("Stack", { screen: "Login" }),
             },
             {
-              text: 'Cancel',
-              style: 'cancel',
-              onPress: () => console.log('Search cancel'),
+              text: "Cancel",
+              style: "cancel",
+              onPress: () => console.log("Search cancel"),
             },
           ]
         );
       } else {
         await AsyncStorage.setItem(
-          'guestSearch',
+          "guestSearch",
           JSON.stringify({
             total: search.total + 1,
           })
@@ -73,9 +73,9 @@ const Search = ({ navigation }) => {
         handleApi();
       }
     } else if (!guestSearch && !authUser) {
-      await AsyncStorage.getItem('guestSearch').then(() => {
+      await AsyncStorage.getItem("guestSearch").then(() => {
         AsyncStorage.setItem(
-          'guestSearch',
+          "guestSearch",
           JSON.stringify({
             total: 1,
           })
@@ -89,7 +89,7 @@ const Search = ({ navigation }) => {
   };
 
   const handleApi = () => {
-    Notifcation('Data berhasil di cari', 'success');
+    Notifcation("Data berhasil di cari", "success");
   };
 
   return (
@@ -99,17 +99,17 @@ const Search = ({ navigation }) => {
           <Image
             style={styles.bannerLayout}
             resizeMode="cover"
-            source={require('../../../assets/banner-2.png')}
+            source={require("../../../assets/banner-2.png")}
           />
         </View>
         <View style={[styles.search, styles.searchPosition]}>
           <InputField
             error={error}
             editable={!loading}
-            icon={'search-web'}
-            customIcon={'send'}
+            icon={"search-web"}
+            customIcon={"send"}
             defaultValue={search}
-            placeholder={'Search'}
+            placeholder={"Search"}
             customFunction={validate}
             inputFunction={(input) => setSearch(input)}
           />
@@ -121,8 +121,9 @@ const Search = ({ navigation }) => {
               styles.topAdjectiveSearch,
               styles.searchFlexBox,
               styles.lonelyTypo,
-            ]}>
-            {'Search History'}
+            ]}
+          >
+            {"Search History"}
           </Text>
         </View>
       </View>

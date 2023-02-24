@@ -1,36 +1,37 @@
 // Import Core Libraries
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 // Import Styles
-import styles from './styles';
+import styles from "./styles";
 
 // Import Pages
-import { Search, Profile, Dashboard } from '../../screens';
+import { Search, Profile, Dashboard, Login, Register } from "../../screens";
 
 // Import Components
-import { Icon } from '../../components';
+import { Icon } from "../../components";
 
 const BottomTab = () => {
   const Tab = createBottomTabNavigator();
 
   return (
     <Tab.Navigator
-      initialRouteName={'Dashboard'}
+      initialRouteName={"Dashboard"}
       screenOptions={{
         headerShown: false,
         animationEnabled: true,
-        tabBarStyle: { backgroundColor: '#1C3144' },
-      }}>
+        tabBarStyle: { backgroundColor: "#1C3144" },
+      }}
+    >
       <Tab.Screen
         name="Dashboard"
         component={Dashboard}
         options={{
-          tabBarLabel: 'Dashboard',
+          tabBarLabel: "Dashboard",
           tabBarIcon: ({ color, size }) => (
             <Icon
               disabled
               size={size}
-              name={'home'}
+              name={"home"}
               color={color}
               style={styles.icon}
             />
@@ -41,11 +42,11 @@ const BottomTab = () => {
         name="Search"
         component={Search}
         options={{
-          tabBarLabel: 'Search',
+          tabBarLabel: "Search",
           tabBarIcon: ({ color, size }) => (
             <Icon
               size={size}
-              name={'search-web'}
+              name={"search-web"}
               color={color}
               style={styles.icon}
             />
@@ -56,11 +57,11 @@ const BottomTab = () => {
         name="Profile"
         component={Profile}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: "Profile",
           tabBarIcon: ({ color, size }) => (
             <Icon
               size={size}
-              name={'account'}
+              name={"account"}
               color={color}
               style={styles.icon}
             />

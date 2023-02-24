@@ -1,8 +1,8 @@
 // Import Core Libraries
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 // Import Helpers
-import { Responsive } from '../../helpers';
+import { Responsive } from "../../helpers";
 
 const styles = StyleSheet.create({
   icon: {

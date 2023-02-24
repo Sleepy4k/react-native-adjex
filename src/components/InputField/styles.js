@@ -1,18 +1,18 @@
 // Import Core Libraries
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 // Import Consts
-import { Colors } from '../../constant';
+import { Colors } from "../../constant";
 
 // Import Helpers
-import { Responsive } from '../../helpers';
+import { Responsive } from "../../helpers";
 
 const styles = StyleSheet.create({
   container: {
     marginBottom: Responsive.vertical(20),
   },
   inputContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     backgroundColor: Colors.light,
     height: Responsive.vertical(55),
     borderWidth: Responsive.horizontal(0.5),

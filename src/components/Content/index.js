@@ -1,16 +1,13 @@
 // Import Core Libraries
-import PropTypes from 'prop-types';
-import { ScrollView } from 'react-native';
+import PropTypes from "prop-types";
+import { ScrollView } from "react-native";
 
-// Import Styles
-import styles from './styles';
-
-const Content = ({ style, refreshControl, children }) => {
+const Content = ({ style, enableScroll, refreshControl, children }) => {
   return (
     <ScrollView
       style={style}
       refreshControl={refreshControl}
-      showsVerticalScrollIndicator={false}
+      showsVerticalScrollIndicator={enableScroll}
     >
       {children}
     </ScrollView>
@@ -19,12 +16,14 @@ const Content = ({ style, refreshControl, children }) => {
 
 Content.propTypes = {
   style: PropTypes.object,
+  enableScroll: PropTypes.bool,
   refreshControl: PropTypes.object,
   children: PropTypes.node.isRequired,
 };
 
 Content.defaultProps = {
-  style: styles.container,
+  enableScroll: false,
+  refreshControl: null,
 };
 
 export default Content;
