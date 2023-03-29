@@ -17,7 +17,7 @@ const Search = ({ navigation }) => {
 
   const validate = async () => {
     if (search === "") {
-      notification.show("Please enter a search term", "Search");
+      notification("Please enter a search term", "Search");
       return;
     }
 
