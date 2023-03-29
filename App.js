@@ -1,19 +1,16 @@
-// Import Core Libraries
+import { RootNav } from "@navigations";
+import { CustomStatusBar } from "@components";
 import { NavigationContainer } from "@react-navigation/native";
-
-// Import Navigation
-import { RootNav } from "./src/navigations";
-
-// Import Components
-import { CustomStatusBar } from "./src/components";
 
 const App = () => {
   return (
     <NavigationContainer>
-      <CustomStatusBar />
+      <CustomStatusBar barStyle="auto" />
       <RootNav />
     </NavigationContainer>
   );
 };
 
 export default App;
+
+// Path: App.js
