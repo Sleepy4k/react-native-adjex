@@ -1,14 +1,17 @@
-// Import Helpers
-import Dimension from "./Dimension";
+import { dimension } from "@constants";
 
-const guidelineBaseWidth = 375;
-const guidelineBaseHeight = 812;
-
-const Responsive = {
-  horizontal: (size) => (Dimension.width / guidelineBaseWidth) * size,
-  vertical: (size) => (Dimension.height / guidelineBaseHeight) * size,
-  moderate: (size, factor = 0.5) =>
-    size + (Responsive.horizontal(size) - size) * factor,
+const base = {
+  width: 375,
+  height: 812,
 };
 
-export default Responsive;
+const responsive = {
+  horizontal: (size) => (dimension.width / base.width) * size,
+  vertical: (size) => (dimension.height / base.height) * size,
+  moderate: (size, factor = 0.5) =>
+    size + (responsive.horizontal(size) - size) * factor,
+};
+
+export default responsive;
+
+// Path: src\helpers\responsive.js

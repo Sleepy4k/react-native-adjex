@@ -1,6 +1,7 @@
-import { default as Wait } from "./Wait";
-import { default as Dimension } from "./Dimension";
-import { default as Responsive } from "./Responsive";
-import { default as Notifcation } from "./Notifcation";
+import responsive from "./responsive";
+import { default as promise } from "./promise";
+import { default as notification } from "./notification";
 
-export { Wait, Dimension, Responsive, Notifcation };
+export { responsive, promise, notification };
+
+// Path: src\helpers\index.js

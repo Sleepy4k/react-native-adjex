@@ -1,3 +1,5 @@
-import { default as Api } from './Api';
+import { default as api } from "./instanceApi";
 
-export { Api };
+export { api };
+
+// Path: src\services\index.js

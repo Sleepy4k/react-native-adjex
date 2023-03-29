@@ -4,10 +4,10 @@
     "slug": "snack-1b53cb40-bead-465f-b810-86275ef90939",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/banner.png",
+    "icon": "./src/assets/images/banner.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/banner.png",
+      "image": "./src/assets/images/banner.png",
       "resizeMode": "contain",
       "backgroundColor": "#1C3144"
     },
@@ -21,13 +21,13 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/banner.png",
+        "foregroundImage": "./src/assets/images/banner.png",
         "backgroundColor": "#1C3144"
       },
       "package": "id.my.benjamin4k.adjex"
     },
     "web": {
-      "favicon": "./assets/banner.png"
+      "favicon": "./src/assets/images/banner.png"
     },
     "description": "Bersama adjex membangun negeri",
     "extra": {
