@@ -2,14 +2,14 @@ import styles from "./styles";
 import PropTypes from "prop-types";
 import { View } from "react-native";
 
-const Profile = ({ navigation }) => {
+const Quiz = ({ navigation }) => {
   return <View></View>;
 };
 
-Profile.propTypes = {
+Quiz.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-export default Profile;
+export default Quiz;
 
-// Path: src\screens\Profile\index.js
+// Path: src\screens\Quiz\index.js

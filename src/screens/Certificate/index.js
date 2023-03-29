@@ -2,14 +2,14 @@ import styles from "./styles";
 import PropTypes from "prop-types";
 import { View } from "react-native";
 
-const Profile = ({ navigation }) => {
+const Certificate = ({ navigation }) => {
   return <View></View>;
 };
 
-Profile.propTypes = {
+Certificate.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-export default Profile;
+export default Certificate;
 
-// Path: src\screens\Profile\index.js
+// Path: src\screens\Certificate\index.js

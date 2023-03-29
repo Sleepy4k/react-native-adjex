@@ -1,4 +1,4 @@
-const Colors = {
+const colors = {
   black: "#000",
   white: "#FFF",
   red: "#F44336",
@@ -135,6 +135,29 @@ const Colors = {
   lightLightLightAmber: "#FFF8E1",
   lightLightLightIndigo: "#E8EAF6",
   lightLightLightBlueGrey: "#ECEFF1",
+
+  darkslategray: "#1c3144",
+  gray_100: "#fafafa",
+  gray_200: "#121212",
+  silver_100: "#c1bebe",
+  goldenrod: "#fac952",
+  mediumblue_100: "#2d07c7",
+  mediumblue_200: "rgba(45, 7, 199, 0.42)",
+  palegoldenrod_100: "#f7efb0",
+  palegoldenrod_200: "#f6efb0",
+  khaki: "#f6cc67",
+  dimgray_100: "#6f6f6f",
+  dimgray_200: "#636363",
+  dimgray_300: "#656161",
+  dimgray_400: "rgba(99, 99, 99, 0.19)",
+  gainsboro_100: "#e1e1e1",
+  gainsboro_200: "rgba(225, 225, 225, 0.63)",
+  limegreen: "#63cd3e",
+  ghostwhite: "#f2f0fb",
+  crimson: "rgba(220, 48, 48, 0.73)",
+  cornflowerblue: "#2196f3",
 };
 
-export default Colors;
+export default colors;
+
+// Path: src\constants\colors.js

@@ -1,14 +1,13 @@
-// Import Core Libraries
+import { responsive } from "@helpers";
 import { StyleSheet } from "react-native";
-
-// Import Helpers
-import { Responsive } from "../../helpers";
 
 const styles = StyleSheet.create({
   icon: {
-    fontSize: Responsive.moderate(22),
-    marginRight: Responsive.horizontal(10),
+    fontSize: responsive.moderate(22),
+    marginRight: responsive.horizontal(10),
   },
 });
 
 export default styles;
+
+// Path: src\components\Icon\style.js

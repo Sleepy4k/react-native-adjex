@@ -1,14 +1,7 @@
-// Import Core Libraries
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-// Import Styles
 import styles from "./styles";
-
-// Import Pages
-import { Search, Profile, Dashboard, Login, Register } from "../../screens";
-
-// Import Components
-import { Icon } from "../../components";
+import { Icon } from "@components";
+import { Search, Profile, Dashboard } from "@screens";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const BottomTab = () => {
   const Tab = createBottomTabNavigator();
@@ -73,3 +66,5 @@ const BottomTab = () => {
 };
 
 export default BottomTab;
+
+// Path: src\navigations\BottomTab\index.js

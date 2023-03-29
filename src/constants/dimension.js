@@ -1,9 +1,10 @@
-// Import Core Libraries
 import { Dimensions } from "react-native";
 
-const Dimension = {
+const dimension = {
   width: Dimensions.get("window").width,
   height: Dimensions.get("window").height,
 };
 
-export default Dimension;
+export default dimension;
+
+// Path: src\constants\dimension.js

@@ -1,7 +1,6 @@
-// Import Core Libraries
 import { Alert, Platform, ToastAndroid } from "react-native";
 
-const showNotification = (message, title) => {
+const show = (message, title) => {
   switch (Platform.OS) {
     case "android":
       ToastAndroid.showWithGravityAndOffset(
@@ -15,10 +14,14 @@ const showNotification = (message, title) => {
     case "web":
       alert(message);
       break;
-    default:
+    case "ios":
       Alert.alert(title, message);
+    default:
+      alert(message);
       break;
   }
 };
 
-export default showNotification;
+export default show;
+
+// Path: src\helpers\notification.js

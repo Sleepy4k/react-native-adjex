@@ -1,9 +1,6 @@
-// Import Core Libraries
 import PropTypes from "prop-types";
-import { View, StatusBar } from "react-native";
-
-// Import Consts
-import { Colors } from "../../constant";
+import { colors } from "@constants";
+import { StatusBar } from "expo-status-bar";
 
 const CustomStatusBar = ({
   hidden,
@@ -14,16 +11,14 @@ const CustomStatusBar = ({
   networkActivityIndicatorVisible,
 }) => {
   return (
-    <View>
-      <StatusBar
-        hidden={hidden}
-        animated={animated}
-        translucent={translucent}
-        barStyle={barStyle}
-        backgroundColor={backgroundColor}
-        networkActivityIndicatorVisible={networkActivityIndicatorVisible}
-      />
-    </View>
+    <StatusBar
+      style={barStyle}
+      hidden={hidden}
+      animated={animated}
+      translucent={translucent}
+      backgroundColor={backgroundColor}
+      networkActivityIndicatorVisible={networkActivityIndicatorVisible}
+    />
   );
 };
 
@@ -39,10 +34,12 @@ CustomStatusBar.propTypes = {
 CustomStatusBar.defaultProps = {
   hidden: false,
   animated: true,
-  translucent: true,
+  translucent: false,
   barStyle: "dark-content",
-  backgroundColor: Colors.lightDeepBlue,
+  backgroundColor: colors.lightDeepBlue,
   networkActivityIndicatorVisible: false,
 };
 
 export default CustomStatusBar;
+
+// Path: src\components\CustomStatusBar\index.js

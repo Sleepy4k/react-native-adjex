@@ -2,14 +2,14 @@ import styles from "./styles";
 import PropTypes from "prop-types";
 import { View } from "react-native";
 
-const Profile = ({ navigation }) => {
+const Home = ({ navigation }) => {
   return <View></View>;
 };
 
-Profile.propTypes = {
+Home.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-export default Profile;
+export default Home;
 
-// Path: src\screens\Profile\index.js
+// Path: src\screens\Home\index.js

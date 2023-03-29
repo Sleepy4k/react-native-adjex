@@ -1,64 +1,83 @@
-// Import Core Libraries
-import PropTypes from "prop-types";
-import { View, Image, Text, TouchableOpacity } from "react-native";
-
-// Import Styles
 import styles from "./styles";
-
-// Import Layouts
-import { AuthLayout } from "../../layouts";
+import PropTypes from "prop-types";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 
 const Dashboard = ({ navigation }) => {
   return (
-    <AuthLayout navigation={navigation}>
-      <View style={styles.dasboardScreen}>
-        <View style={[styles.banner, styles.bannerLayout]}>
+    <SafeAreaView>
+      <ScrollView showsVerticalScrollIndicator={true}>
+        <View style={styles.dasboardScreen}>
           <Image
-            style={[styles.adjexBanner, styles.bannerLayout]}
+            style={styles.dasboardScreenChild}
             resizeMode="cover"
-            source={require("../../../assets/banner.png")}
+            source={require("@images/rectangle-50.png")}
           />
+          <Text style={styles.dashboard}>Dashboard</Text>
+          <View style={styles.rectangleParent}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Stack", { screen: "Home" })}
+            >
+              <Image
+                style={[styles.groupChild, styles.groupLayout]}
+                resizeMode="cover"
+                source={require("@images/rectangle-23.png")}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("Stack", { screen: "Tutorial" })
+              }
+            >
+              <Image
+                style={[styles.groupItem, styles.groupLayout]}
+                resizeMode="cover"
+                source={require("@images/rectangle-22.png")}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Stack", { screen: "Quiz" })}
+            >
+              <Image
+                style={[styles.groupInner, styles.groupInnerLayout]}
+                resizeMode="cover"
+                source={require("@images/rectangle-52.png")}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("Stack", { screen: "Certificate" })
+              }
+            >
+              <Image
+                style={[styles.rectangleIcon, styles.groupInnerLayout]}
+                resizeMode="cover"
+                source={require("@images/rectangle-221.png")}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.banner, styles.bannerLayout]}>
+            <Image
+              style={[styles.adjexBanner1, styles.bannerLayout]}
+              resizeMode="cover"
+              source={require("@images/banner.png")}
+            />
+          </View>
+          <Text style={[styles.quiz, styles.quizTypo]}>Quiz</Text>
+          <Text style={[styles.certificate, styles.quizTypo]}>Certificate</Text>
+          <Text style={[styles.homeScreen, styles.tutorialTypo]}>
+            Home Screen
+          </Text>
+          <Text style={[styles.tutorial, styles.tutorialTypo]}>Tutorial</Text>
         </View>
-        <Text style={[styles.dashboard, styles.dashboardPosition]}>
-          {"Dashboard"}
-        </Text>
-        <Image
-          style={styles.dasboardScreenChild}
-          resizeMode="cover"
-          source={require("../../../assets/rectangle-50.png")}
-        />
-        <View style={[styles.rectangleParent, styles.dashboardPosition]}>
-          <TouchableOpacity>
-            <Image
-              style={[styles.rectangleIcon, styles.groupLayout]}
-              resizeMode="cover"
-              source={require("../../../assets/rectangle-221.png")}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image
-              style={[styles.groupTop, styles.groupChildLayout]}
-              resizeMode="cover"
-              source={require("../../../assets/rectangle-23.png")}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image
-              style={[styles.groupItem, styles.groupLayout]}
-              resizeMode="cover"
-              source={require("../../../assets/rectangle-22.png")}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image
-              style={[styles.groupInner, styles.groupChildLayout]}
-              resizeMode="cover"
-              source={require("../../../assets/rectangle-52.png")}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-    </AuthLayout>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -67,3 +86,5 @@ Dashboard.propTypes = {
 };
 
 export default Dashboard;
+
+// Path: src\screens\Dashboard\index.js
