@@ -1,6 +1,6 @@
-import Icon from "./Icon";
+import BottomTab from "./BottomTab";
 import CustomStatusBar from "./CustomStatusBar";
 
-export { Icon, CustomStatusBar };
+export { BottomTab, CustomStatusBar };
 
 // Path: src\components\index.js
