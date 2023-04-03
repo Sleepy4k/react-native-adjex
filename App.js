@@ -1,4 +1,4 @@
-import { RootNav } from "@navigations";
+import { GuestStack } from "@navigations";
 import { CustomStatusBar } from "@components";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -6,7 +6,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <CustomStatusBar barStyle="auto" />
-      <RootNav />
+      <GuestStack />
     </NavigationContainer>
   );
 };
