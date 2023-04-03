@@ -1,5 +1,5 @@
 import axios from "axios";
-import config from "../../app.json";
+import config from "@config";
 
 export default axios.create({
   baseURL: config.expo.extra.apiUrl,

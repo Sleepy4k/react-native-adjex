@@ -8,16 +8,8 @@ const styles = StyleSheet.create({
   card: {
     marginTop: 10,
     backgroundColor: "white",
-    height: 550,
+    height: 500,
     width: 300,
-    borderRadius: 10,
-    alignSelf: "center",
-  },
-  card1: {
-    marginTop: 40,
-    backgroundColor: "#FAC952",
-    height: 50,
-    width: 270,
     borderRadius: 10,
     alignSelf: "center",
   },
@@ -28,8 +20,19 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignSelf: "center",
   },
+  cardtext: {
+    marginTop: 10,
+    marginLeft: 20,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 10,
+    fontSize: 16,
+    height: 100,
+    width: 260,
+    backgroundColor: "none",
+  },
 });
 
 export default styles;
 
-// Path: src\screens\Home\styles.js
+// Path: src\screens\Report\styles.js

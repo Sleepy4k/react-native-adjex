@@ -1,88 +1,80 @@
 import styles from "./styles";
+import * as React from "react";
 import PropTypes from "prop-types";
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  SafeAreaView,
-  TouchableOpacity,
-} from "react-native";
+import { MainLayout } from "@layouts";
+import { BottomTab } from "@components";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 
 const Dashboard = ({ navigation }) => {
   return (
-    <SafeAreaView>
-      <ScrollView showsVerticalScrollIndicator={true}>
-        <View style={styles.dasboardScreen}>
-          <Image
-            style={styles.dasboardScreenChild}
-            resizeMode="cover"
-            source={require("@images/rectangle-50.png")}
-          />
-          <Text style={styles.dashboard}>Dashboard</Text>
-          <View style={styles.rectangleParent}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Stack", { screen: "Home" })}
-            >
+    <MainLayout>
+      <View style={styles.container}>
+        <Image style={styles.logo} source={require("@images/logo.jpg")} />
+        <Text
+          style={{
+            color: "white",
+            marginTop: 20,
+            fontSize: 25,
+            fontWeight: "bold",
+            marginLeft: -25,
+          }}
+        >
+          DASHBOARD
+        </Text>
+        <View style={styles.tombol}>
+          <View style={{ flexDirection: "row" }}>
+            <TouchableOpacity onPress={() => navigation.navigate("Home")}>
               <Image
-                style={[styles.groupChild, styles.groupLayout]}
-                resizeMode="cover"
-                source={require("@images/rectangle-23.png")}
+                style={styles.card1}
+                source={require("@images/home-screen.png")}
               />
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("Stack", { screen: "Tutorial" })
-              }
-            >
+            <TouchableOpacity onPress={() => navigation.navigate("Tutorial")}>
               <Image
-                style={[styles.groupItem, styles.groupLayout]}
-                resizeMode="cover"
-                source={require("@images/rectangle-22.png")}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Stack", { screen: "Quiz" })}
-            >
-              <Image
-                style={[styles.groupInner, styles.groupInnerLayout]}
-                resizeMode="cover"
-                source={require("@images/rectangle-52.png")}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("Stack", { screen: "Certificate" })
-              }
-            >
-              <Image
-                style={[styles.rectangleIcon, styles.groupInnerLayout]}
-                resizeMode="cover"
-                source={require("@images/rectangle-221.png")}
+                style={styles.card2}
+                source={require("@images/tutorial-screen.png")}
               />
             </TouchableOpacity>
           </View>
-          <View style={[styles.banner, styles.bannerLayout]}>
-            <Image
-              style={[styles.adjexBanner1, styles.bannerLayout]}
-              resizeMode="cover"
-              source={require("@images/banner.png")}
-            />
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ marginLeft: 30 }}>Home Screen</Text>
+            <Text style={{ marginLeft: 85 }}>Tutorial</Text>
           </View>
-          <Text style={[styles.quiz, styles.quizTypo]}>Quiz</Text>
-          <Text style={[styles.certificate, styles.quizTypo]}>Certificate</Text>
-          <Text style={[styles.homeScreen, styles.tutorialTypo]}>
-            Home Screen
-          </Text>
-          <Text style={[styles.tutorial, styles.tutorialTypo]}>Tutorial</Text>
+          <View style={{ flexDirection: "row" }}>
+            <TouchableOpacity onPress={() => navigation.navigate("Quiz")}>
+              <Image
+                style={styles.card3}
+                source={require("@images/quiz-screen.png")}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Certificate")}
+            >
+              <Image
+                style={styles.card4}
+                source={require("@images/certificate-screen.png")}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ marginLeft: 55 }}>Quiz</Text>
+            <Text style={{ marginLeft: 110 }}>Certificate</Text>
+          </View>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+        <BottomTab navigation={navigation} />
+      </View>
+    </MainLayout>
   );
 };
 
 Dashboard.propTypes = {
   navigation: PropTypes.object.isRequired,
+};
+
+Dashboard.defaultProps = {
+  navigation: {
+    navigate: () => {},
+  },
 };
 
 export default Dashboard;

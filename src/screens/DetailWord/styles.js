@@ -8,15 +8,23 @@ const styles = StyleSheet.create({
   card: {
     marginTop: 10,
     backgroundColor: "white",
-    height: 550,
+    height: 500,
     width: 300,
     borderRadius: 10,
     alignSelf: "center",
   },
   card1: {
-    marginTop: 40,
+    marginTop: 10,
     backgroundColor: "#FAC952",
-    height: 50,
+    height: 45,
+    width: 270,
+    borderRadius: 10,
+    alignSelf: "center",
+  },
+  card2: {
+    marginTop: 10,
+    backgroundColor: "#C62E2E",
+    height: 45,
     width: 270,
     borderRadius: 10,
     alignSelf: "center",
@@ -32,4 +40,4 @@ const styles = StyleSheet.create({
 
 export default styles;
 
-// Path: src\screens\Home\styles.js
+// Path: src\screens\DetailWord\styles.js

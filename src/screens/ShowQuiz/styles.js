@@ -6,18 +6,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#1C3144",
   },
   card: {
-    marginTop: 10,
+    marginTop: 20,
     backgroundColor: "white",
-    height: 550,
+    height: 400,
     width: 300,
-    borderRadius: 10,
-    alignSelf: "center",
-  },
-  card1: {
-    marginTop: 40,
-    backgroundColor: "#FAC952",
-    height: 50,
-    width: 270,
     borderRadius: 10,
     alignSelf: "center",
   },
@@ -28,8 +20,16 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignSelf: "center",
   },
+  card1: {
+    marginTop: 40,
+    backgroundColor: "#F2E38B",
+    height: 70,
+    width: 270,
+    borderRadius: 10,
+    alignSelf: "center",
+  },
 });
 
 export default styles;
 
-// Path: src\screens\Home\styles.js
+// Path: src\screens\ShowQuiz\styles.js

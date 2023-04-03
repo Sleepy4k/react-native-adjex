@@ -1,73 +1,69 @@
 import styles from "./styles";
-import { useState } from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
-import { notification } from "@helpers";
-import {
-  View,
-  Text,
-  Image,
-  TextInput,
-  ScrollView,
-  SafeAreaView,
-  TouchableOpacity,
-} from "react-native";
+import { MainLayout } from "@layouts";
+import { BottomTab } from "@components";
+import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 
 const Search = ({ navigation }) => {
-  const [search, setSearch] = useState("");
-
-  const validate = async () => {
-    if (search === "") {
-      notification("Please enter a search term", "Search");
-      return;
-    }
-
-    navigation.navigate("Stack", {
-      screen: "SearchResult",
-      params: { search: search },
-    });
-  };
-
   return (
-    <SafeAreaView>
-      <ScrollView showsVerticalScrollIndicator={true}>
-        <View style={styles.searchScreen}>
-          <View style={[styles.adjective, styles.searchPosition]}>
-            <View style={[styles.background, styles.searchPosition]} />
-            <Text style={[styles.searchHistory, styles.searchFlexBox]}>
-              Search History
-            </Text>
-          </View>
-          <View style={[styles.search, styles.searchPosition]}>
-            <View style={[styles.searchChild, styles.searchLayout]} />
-            <TouchableOpacity onPress={validate}>
-              <Text style={[styles.searchText, styles.searchFlexBox]}>
-                Search
-              </Text>
-            </TouchableOpacity>
-            <TextInput
-              autoCorrect={false}
-              style={[styles.searchBar, styles.searchLayout]}
-              placeholder="Search"
-              onChangeText={(text) => setSearch(text)}
-              value={search}
-              maxLength={100}
-            />
-          </View>
-          <View style={[styles.banner, styles.bannerLayout]}>
+    <MainLayout>
+      <View style={styles.container}>
+        <Image style={styles.logo} source={require("@images/logo.jpg")} />
+        <View style={{ flexDirection: "row" }}>
+          <TextInput
+            style={{
+              borderRadius: 10,
+              borderWidth: 1,
+              height: 40,
+              width: 280,
+              marginLeft: -20,
+              padding: 10,
+              backgroundColor: "white",
+            }}
+            placeholder="Search Your History"
+          ></TextInput>
+          <TouchableOpacity
+            style={{
+              height: 40,
+              width: 40,
+              backgroundColor: "white",
+              borderRadius: 10,
+              marginLeft: 10,
+            }}
+          >
             <Image
-              style={[styles.adjexBanner1, styles.bannerLayout]}
-              resizeMode="cover"
-              source={require("@images/banner.png")}
+              style={{ width: 35, height: 35, marginTop: 2, marginLeft: 2 }}
+              source={require("@images/search-icon.png")}
             />
-          </View>
+          </TouchableOpacity>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+        <View style={styles.card}>
+          <Text
+            style={{
+              fontSize: 15,
+              marginLeft: 20,
+              marginTop: 30,
+              fontWeight: "bold",
+            }}
+          >
+            Search History
+          </Text>
+        </View>
+        <BottomTab navigation={navigation} />
+      </View>
+    </MainLayout>
   );
 };
 
 Search.propTypes = {
   navigation: PropTypes.object.isRequired,
+};
+
+Search.defaultProps = {
+  navigation: {
+    navigate: () => {},
+  },
 };
 
 export default Search;

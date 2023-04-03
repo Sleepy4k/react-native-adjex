@@ -6,18 +6,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#1C3144",
   },
   card: {
-    marginTop: 10,
-    backgroundColor: "white",
-    height: 550,
+    marginTop: 30,
+    backgroundColor: "grey",
+    height: 60,
     width: 300,
-    borderRadius: 10,
-    alignSelf: "center",
-  },
-  card1: {
-    marginTop: 40,
-    backgroundColor: "#FAC952",
-    height: 50,
-    width: 270,
     borderRadius: 10,
     alignSelf: "center",
   },
@@ -32,4 +24,4 @@ const styles = StyleSheet.create({
 
 export default styles;
 
-// Path: src\screens\Home\styles.js
+// Path: src\screens\Language\styles.js
