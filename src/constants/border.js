@@ -1,8 +1,9 @@
 const border = {
-  br_xl: 20,
-  br_3xs: 10,
-  br_mini: 15,
-  br_31xl: 50,
+  br_xs: 5,
+  br_sm: 10,
+  br_md: 15,
+  br_lg: 20,
+  br_xl: 25,
 };
 
 export default border;
