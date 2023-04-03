@@ -1,5 +1,5 @@
-import RootNav from "./RootNav";
+import MainStack from "./MainStack";
 
-export { RootNav };
+export { MainStack };
 
 // Path: src\navigations\index.js
