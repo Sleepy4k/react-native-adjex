@@ -5,9 +5,11 @@ import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 
-const Alert = ({ navigation }) => {
+const Alert = ({ route, navigation }) => {
+  const { index } = route.params.param;
+
   return (
-    <MainLayout>
+    <MainLayout navigation={navigation}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.jpg")} />
         <View style={{ flexDirection: "row" }}>
@@ -20,7 +22,7 @@ const Alert = ({ navigation }) => {
               color: "red",
             }}
           >
-            ALERT
+            {"ALERT"}
           </Text>
         </View>
         <View style={styles.card}>
@@ -34,10 +36,14 @@ const Alert = ({ navigation }) => {
                 marginLeft: 35,
               }}
             >
-              your answer is wrong, try again?
+              {"Your answer is wrong, try again?"}
             </Text>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate("Quiz")}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("ShowQuiz", { param: { index: index } })
+            }
+          >
             <View style={styles.card1}>
               <Text
                 style={{
@@ -47,7 +53,7 @@ const Alert = ({ navigation }) => {
                   fontWeight: "bold",
                 }}
               >
-                Yes
+                {"Yes"}
               </Text>
             </View>
           </TouchableOpacity>
@@ -61,7 +67,7 @@ const Alert = ({ navigation }) => {
                   fontWeight: "bold",
                 }}
               >
-                Back to Dashboard
+                {"Back to Dashboard"}
               </Text>
             </View>
           </TouchableOpacity>

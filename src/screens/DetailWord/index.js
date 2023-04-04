@@ -1,5 +1,6 @@
 import styles from "./styles";
 import * as React from "react";
+import { api } from "@services";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
@@ -7,9 +8,28 @@ import { Text, View, Image, TouchableOpacity } from "react-native";
 
 const DetailWord = ({ route, navigation }) => {
   const { word } = route.params.param;
+  const [data, setData] = React.useState(null);
+
+  React.useEffect(() => {
+    const initData = async () => {
+      try {
+        const response = await api.get(`/adjective/${word}`);
+
+        if (response.data.status == "success") {
+          setData(response.data.data);
+        } else {
+          console.log(response.message);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    initData();
+  }, []);
 
   return (
-    <MainLayout>
+    <MainLayout navigation={navigation}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.jpg")} />
         <View style={{ flexDirection: "row" }}>
@@ -40,13 +60,10 @@ const DetailWord = ({ route, navigation }) => {
               fontWeight: "bold",
             }}
           >
-            Descirption
+            {"Description"}
           </Text>
           <Text style={{ color: "black", margin: 10, padding: 10 }}>
-            Kata jealous sering digunakan ketika kita tidak suka ada orang lain
-            yang menunjukkan ketertarikan pada pasangan, atau sebaliknya. Selain
-            itu, jealous juga bisa digunakan ketika seorang anak tidak suka
-            orangtuanya lebih menyayangi anak yang lain.
+            {data && data.description}
           </Text>
           <Text
             style={{
@@ -56,13 +73,15 @@ const DetailWord = ({ route, navigation }) => {
               fontWeight: "bold",
             }}
           >
-            Example
+            {"Example"}
           </Text>
           <Text style={{ color: "black", margin: 10, padding: 10 }}>
-            Berikut ini beberapa contoh penggunaan kata dari kata jealous :
+            {"Here are some examples of the use of the word from the word "}
+            {word}
+            {" :"}
           </Text>
           <Text style={{ color: "black", marginLeft: 20 }}>
-            -He jealous that you're going to the vacation!
+            {data && data.example}
           </Text>
         </View>
         <BottomTab navigation={navigation} />
@@ -80,7 +99,7 @@ DetailWord.defaultProps = {
   route: {
     params: {
       param: {
-        index: 1,
+        word: "",
       },
     },
   },

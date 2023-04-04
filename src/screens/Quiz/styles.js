@@ -27,6 +27,17 @@ const styles = StyleSheet.create({
     width: 270,
     borderRadius: 10,
     alignSelf: "center",
+    marginLeft: 25,
+  },
+  card2: {
+    marginTop: 40,
+    backgroundColor: "#F2E38B",
+    height: 70,
+    width: 270,
+    borderRadius: 10,
+    marginBottom: 100,
+    alignSelf: "center",
+    marginLeft: 25,
   },
 });
 

@@ -3,11 +3,11 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 
 const Congrats = ({ navigation }) => {
   return (
-    <MainLayout>
+    <MainLayout navigation={navigation}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.jpg")} />
         <View style={{ flexDirection: "row" }}>
@@ -20,7 +20,7 @@ const Congrats = ({ navigation }) => {
               color: "white",
             }}
           >
-            CONGRATS
+            {"CONGRATS"}
           </Text>
         </View>
         <View style={styles.card}>
@@ -33,19 +33,21 @@ const Congrats = ({ navigation }) => {
                 marginLeft: 75,
               }}
             >
-              This is your Certificate
+              {"This is your Certificate"}
             </Text>
           </View>
-          <Image
-            style={{
-              width: 200,
-              height: 130,
-              marginTop: 80,
-              marginLeft: 55,
-              borderWidht: 1,
-            }}
-            source={require("@images/certificate.png")}
-          />
+          <TouchableOpacity onPress={() => navigation.navigate("Certificate")}>
+            <Image
+              style={{
+                width: 200,
+                height: 130,
+                marginTop: 80,
+                marginLeft: 55,
+                borderWidht: 1,
+              }}
+              source={require("@images/certificate.png")}
+            />
+          </TouchableOpacity>
         </View>
         <BottomTab navigation={navigation} />
       </View>

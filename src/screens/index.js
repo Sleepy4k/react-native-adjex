@@ -11,6 +11,7 @@ import Language from "./Language";
 import Tutorial from "./Tutorial";
 import Register from "./Register";
 import Congrats from "./Congrats";
+import WebViewer from "./WebViewer";
 import Dashboard from "./Dashboard";
 import DetailWord from "./DetailWord";
 import Certificate from "./Certificate";
@@ -29,6 +30,7 @@ export {
   Tutorial,
   Register,
   Congrats,
+  WebViewer,
   Dashboard,
   DetailWord,
   Certificate,

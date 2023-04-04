@@ -7,7 +7,7 @@ import { Text, View, Image, TouchableOpacity } from "react-native";
 
 const Tutorial = ({ navigation }) => {
   return (
-    <MainLayout>
+    <MainLayout navigation={navigation}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.jpg")} />
         <View style={{ flexDirection: "row" }}>
@@ -26,7 +26,7 @@ const Tutorial = ({ navigation }) => {
               color: "white",
             }}
           >
-            Tutorial
+            {"Tutorial"}
           </Text>
           <Text
             style={{
@@ -37,13 +37,20 @@ const Tutorial = ({ navigation }) => {
               color: "white",
             }}
           >
-            Video
+            {"Video"}
           </Text>
         </View>
         <View style={styles.card}>
           <View style={styles.card1}>
             <View style={{ flexDirection: "row" }}>
               <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("WebViewer", {
+                    param: {
+                      url: "https://www.youtube.com/embed/24clNOs1Q9c",
+                    },
+                  })
+                }
                 style={{
                   width: 45,
                   height: 45,
@@ -71,16 +78,23 @@ const Tutorial = ({ navigation }) => {
                   fontWeight: "bold",
                 }}
               >
-                Video
+                {"Understanding"}
               </Text>
-              <Text style={{ fontSize: 10, marginTop: 40, marginLeft: 100 }}>
-                02.00
+              <Text style={{ fontSize: 10, marginTop: 40, marginLeft: 25 }}>
+                {"09.40"}
               </Text>
             </View>
           </View>
           <View style={styles.card1}>
             <View style={{ flexDirection: "row" }}>
               <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("WebViewer", {
+                    param: {
+                      url: "https://www.youtube.com/embed/5KTXCGVBrR4",
+                    },
+                  })
+                }
                 style={{
                   width: 45,
                   height: 45,
@@ -108,16 +122,23 @@ const Tutorial = ({ navigation }) => {
                   fontWeight: "bold",
                 }}
               >
-                Video
+                {"Usage"}
               </Text>
               <Text style={{ fontSize: 10, marginTop: 40, marginLeft: 100 }}>
-                02.00
+                {"08.16"}
               </Text>
             </View>
           </View>
           <View style={styles.card1}>
             <View style={{ flexDirection: "row" }}>
               <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("WebViewer", {
+                    param: {
+                      url: "https://www.youtube.com/embed/1tSJ1k2G4ik",
+                    },
+                  })
+                }
                 style={{
                   width: 45,
                   height: 45,
@@ -145,10 +166,10 @@ const Tutorial = ({ navigation }) => {
                   fontWeight: "bold",
                 }}
               >
-                Video
+                {"Word Example"}
               </Text>
-              <Text style={{ fontSize: 10, marginTop: 40, marginLeft: 100 }}>
-                02.00
+              <Text style={{ fontSize: 10, marginTop: 40, marginLeft: 30 }}>
+                {"06.06"}
               </Text>
             </View>
           </View>

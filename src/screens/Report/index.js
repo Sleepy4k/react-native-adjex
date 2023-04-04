@@ -1,13 +1,55 @@
 import styles from "./styles";
 import * as React from "react";
+import { api } from "@services";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
+import { notification } from "@helpers";
 import { BottomTab } from "@components";
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 
 const Report = ({ navigation }) => {
+  const [data, setData] = React.useState({
+    title: "",
+    report: "",
+  });
+
+  const handleChange = (name, value) => {
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      if (!data.title || !data.report) {
+        notification("Please fill all field", "error");
+        return;
+      }
+
+      const response = await api.post("/report", {
+        report: "test",
+      });
+
+      if (response.data.status == "success") {
+        notification("Report has been sent", "success");
+
+        setData({
+          title: "",
+          report: "",
+        });
+      } else {
+        notification("something went wrong", "error");
+        console.log(response.message);
+      }
+    } catch (error) {
+      notification("something went wrong", "error");
+      console.log(error.message);
+    }
+  };
+
   return (
-    <MainLayout>
+    <MainLayout navigation={navigation}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.jpg")} />
         <View style={{ flexDirection: "row" }}>
@@ -30,8 +72,7 @@ const Report = ({ navigation }) => {
               fontWeight: "bold",
             }}
           >
-            {" "}
-            LAPORAN BUG{" "}
+            {"REPORT BUG"}
           </Text>
         </View>
         <View style={styles.card}>
@@ -43,7 +84,7 @@ const Report = ({ navigation }) => {
               fontWeight: "bold",
             }}
           >
-            GANGGUAN YANG DIALAMI
+            {"YOUR TROUBLE / PROBLEM"}
           </Text>
           <TextInput
             style={{
@@ -56,7 +97,9 @@ const Report = ({ navigation }) => {
               padding: 10,
               borderColor: "#ccc",
             }}
-            placeholder="Ketik Disini"
+            onChangeText={(text) => handleChange("title", text)}
+            value={data.title}
+            placeholder={"Type Here"}
           ></TextInput>
           <Text
             style={{
@@ -66,7 +109,7 @@ const Report = ({ navigation }) => {
               fontWeight: "bold",
             }}
           >
-            DETAIL GANGGUAN/ MASALAH
+            {"DETAIL TROUBLE / PROBLEM"}
           </Text>
           <TextInput
             style={{
@@ -81,10 +124,20 @@ const Report = ({ navigation }) => {
               backgroundColor: "none",
               padding: 10,
             }}
-            placeholder="Ketik disini secara detail"
+            placeholder={"Type Here"}
             multiline={true}
             numberOfLines={4}
+            onChangeText={(text) => handleChange("report", text)}
+            value={data.report}
           />
+          <TouchableOpacity
+            style={{ marginTop: 70, marginLeft: 220 }}
+            onPress={handleSubmit}
+          >
+            <Text style={{ color: "black", fontSize: 12, fontWeight: "bold" }}>
+              {"SUBMIT"}
+            </Text>
+          </TouchableOpacity>
         </View>
         <BottomTab navigation={navigation} />
       </View>

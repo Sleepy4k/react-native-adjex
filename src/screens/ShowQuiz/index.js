@@ -1,19 +1,119 @@
 import styles from "./styles";
 import * as React from "react";
+import { api } from "@services";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
-import { BottomTab } from "@components";
+import { notification } from "@helpers";
 import { Text, View, Image, TouchableOpacity } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ShowQuiz = ({ route, navigation }) => {
   const { index } = route.params.param;
+  const [data, setData] = React.useState(null);
+
+  React.useEffect(() => {
+    const initData = async () => {
+      try {
+        const response = await api.get(`/quiz/${index}`);
+
+        if (response.data.status == "success") {
+          setData(response.data.data);
+        } else {
+          console.log(response.message);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    initData();
+  }, [index]);
+
+  const handleSubmit = async (answer) => {
+    if (!answer) {
+      return;
+    }
+
+    if (answer == data.answer) {
+      const quizData = await AsyncStorage.getItem("quizData");
+
+      if (!quizData) {
+        await AsyncStorage.setItem(
+          "quizData",
+          JSON.stringify({
+            current: 1,
+            total: 1,
+          })
+        );
+
+        notification("Correct answer", "success");
+        navigation.navigate("ShowQuiz", { param: { index: index + 1 } });
+
+        return;
+      }
+
+      const { current, total } = JSON.parse(quizData);
+
+      if (total < 4) {
+        await AsyncStorage.setItem(
+          "quizData",
+          JSON.stringify({
+            current: current + 1,
+            total: total + 1,
+          })
+        );
+
+        notification("Correct answer", "success");
+        navigation.navigate("ShowQuiz", { param: { index: index + 1 } });
+      } else {
+        await AsyncStorage.setItem(
+          "quizData",
+          JSON.stringify({
+            current: 0,
+            total: 0,
+          })
+        );
+
+        notification("You have completed all the quiz", "success");
+
+        const certificate = await AsyncStorage.getItem("certificate");
+
+        if (!certificate) {
+          await AsyncStorage.setItem(
+            "certificate",
+            JSON.stringify({
+              total: 1,
+            })
+          );
+
+          navigation.navigate("Congrats");
+
+          return;
+        }
+
+        const certificate_data = JSON.parse(certificate);
+
+        await AsyncStorage.setItem(
+          "certificate",
+          JSON.stringify({
+            total: certificate_data.total + 1,
+          })
+        );
+
+        navigation.navigate("Congrats");
+      }
+    } else {
+      notification("Wrong answer", "error");
+      navigation.navigate("Alert", { param: { index: index } });
+    }
+  };
 
   return (
-    <MainLayout>
+    <MainLayout navigation={navigation}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.jpg")} />
         <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity onPress={() => navigation.navigate("Quiz")}>
+          <TouchableOpacity onPress={() => navigation.replace("Quiz")}>
             <Image
               style={{ width: 25, height: 25, marginLeft: -10, marginTop: 10 }}
               source={require("@images/back-white-icon.png")}
@@ -28,7 +128,8 @@ const ShowQuiz = ({ route, navigation }) => {
               color: "white",
             }}
           >
-            Quiz {index ? index : 1}
+            {"Quiz "}
+            {index ? index : 1}
           </Text>
         </View>
         <View style={styles.card}>
@@ -39,70 +140,69 @@ const ShowQuiz = ({ route, navigation }) => {
                 marginTop: 15,
                 fontWeight: "bold",
                 color: "black",
-                marginLeft: 45,
+                marginLeft: 20,
               }}
             >
-              The topic of the passage is…
-            </Text>
-            <Text
-              style={{
-                fontSize: 15,
-                marginTop: 15,
-                fontWeight: "bold",
-                color: "black",
-              }}
-            >
-              ?
+              {data?.question}
             </Text>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate("Alert")}>
+          <TouchableOpacity onPress={() => handleSubmit("a")}>
             <View style={styles.card1}>
               <Text
                 style={{
-                  fontSize: 15,
-                  marginTop: 25,
-                  marginLeft: 55,
-                  fontWeight: "bold",
-                }}
-              >
-                The static atmosphere
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Alert")}>
-            <View style={styles.card1}>
-              <Text
-                style={{
-                  fontSize: 15,
-                  marginTop: 25,
-                  marginLeft: 28,
-                  fontWeight: "bold",
-                }}
-              >
-                The change in the atmosphere
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("ShowQuiz", { param: { index: index + 1 } })
-            }
-          >
-            <View style={styles.card1}>
-              <Text
-                style={{
-                  fontSize: 15,
-                  marginTop: 25,
+                  fontSize: 16,
+                  marginTop: 22,
                   marginLeft: 25,
                   fontWeight: "bold",
                 }}
               >
-                The earth’s original atmosphere
+                {data?.a}
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleSubmit("b")}>
+            <View style={styles.card1}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  marginTop: 22,
+                  marginLeft: 25,
+                  fontWeight: "bold",
+                }}
+              >
+                {data?.b}
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleSubmit("c")}>
+            <View style={styles.card1}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  marginTop: 22,
+                  marginLeft: 25,
+                  fontWeight: "bold",
+                }}
+              >
+                {data?.c}
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleSubmit("d")}>
+            <View style={styles.card1}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  marginTop: 22,
+                  marginLeft: 25,
+                  fontWeight: "bold",
+                }}
+              >
+                {data?.d}
               </Text>
             </View>
           </TouchableOpacity>
         </View>
-        <BottomTab navigation={navigation} />
       </View>
     </MainLayout>
   );

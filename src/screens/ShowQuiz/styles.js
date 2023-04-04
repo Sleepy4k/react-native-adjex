@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   card: {
     marginTop: 20,
     backgroundColor: "white",
-    height: 400,
+    height: 550,
     width: 300,
     borderRadius: 10,
     alignSelf: "center",
