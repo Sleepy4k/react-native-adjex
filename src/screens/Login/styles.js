@@ -70,6 +70,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
   },
+  error_teks: {
+    color: "red",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 12,
+  },
 });
 
 export default styles;

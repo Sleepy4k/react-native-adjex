@@ -7,7 +7,7 @@ import { Text, View, Image, TouchableOpacity } from "react-native";
 
 const About = ({ navigation }) => {
   return (
-    <MainLayout>
+    <MainLayout navigation={navigation}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.jpg")} />
         <View style={styles.header}>
@@ -17,19 +17,19 @@ const About = ({ navigation }) => {
               source={require("@images/back-white-icon.png")}
             />
           </TouchableOpacity>
-          <Text style={styles.title}>{"TENTANG KAMI"}</Text>
+          <Text style={styles.title}>{"ABOUT US"}</Text>
         </View>
         <View style={styles.card}>
-          <Text style={styles.sub_title}>{"About Us"}</Text>
+          <Text style={styles.sub_title}>{"About"}</Text>
           <Text style={styles.paragraph}>
             {
-              "Kami adalah penyedia sebuah layanan yang bergerak dalam bidang pendidikan, dengan di buat nya aplikasi ini semoga bisa berguna untuk bisa belajar kata adjective dimana pun dan kapan pun"
+              "We are a service provider engaged in the field of education, by making this application, hopefully it can be useful to be able to learn adjectives anywhere and anytime"
             }
           </Text>
           <Text style={styles.sub_title}>{"Team"}</Text>
           <Text style={styles.paragraph}>
             {
-              "Dalam pembuatan aplikasi ini tidak luput dari kerja keras nya team kami yang beranggotakan :"
+              "In making this application, the hard work of our team, which consists of :"
             }
           </Text>
           <Text style={styles.list}>{"- Akmal Hikmah (12)"}</Text>

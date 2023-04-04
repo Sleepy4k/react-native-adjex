@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   tombol: {
     marginTop: 20,
     backgroundColor: "darkgrey",
-    height: 700,
+    height: 450,
     width: 300,
     borderRadius: 10,
     alignSelf: "center",

@@ -20,12 +20,20 @@ const styles = StyleSheet.create({
     width: 270,
     borderRadius: 10,
     alignSelf: "center",
+    marginLeft: 25,
   },
   logo: {
     height: 90,
     width: 270,
     marginBottom: 10,
     borderRadius: 5,
+    alignSelf: "center",
+  },
+  tombol: {
+    backgroundColor: "white",
+    height: 60,
+    width: 300,
+    borderRadius: 10,
     alignSelf: "center",
   },
 });

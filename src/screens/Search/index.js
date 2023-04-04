@@ -7,7 +7,7 @@ import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 
 const Search = ({ navigation }) => {
   return (
-    <MainLayout>
+    <MainLayout navigation={navigation}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.jpg")} />
         <View style={{ flexDirection: "row" }}>

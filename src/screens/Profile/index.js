@@ -1,13 +1,52 @@
+import config from "@config";
 import styles from "./styles";
 import * as React from "react";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
+import { notification } from "@helpers";
 import { Text, View, Image, TouchableOpacity } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Profile = ({ navigation }) => {
+  const [name, setName] = React.useState("Guest");
+  const [authUser, setAuthUser] = React.useState(false);
+
+  React.useEffect(() => {
+    const initUser = async () => {
+      try {
+        const authUser = await AsyncStorage.getItem("authUser");
+
+        if (authUser) {
+          const user = JSON.parse(authUser);
+
+          if (user.data.firstName || user.data.lastName) {
+            setName(`${user.data.firstName} ${user.data.lastName}`);
+            setAuthUser(true);
+          }
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    initUser();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem("authUser");
+      await AsyncStorage.removeItem("quizData");
+      await AsyncStorage.removeItem("guestSearch");
+
+      navigation.navigate("Dashboard");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
-    <MainLayout>
+    <MainLayout navigation={navigation}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.jpg")} />
         <View style={styles.card}>
@@ -24,7 +63,7 @@ const Profile = ({ navigation }) => {
                 fontWeight: "bold",
               }}
             >
-              Benjamin4K
+              {name}
             </Text>
           </View>
           <Text
@@ -35,22 +74,19 @@ const Profile = ({ navigation }) => {
               fontWeight: "bold",
             }}
           >
-            Akun
+            {"Account"}
           </Text>
           <View style={styles.card1}>
             <TouchableOpacity onPress={() => navigation.navigate("Language")}>
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}>
-                  Pilih
-                </Text>
-                <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 5 }}>
-                  Bahasa
+                  {"Language"}
                 </Text>
                 <Image
                   style={{
                     width: 20,
                     height: 20,
-                    marginLeft: 140,
+                    marginLeft: 160,
                     marginTop: 12,
                   }}
                   source={require("@images/next-icon.png")}
@@ -58,41 +94,58 @@ const Profile = ({ navigation }) => {
               </View>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <View style={styles.card2}>
-              <View style={{ flexDirection: "row" }}>
-                <Text
-                  style={{
-                    fontSize: 17,
-                    marginTop: 10,
-                    marginLeft: 10,
-                    color: "white",
-                  }}
-                >
-                  Log
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 17,
-                    marginTop: 10,
-                    marginLeft: 5,
-                    color: "white",
-                  }}
-                >
-                  Out
-                </Text>
-                <Image
-                  style={{
-                    width: 20,
-                    height: 20,
-                    marginLeft: 170,
-                    marginTop: 12,
-                  }}
-                  source={require("@images/next-icon.png")}
-                />
+          {authUser ? (
+            <TouchableOpacity onPress={handleLogout}>
+              <View style={styles.card2}>
+                <View style={{ flexDirection: "row" }}>
+                  <Text
+                    style={{
+                      fontSize: 17,
+                      marginTop: 10,
+                      marginLeft: 10,
+                      color: "white",
+                    }}
+                  >
+                    {"Log Out"}
+                  </Text>
+                  <Image
+                    style={{
+                      width: 20,
+                      height: 20,
+                      marginLeft: 178,
+                      marginTop: 12,
+                    }}
+                    source={require("@images/next-icon.png")}
+                  />
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+              <View style={styles.card1}>
+                <View style={{ flexDirection: "row" }}>
+                  <Text
+                    style={{
+                      fontSize: 17,
+                      marginTop: 10,
+                      marginLeft: 10,
+                    }}
+                  >
+                    {"Log In"}
+                  </Text>
+                  <Image
+                    style={{
+                      width: 20,
+                      height: 20,
+                      marginLeft: 192,
+                      marginTop: 12,
+                    }}
+                    source={require("@images/next-icon.png")}
+                  />
+                </View>
+              </View>
+            </TouchableOpacity>
+          )}
           <Text
             style={{
               fontSize: 20,
@@ -101,22 +154,19 @@ const Profile = ({ navigation }) => {
               fontWeight: "bold",
             }}
           >
-            System
+            {"System"}
           </Text>
           <TouchableOpacity onPress={() => navigation.navigate("Report")}>
             <View style={styles.card1}>
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}>
-                  Laporan
-                </Text>
-                <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 5 }}>
-                  Bug
+                  {"Report Bug"}
                 </Text>
                 <Image
                   style={{
                     width: 20,
                     height: 20,
-                    marginLeft: 137,
+                    marginLeft: 150,
                     marginTop: 12,
                   }}
                   source={require("@images/next-icon.png")}
@@ -128,16 +178,13 @@ const Profile = ({ navigation }) => {
             <View style={styles.card1}>
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}>
-                  Tentang
-                </Text>
-                <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 5 }}>
-                  Kami
+                  {"About Us"}
                 </Text>
                 <Image
                   style={{
                     width: 20,
                     height: 20,
-                    marginLeft: 130,
+                    marginLeft: 167,
                     marginTop: 12,
                   }}
                   source={require("@images/next-icon.png")}
@@ -145,6 +192,23 @@ const Profile = ({ navigation }) => {
               </View>
             </View>
           </TouchableOpacity>
+          {config.expo.extra.env == "dev" && (
+            <TouchableOpacity
+              onPress={async () => {
+                await AsyncStorage.removeItem("quizData");
+                await AsyncStorage.removeItem("certificate");
+                notification("Local Storage Cleared", "Dev Mode");
+              }}
+            >
+              <View style={styles.card1}>
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}>
+                    {"Delete Local Storage"}
+                  </Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          )}
         </View>
         <BottomTab navigation={navigation} />
       </View>

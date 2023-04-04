@@ -13,6 +13,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignSelf: "center",
   },
+  tombol: {
+    marginTop: 300,
+    backgroundColor: "white",
+    height: 60,
+    width: 300,
+    borderRadius: 10,
+    alignSelf: "center",
+  },
   logo: {
     height: 90,
     width: 270,

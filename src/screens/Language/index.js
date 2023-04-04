@@ -2,12 +2,13 @@ import styles from "./styles";
 import * as React from "react";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
+import { notification } from "@helpers";
 import { BottomTab } from "@components";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 
 const Language = ({ navigation }) => {
   return (
-    <MainLayout>
+    <MainLayout navigation={navigation}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.jpg")} />
         <View style={{ flexDirection: "row" }}>
@@ -30,35 +31,41 @@ const Language = ({ navigation }) => {
               fontWeight: "bold",
             }}
           >
-            PILIH BAHASA
+            {"CHOOSE LANGUAGE"}
           </Text>
         </View>
         <View style={styles.card}>
-          <View style={{ flexDirection: "row" }}>
-            <Text
-              style={{
-                fontSize: 20,
-                marginLeft: 20,
-                marginTop: 15,
-                fontWeight: "bold",
-              }}
-            >
-              INDONESIA
-            </Text>
-            <Image
-              style={{
-                width: 35,
-                height: 35,
-                marginLeft: 110,
-                marginTop: 10,
-                borderRadius: 50,
-                borderWidht: 1,
-              }}
-              source={require("@images/indonesian-flag.png")}
-            />
-          </View>
+          <TouchableOpacity
+            onPress={() =>
+              notification("Language changed succefully", "success")
+            }
+          >
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  marginLeft: 20,
+                  marginTop: 15,
+                  fontWeight: "bold",
+                }}
+              >
+                {"ENGLISH"}
+              </Text>
+              <Image
+                style={{
+                  width: 35,
+                  height: 35,
+                  marginLeft: 110,
+                  marginTop: 10,
+                  borderRadius: 50,
+                  borderWidht: 1,
+                }}
+                source={require("@images/american-flag.png")}
+              />
+            </View>
+          </TouchableOpacity>
         </View>
-        <BottomTab navigation={navigation} />
+        <BottomTab navigation={navigation} style={styles.tombol} />
       </View>
     </MainLayout>
   );

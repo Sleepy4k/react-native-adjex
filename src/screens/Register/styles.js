@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
   notice: {
     margin: 31,
-    marginTop: 1,
+    marginTop: 3,
     padding: 10,
     fontSize: 12,
     textAlign: "center",
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   daftar: {
-    marginTop: 150,
+    marginTop: 90,
     backgroundColor: "green",
     padding: 15,
     borderRadius: 10,
@@ -62,6 +62,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 17,
+  },
+  error_teks: {
+    color: "red",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 12,
   },
 });
 

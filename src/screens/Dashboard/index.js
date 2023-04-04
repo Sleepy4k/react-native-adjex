@@ -7,7 +7,7 @@ import { Text, View, Image, TouchableOpacity } from "react-native";
 
 const Dashboard = ({ navigation }) => {
   return (
-    <MainLayout>
+    <MainLayout navigation={navigation}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.jpg")} />
         <Text
