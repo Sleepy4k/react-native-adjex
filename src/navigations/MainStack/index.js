@@ -17,6 +17,7 @@ import {
   Tutorial,
   Register,
   Congrats,
+  WebViewer,
   Dashboard,
   DetailWord,
   Certificate,
@@ -59,7 +60,7 @@ const MainStack = () => {
           setInitialRouteName("Dashboard");
         }
       } catch (error) {
-        console.warn(error.message);
+        console.log(error.message);
         setInitialRouteName("Dashboard");
       }
     };
@@ -77,7 +78,7 @@ const MainStack = () => {
   return (
     <Stack.Navigator
       initialRouteName={initialRouteName}
-      screenOptions={{ headerShown: false, animationEnabled: true }}
+      screenOptions={{ headerShown: false, animationEnabled: false }}
     >
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Quiz" component={Quiz} />
@@ -92,6 +93,7 @@ const MainStack = () => {
       <Stack.Screen name="Tutorial" component={Tutorial} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Congrats" component={Congrats} />
+      <Stack.Screen name="WebViewer" component={WebViewer} />
       <Stack.Screen name="Dashboard" component={Dashboard} />
       <Stack.Screen name="DetailWord" component={DetailWord} />
       <Stack.Screen name="Certificate" component={Certificate} />
