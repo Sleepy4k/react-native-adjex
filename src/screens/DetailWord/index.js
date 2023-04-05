@@ -4,6 +4,7 @@ import { api } from "@services";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
+import { notification } from "@helpers";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 
 const DetailWord = ({ route, navigation }) => {
@@ -18,9 +19,11 @@ const DetailWord = ({ route, navigation }) => {
         if (response.data.status == "success") {
           setData(response.data.data);
         } else {
+          notification("Something went wrong", "error");
           console.log(response.message);
         }
       } catch (error) {
+        notification("Server cannot be reached", "error");
         console.log(error.message);
       }
     };
@@ -52,34 +55,57 @@ const DetailWord = ({ route, navigation }) => {
           </Text>
         </View>
         <View style={styles.card}>
-          <Text
-            style={{
-              fontSize: 20,
-              marginLeft: 20,
-              marginTop: 30,
-              fontWeight: "bold",
-            }}
-          >
-            {"Description"}
-          </Text>
+          {data && data.description == null && (
+            <>
+              <Text
+                style={{
+                  fontSize: 20,
+                  marginLeft: 20,
+                  marginTop: 30,
+                  fontWeight: "bold",
+                }}
+              >
+                {"Error"}
+              </Text>
+              <Text style={{ color: "black", margin: 10, padding: 10 }}>
+                {"Word not found, please try again"}
+              </Text>
+            </>
+          )}
+          {data && data.description && (
+            <Text
+              style={{
+                fontSize: 20,
+                marginLeft: 20,
+                marginTop: 30,
+                fontWeight: "bold",
+              }}
+            >
+              {"Description"}
+            </Text>
+          )}
           <Text style={{ color: "black", margin: 10, padding: 10 }}>
             {data && data.description}
           </Text>
-          <Text
-            style={{
-              fontSize: 20,
-              marginLeft: 20,
-              marginTop: 30,
-              fontWeight: "bold",
-            }}
-          >
-            {"Example"}
-          </Text>
-          <Text style={{ color: "black", margin: 10, padding: 10 }}>
-            {"Here are some examples of the use of the word from the word "}
-            {word}
-            {" :"}
-          </Text>
+          {data && data.example && (
+            <>
+              <Text
+                style={{
+                  fontSize: 20,
+                  marginLeft: 20,
+                  marginTop: 30,
+                  fontWeight: "bold",
+                }}
+              >
+                {"Example"}
+              </Text>
+              <Text style={{ color: "black", margin: 10, padding: 10 }}>
+                {"Here are some examples of the use of the word from the word "}
+                {word}
+                {" :"}
+              </Text>
+            </>
+          )}
           <Text style={{ color: "black", marginLeft: 20 }}>
             {data && data.example}
           </Text>
