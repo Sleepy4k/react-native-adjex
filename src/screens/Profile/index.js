@@ -156,24 +156,26 @@ const Profile = ({ navigation }) => {
           >
             {"System"}
           </Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Report")}>
-            <View style={styles.card1}>
-              <View style={{ flexDirection: "row" }}>
-                <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}>
-                  {"Report Bug"}
-                </Text>
-                <Image
-                  style={{
-                    width: 20,
-                    height: 20,
-                    marginLeft: 150,
-                    marginTop: 12,
-                  }}
-                  source={require("@images/next-icon.png")}
-                />
+          {authUser && (
+            <TouchableOpacity onPress={() => navigation.navigate("Report")}>
+              <View style={styles.card1}>
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}>
+                    {"Report Bug"}
+                  </Text>
+                  <Image
+                    style={{
+                      width: 20,
+                      height: 20,
+                      marginLeft: 150,
+                      marginTop: 12,
+                    }}
+                    source={require("@images/next-icon.png")}
+                  />
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity onPress={() => navigation.navigate("About")}>
             <View style={styles.card1}>
               <View style={{ flexDirection: "row" }}>
@@ -197,6 +199,7 @@ const Profile = ({ navigation }) => {
               onPress={async () => {
                 await AsyncStorage.removeItem("quizData");
                 await AsyncStorage.removeItem("certificate");
+                await AsyncStorage.removeItem("guestSearch");
                 notification("Local Storage Cleared", "Dev Mode");
               }}
             >

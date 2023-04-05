@@ -5,12 +5,13 @@ import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { notification } from "@helpers";
 import { BottomTab } from "@components";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 
 const Report = ({ navigation }) => {
   const [data, setData] = React.useState({
     title: "",
-    report: "",
+    description: "",
   });
 
   const handleChange = (name, value) => {
@@ -22,13 +23,22 @@ const Report = ({ navigation }) => {
 
   const handleSubmit = async () => {
     try {
-      if (!data.title || !data.report) {
+      if (!data.title || !data.description) {
         notification("Please fill all field", "error");
         return;
       }
 
-      const response = await api.post("/report", {
-        report: "test",
+      const authUser = await AsyncStorage.getItem("authUser");
+
+      if (!authUser) {
+        notification("Please login first", "error");
+        return;
+      }
+
+      const response = await api.post("/report", data, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(authUser).token}`,
+        },
       });
 
       if (response.data.status == "success") {
@@ -36,7 +46,7 @@ const Report = ({ navigation }) => {
 
         setData({
           title: "",
-          report: "",
+          description: "",
         });
       } else {
         notification("something went wrong", "error");
@@ -124,11 +134,11 @@ const Report = ({ navigation }) => {
               backgroundColor: "none",
               padding: 10,
             }}
-            placeholder={"Type Here"}
             multiline={true}
             numberOfLines={4}
-            onChangeText={(text) => handleChange("report", text)}
-            value={data.report}
+            value={data.description}
+            placeholder={"Type Here"}
+            onChangeText={(text) => handleChange("description", text)}
           />
           <TouchableOpacity
             style={{ marginTop: 70, marginLeft: 220 }}

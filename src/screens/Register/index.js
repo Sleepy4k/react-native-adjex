@@ -202,7 +202,7 @@ const Register = ({ navigation }) => {
         </Text>
         <TouchableOpacity style={styles.butonBack}>
           <Text
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => navigation.navigate("Dashboard")}
             style={styles.dashboardtext}
           >
             {"Back to Dashboard"}
