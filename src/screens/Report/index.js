@@ -9,6 +9,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 
 const Report = ({ navigation }) => {
+  const [disabled, setDisabled] = React.useState(false);
   const [data, setData] = React.useState({
     title: "",
     description: "",
@@ -22,6 +23,8 @@ const Report = ({ navigation }) => {
   };
 
   const handleSubmit = async () => {
+    setDisabled(true);
+
     try {
       if (!data.title || !data.description) {
         notification("Please fill all field", "error");
@@ -55,15 +58,20 @@ const Report = ({ navigation }) => {
     } catch (error) {
       notification("something went wrong", "error");
       console.log(error.message);
+    } finally {
+      setDisabled(false);
     }
   };
 
   return (
     <MainLayout navigation={navigation}>
       <View style={styles.container}>
-        <Image style={styles.logo} source={require("@images/logo.jpg")} />
+        <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Profile")}
+            disabled={disabled}
+          >
             <Image
               style={{
                 width: 20,
@@ -97,6 +105,7 @@ const Report = ({ navigation }) => {
             {"YOUR TROUBLE / PROBLEM"}
           </Text>
           <TextInput
+            editable={!disabled}
             style={{
               marginTop: 20,
               borderRadius: 5,
@@ -122,6 +131,7 @@ const Report = ({ navigation }) => {
             {"DETAIL TROUBLE / PROBLEM"}
           </Text>
           <TextInput
+            editable={!disabled}
             style={{
               marginTop: 20,
               marginLeft: 20,
@@ -143,13 +153,14 @@ const Report = ({ navigation }) => {
           <TouchableOpacity
             style={{ marginTop: 70, marginLeft: 220 }}
             onPress={handleSubmit}
+            disabled={disabled}
           >
             <Text style={{ color: "black", fontSize: 12, fontWeight: "bold" }}>
               {"SUBMIT"}
             </Text>
           </TouchableOpacity>
         </View>
-        <BottomTab navigation={navigation} />
+        <BottomTab navigation={navigation} disabled={disabled} />
       </View>
     </MainLayout>
   );

@@ -14,6 +14,7 @@ import {
 } from "react-native";
 
 const Login = ({ navigation }) => {
+  const [disabled, setDisabled] = React.useState(false);
   const [data, setData] = React.useState({
     username: "",
     password: "",
@@ -40,6 +41,7 @@ const Login = ({ navigation }) => {
 
   const validate = async () => {
     Keyboard.dismiss();
+    setDisabled(true);
 
     let isValid = true;
 
@@ -81,13 +83,16 @@ const Login = ({ navigation }) => {
         );
 
         notification("Login success", "success");
+        setDisabled(false);
         navigation.replace("Dashboard");
       } else {
         console.log(response.data.message);
+        setDisabled(false);
         notification("Something went wrong", "error");
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
+      setDisabled(false);
       notification("Server cannot be reached", "error");
     }
   };
@@ -99,6 +104,7 @@ const Login = ({ navigation }) => {
         <Text style={styles.paragraph2}>{"Enter your details to login"}</Text>
         <View>
           <TextInput
+            editable={!disabled}
             style={styles.input}
             placeholder="Username"
             onChangeText={(username) => handleChange("username", username)}
@@ -109,6 +115,7 @@ const Login = ({ navigation }) => {
         </View>
         <View>
           <TextInput
+            editable={!disabled}
             style={styles.input2}
             placeholder="Password"
             secureTextEntry={true}
@@ -118,15 +125,18 @@ const Login = ({ navigation }) => {
             <Text style={styles.error_teks}>{errors.password}</Text>
           )}
         </View>
-        <TouchableOpacity style={styles.tombol}>
-          <Text onPress={validate} style={styles.logintext}>
-            {"Log In"}
-          </Text>
+        <TouchableOpacity
+          style={styles.tombol}
+          onPress={validate}
+          disabled={disabled}
+        >
+          <Text style={styles.logintext}>{"Log In"}</Text>
         </TouchableOpacity>
         <Text style={styles.notice}>
           {"Dont have account ? "}
           <TouchableOpacity>
             <Text
+              disabled={disabled}
               onPress={() => navigation.navigate("Register")}
               style={styles.daftar}
             >
@@ -134,7 +144,7 @@ const Login = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </Text>
-        <TouchableOpacity style={styles.butonBack}>
+        <TouchableOpacity style={styles.butonBack} disabled={disabled}>
           <Text
             onPress={() => navigation.navigate("Dashboard")}
             style={styles.dashboardtext}

@@ -10,7 +10,7 @@ const Language = ({ navigation }) => {
   return (
     <MainLayout navigation={navigation}>
       <View style={styles.container}>
-        <Image style={styles.logo} source={require("@images/logo.jpg")} />
+        <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
             <Image

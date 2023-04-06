@@ -24,7 +24,7 @@ const Dashboard = ({ navigation }) => {
           setLogged(false);
         }
       } catch (error) {
-        console.log(error);
+        console.log(error.message);
       }
     };
 
@@ -34,7 +34,7 @@ const Dashboard = ({ navigation }) => {
   return (
     <MainLayout navigation={navigation}>
       <View style={styles.container}>
-        <Image style={styles.logo} source={require("@images/logo.jpg")} />
+        <Image style={styles.logo} source={require("@images/logo.png")} />
         <Text
           style={{
             color: "white",

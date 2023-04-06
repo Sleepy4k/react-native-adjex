@@ -87,7 +87,7 @@ const Quiz = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.logo} source={require("@images/logo.jpg")} />
+      <Image style={styles.logo} source={require("@images/logo.png")} />
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
           <Image

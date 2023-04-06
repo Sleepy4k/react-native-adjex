@@ -84,14 +84,14 @@ const Search = ({ navigation }) => {
         navigation.replace("DetailWord", { param: { word: search } });
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 
   return (
     <MainLayout navigation={navigation}>
       <View style={styles.container}>
-        <Image style={styles.logo} source={require("@images/logo.jpg")} />
+        <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row" }}>
           <TextInput
             style={{

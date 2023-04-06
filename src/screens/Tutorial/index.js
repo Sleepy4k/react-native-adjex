@@ -9,7 +9,7 @@ const Tutorial = ({ navigation }) => {
   return (
     <MainLayout navigation={navigation}>
       <View style={styles.container}>
-        <Image style={styles.logo} source={require("@images/logo.jpg")} />
+        <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
             <Image
@@ -80,9 +80,6 @@ const Tutorial = ({ navigation }) => {
               >
                 {"Understanding"}
               </Text>
-              <Text style={{ fontSize: 10, marginTop: 40, marginLeft: 25 }}>
-                {"09.40"}
-              </Text>
             </View>
           </View>
           <View style={styles.card1}>
@@ -124,9 +121,6 @@ const Tutorial = ({ navigation }) => {
               >
                 {"Usage"}
               </Text>
-              <Text style={{ fontSize: 10, marginTop: 40, marginLeft: 100 }}>
-                {"08.16"}
-              </Text>
             </View>
           </View>
           <View style={styles.card1}>
@@ -167,9 +161,6 @@ const Tutorial = ({ navigation }) => {
                 }}
               >
                 {"Word Example"}
-              </Text>
-              <Text style={{ fontSize: 10, marginTop: 40, marginLeft: 30 }}>
-                {"06.06"}
               </Text>
             </View>
           </View>

@@ -13,6 +13,7 @@ import {
 } from "react-native";
 
 const Register = ({ navigation }) => {
+  const [disabled, setDisabled] = React.useState(false);
   const [data, setData] = React.useState({
     firstname: "",
     lastname: "",
@@ -45,8 +46,7 @@ const Register = ({ navigation }) => {
 
   const validate = async () => {
     Keyboard.dismiss();
-    console.log(data);
-    console.log(errors);
+    setDisabled(true);
 
     let isValid = true;
 
@@ -113,14 +113,17 @@ const Register = ({ navigation }) => {
 
       if (response.data.status === "success") {
         notification("Registration success", "success");
+        setDisabled(false);
         navigation.navigate("Login");
       } else {
         notification("Something went wrong", "error");
+        setDisabled(false);
         console.log(response.data.message);
       }
     } catch (error) {
       notification("Server cannot be reached", "error");
-      console.log(error);
+      setDisabled(false);
+      console.log(error.message);
     }
   };
 
@@ -133,6 +136,7 @@ const Register = ({ navigation }) => {
         </Text>
         <View>
           <TextInput
+            editable={!disabled}
             style={styles.input}
             value={data.firstname}
             placeholder="First Name"
@@ -144,6 +148,7 @@ const Register = ({ navigation }) => {
         </View>
         <View>
           <TextInput
+            editable={!disabled}
             style={styles.input}
             value={data.lastname}
             placeholder="Last Name"
@@ -155,6 +160,7 @@ const Register = ({ navigation }) => {
         </View>
         <View>
           <TextInput
+            editable={!disabled}
             style={styles.input}
             value={data.username}
             placeholder="Username"
@@ -166,6 +172,7 @@ const Register = ({ navigation }) => {
         </View>
         <View>
           <TextInput
+            editable={!disabled}
             style={styles.input}
             value={data.password}
             placeholder="Password"
@@ -178,6 +185,7 @@ const Register = ({ navigation }) => {
         </View>
         <View>
           <TextInput
+            editable={!disabled}
             style={styles.input}
             value={data.confirm_password}
             placeholder="Confirm Password"
@@ -191,17 +199,25 @@ const Register = ({ navigation }) => {
           )}
         </View>
 
-        <TouchableOpacity style={styles.daftar} onPress={validate}>
+        <TouchableOpacity
+          style={styles.daftar}
+          onPress={validate}
+          disabled={disabled}
+        >
           <Text style={styles.teks}>{"REGISTER"}</Text>
         </TouchableOpacity>
         <Text style={styles.notice}>
           {"Alredy have account ? "}
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Login")}
+            disabled={disabled}
+          >
             <Text style={styles.daftar1}>{" Login"}</Text>
           </TouchableOpacity>
         </Text>
         <TouchableOpacity style={styles.butonBack}>
           <Text
+            disabled={disabled}
             onPress={() => navigation.navigate("Dashboard")}
             style={styles.dashboardtext}
           >

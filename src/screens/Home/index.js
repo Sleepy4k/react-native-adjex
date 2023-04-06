@@ -30,7 +30,7 @@ const Home = ({ navigation }) => {
   return (
     <MainLayout navigation={navigation}>
       <View style={styles.container}>
-        <Image style={styles.logo} source={require("@images/logo.jpg")} />
+        <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={styles.card}>
           <ScrollView style={styles.container}>
             {data && data.length > 0

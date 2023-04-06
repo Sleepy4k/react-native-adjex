@@ -10,6 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const ShowQuiz = ({ route, navigation }) => {
   const { index } = route.params.param;
   const [data, setData] = React.useState(null);
+  const [disabled, setDisabled] = React.useState(false);
 
   React.useEffect(() => {
     const initData = async () => {
@@ -34,6 +35,8 @@ const ShowQuiz = ({ route, navigation }) => {
       return;
     }
 
+    setDisabled(true);
+
     if (answer == data.answer) {
       const quizData = await AsyncStorage.getItem("quizData");
 
@@ -47,6 +50,7 @@ const ShowQuiz = ({ route, navigation }) => {
         );
 
         notification("Correct answer", "success");
+        setDisabled(false);
         navigation.navigate("ShowQuiz", { param: { index: index + 1 } });
 
         return;
@@ -64,6 +68,7 @@ const ShowQuiz = ({ route, navigation }) => {
         );
 
         notification("Correct answer", "success");
+        setDisabled(false);
         navigation.navigate("ShowQuiz", { param: { index: index + 1 } });
       } else {
         await AsyncStorage.setItem(
@@ -86,6 +91,7 @@ const ShowQuiz = ({ route, navigation }) => {
             })
           );
 
+          setDisabled(false);
           navigation.navigate("Congrats");
 
           return;
@@ -100,10 +106,12 @@ const ShowQuiz = ({ route, navigation }) => {
           })
         );
 
+        setDisabled(false);
         navigation.navigate("Congrats");
       }
     } else {
       notification("Wrong answer", "error");
+      setDisabled(false);
       navigation.navigate("Alert", { param: { index: index } });
     }
   };
@@ -111,7 +119,7 @@ const ShowQuiz = ({ route, navigation }) => {
   return (
     <MainLayout navigation={navigation}>
       <View style={styles.container}>
-        <Image style={styles.logo} source={require("@images/logo.jpg")} />
+        <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity onPress={() => navigation.replace("Quiz")}>
             <Image
@@ -146,7 +154,10 @@ const ShowQuiz = ({ route, navigation }) => {
               {data?.question}
             </Text>
           </View>
-          <TouchableOpacity onPress={() => handleSubmit("a")}>
+          <TouchableOpacity
+            onPress={() => handleSubmit("a")}
+            disabled={disabled}
+          >
             <View style={styles.card1}>
               <Text
                 style={{
@@ -160,7 +171,10 @@ const ShowQuiz = ({ route, navigation }) => {
               </Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleSubmit("b")}>
+          <TouchableOpacity
+            onPress={() => handleSubmit("b")}
+            disabled={disabled}
+          >
             <View style={styles.card1}>
               <Text
                 style={{
@@ -174,7 +188,10 @@ const ShowQuiz = ({ route, navigation }) => {
               </Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleSubmit("c")}>
+          <TouchableOpacity
+            onPress={() => handleSubmit("c")}
+            disabled={disabled}
+          >
             <View style={styles.card1}>
               <Text
                 style={{
@@ -188,7 +205,10 @@ const ShowQuiz = ({ route, navigation }) => {
               </Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleSubmit("d")}>
+          <TouchableOpacity
+            onPress={() => handleSubmit("d")}
+            disabled={disabled}
+          >
             <View style={styles.card1}>
               <Text
                 style={{

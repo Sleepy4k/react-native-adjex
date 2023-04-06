@@ -48,7 +48,7 @@ const Profile = ({ navigation }) => {
   return (
     <MainLayout navigation={navigation}>
       <View style={styles.container}>
-        <Image style={styles.logo} source={require("@images/logo.jpg")} />
+        <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={styles.card}>
           <View style={{ flexDirection: "row" }}>
             <Image
@@ -82,15 +82,6 @@ const Profile = ({ navigation }) => {
                 <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}>
                   {"Language"}
                 </Text>
-                <Image
-                  style={{
-                    width: 20,
-                    height: 20,
-                    marginLeft: 160,
-                    marginTop: 12,
-                  }}
-                  source={require("@images/next-icon.png")}
-                />
               </View>
             </TouchableOpacity>
           </View>
@@ -108,15 +99,6 @@ const Profile = ({ navigation }) => {
                   >
                     {"Log Out"}
                   </Text>
-                  <Image
-                    style={{
-                      width: 20,
-                      height: 20,
-                      marginLeft: 178,
-                      marginTop: 12,
-                    }}
-                    source={require("@images/next-icon.png")}
-                  />
                 </View>
               </View>
             </TouchableOpacity>
@@ -133,15 +115,6 @@ const Profile = ({ navigation }) => {
                   >
                     {"Log In"}
                   </Text>
-                  <Image
-                    style={{
-                      width: 20,
-                      height: 20,
-                      marginLeft: 192,
-                      marginTop: 12,
-                    }}
-                    source={require("@images/next-icon.png")}
-                  />
                 </View>
               </View>
             </TouchableOpacity>
@@ -163,15 +136,6 @@ const Profile = ({ navigation }) => {
                   <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}>
                     {"Report Bug"}
                   </Text>
-                  <Image
-                    style={{
-                      width: 20,
-                      height: 20,
-                      marginLeft: 150,
-                      marginTop: 12,
-                    }}
-                    source={require("@images/next-icon.png")}
-                  />
                 </View>
               </View>
             </TouchableOpacity>
@@ -182,15 +146,6 @@ const Profile = ({ navigation }) => {
                 <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}>
                   {"About Us"}
                 </Text>
-                <Image
-                  style={{
-                    width: 20,
-                    height: 20,
-                    marginLeft: 167,
-                    marginTop: 12,
-                  }}
-                  source={require("@images/next-icon.png")}
-                />
               </View>
             </View>
           </TouchableOpacity>
