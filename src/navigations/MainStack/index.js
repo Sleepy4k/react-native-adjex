@@ -11,12 +11,15 @@ import {
   About,
   Report,
   Search,
+  AddWord,
   Profile,
+  EditWord,
   ShowQuiz,
   Language,
   Tutorial,
   Register,
   Congrats,
+  Adjective,
   WebViewer,
   Dashboard,
   DetailWord,
@@ -87,12 +90,15 @@ const MainStack = () => {
       <Stack.Screen name="About" component={About} />
       <Stack.Screen name="Report" component={Report} />
       <Stack.Screen name="Search" component={Search} />
+      <Stack.Screen name="AddWord" component={AddWord} />
       <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="EditWord" component={EditWord} />
       <Stack.Screen name="ShowQuiz" component={ShowQuiz} />
       <Stack.Screen name="Language" component={Language} />
       <Stack.Screen name="Tutorial" component={Tutorial} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Congrats" component={Congrats} />
+      <Stack.Screen name="Adjective" component={Adjective} />
       <Stack.Screen name="WebViewer" component={WebViewer} />
       <Stack.Screen name="Dashboard" component={Dashboard} />
       <Stack.Screen name="DetailWord" component={DetailWord} />
