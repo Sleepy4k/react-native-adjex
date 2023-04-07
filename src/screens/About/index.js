@@ -1,11 +1,35 @@
 import styles from "./styles";
 import * as React from "react";
+import { api } from "@services";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
+import { notification } from "@helpers";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 
 const About = ({ navigation }) => {
+  const [team, setTeam] = React.useState({});
+
+  React.useEffect(() => {
+    const initTeam = async () => {
+      try {
+        const response = await api.get("/team");
+
+        if (response.data.status === 200) {
+          setTeam(response.data.data);
+        } else {
+          notification("Something went wrong", "error");
+          console.log(response.message);
+        }
+      } catch (error) {
+        notification("Server cannot be reached", "error");
+        console.log(error.message);
+      }
+    };
+
+    initTeam();
+  }, []);
+
   return (
     <MainLayout navigation={navigation}>
       <View style={styles.container}>
@@ -32,9 +56,13 @@ const About = ({ navigation }) => {
               "In making this application, the hard work of our team, which consists of :"
             }
           </Text>
-          <Text style={styles.list}>{"- Akmal Hikmah (12)"}</Text>
-          <Text style={styles.list}>{"- Andika Neviantoro (21)"}</Text>
-          <Text style={styles.list}>{"- Apri Pandu Wicaksono (26)"}</Text>
+          {team && team.length > 0
+            ? team.map((item, index) => (
+                <Text style={styles.list} key={index}>
+                  {`- ${item.name} (${item.nim})`}
+                </Text>
+              ))
+            : null}
         </View>
         <BottomTab navigation={navigation} />
       </View>

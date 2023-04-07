@@ -8,12 +8,20 @@ const styles = StyleSheet.create({
   card: {
     marginTop: 10,
     backgroundColor: "white",
-    height: 550,
+    height: 650,
     width: 300,
     borderRadius: 10,
     alignSelf: "center",
   },
-  card1: {
+  card2: {
+    marginTop: 10,
+    backgroundColor: "white",
+    height: 500,
+    width: 300,
+    borderRadius: 10,
+    alignSelf: "center",
+  },
+  card3: {
     marginTop: 10,
     backgroundColor: "#FAC952",
     height: 45,
@@ -21,7 +29,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignSelf: "center",
   },
-  card2: {
+  card4: {
     marginTop: 10,
     backgroundColor: "#C62E2E",
     height: 45,

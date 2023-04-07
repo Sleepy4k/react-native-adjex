@@ -6,7 +6,14 @@ import { MainLayout } from "@layouts";
 import { notification } from "@helpers";
 import { BottomTab } from "@components";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  Keyboard,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 
 const Report = ({ navigation }) => {
   const [disabled, setDisabled] = React.useState(false);
@@ -15,22 +22,50 @@ const Report = ({ navigation }) => {
     description: "",
   });
 
+  const [errors, setErrors] = React.useState({
+    username: "",
+    password: "",
+  });
+
+  const handleError = (value, name) => {
+    setErrors((prevValues) => ({ ...prevValues, [name]: value }));
+  };
+
   const handleChange = (name, value) => {
-    setData({
-      ...data,
-      [name]: value,
-    });
+    setData((prevValues) => ({ ...prevValues, [name]: value }));
+  };
+
+  const validate = () => {
+    Keyboard.dismiss();
+    setDisabled(true);
+
+    let isValid = true;
+
+    if (!data.title) {
+      handleError("Please input title", "title");
+      isValid = false;
+    } else if (data.title.length > 255) {
+      handleError("Title cannot exceed 255 characters", "title");
+      isValid = false;
+    }
+
+    if (!data.description) {
+      handleError("Please input description", "description");
+      isValid = false;
+    } else if (data.description.length > 255) {
+      handleError("Description cannot exceed 255 characters", "description");
+      isValid = false;
+    }
+
+    if (isValid) {
+      handleSubmit();
+    } else {
+      setDisabled(false);
+    }
   };
 
   const handleSubmit = async () => {
-    setDisabled(true);
-
     try {
-      if (!data.title || !data.description) {
-        notification("Please fill all field", "error");
-        return;
-      }
-
       const authUser = await AsyncStorage.getItem("authUser");
 
       if (!authUser) {
@@ -94,65 +129,75 @@ const Report = ({ navigation }) => {
           </Text>
         </View>
         <View style={styles.card}>
-          <Text
-            style={{
-              fontSize: 15,
-              marginLeft: 20,
-              marginTop: 30,
-              fontWeight: "bold",
-            }}
-          >
-            {"YOUR TROUBLE / PROBLEM"}
-          </Text>
-          <TextInput
-            editable={!disabled}
-            style={{
-              marginTop: 20,
-              borderRadius: 5,
-              borderWidth: 1,
-              height: 40,
-              width: 260,
-              marginLeft: 20,
-              padding: 10,
-              borderColor: "#ccc",
-            }}
-            onChangeText={(text) => handleChange("title", text)}
-            value={data.title}
-            placeholder={"Type Here"}
-          ></TextInput>
-          <Text
-            style={{
-              fontSize: 13,
-              marginLeft: 21,
-              marginTop: 30,
-              fontWeight: "bold",
-            }}
-          >
-            {"DETAIL TROUBLE / PROBLEM"}
-          </Text>
-          <TextInput
-            editable={!disabled}
-            style={{
-              marginTop: 20,
-              marginLeft: 20,
-              borderColor: "#ccc",
-              borderWidth: 1,
-              borderRadius: 10,
-              fontSize: 13,
-              height: 200,
-              width: 260,
-              backgroundColor: "none",
-              padding: 10,
-            }}
-            multiline={true}
-            numberOfLines={4}
-            value={data.description}
-            placeholder={"Type Here"}
-            onChangeText={(text) => handleChange("description", text)}
-          />
+          <View>
+            <Text
+              style={{
+                fontSize: 15,
+                marginLeft: 20,
+                marginTop: 30,
+                fontWeight: "bold",
+              }}
+            >
+              {"YOUR TROUBLE / PROBLEM"}
+            </Text>
+            <TextInput
+              editable={!disabled}
+              style={{
+                marginTop: 20,
+                borderRadius: 5,
+                borderWidth: 1,
+                height: 40,
+                width: 260,
+                marginLeft: 20,
+                padding: 10,
+                borderColor: "#ccc",
+              }}
+              onChangeText={(text) => handleChange("title", text)}
+              value={data.title}
+              placeholder={"Type Here"}
+            />
+            {errors.title && (
+              <Text style={styles.error_teks}>{errors.title}</Text>
+            )}
+          </View>
+          <View>
+            <Text
+              style={{
+                fontSize: 13,
+                marginLeft: 21,
+                marginTop: 30,
+                fontWeight: "bold",
+              }}
+            >
+              {"DETAIL TROUBLE / PROBLEM"}
+            </Text>
+            <TextInput
+              editable={!disabled}
+              style={{
+                marginTop: 20,
+                marginLeft: 20,
+                borderColor: "#ccc",
+                borderWidth: 1,
+                borderRadius: 10,
+                fontSize: 13,
+                height: 200,
+                width: 260,
+                backgroundColor: "none",
+                padding: 10,
+              }}
+              multiline={true}
+              numberOfLines={4}
+              value={data.description}
+              placeholder={"Type Here"}
+              onChangeText={(text) => handleChange("description", text)}
+            />
+            {errors.description && (
+              <Text style={styles.error_teks}>{errors.description}</Text>
+            )}
+          </View>
           <TouchableOpacity
-            style={{ marginTop: 70, marginLeft: 220 }}
-            onPress={handleSubmit}
+            style={{ marginTop: 25, marginLeft: 220 }}
+            onPress={validate}
             disabled={disabled}
           >
             <Text style={{ color: "black", fontSize: 12, fontWeight: "bold" }}>

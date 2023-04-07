@@ -57,7 +57,6 @@ const Search = ({ navigation }) => {
               {
                 text: "Cancel",
                 style: "cancel",
-                onPress: () => console.log("Search cancel"),
               },
             ]
           );

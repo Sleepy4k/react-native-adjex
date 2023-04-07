@@ -31,17 +31,11 @@ const Register = ({ navigation }) => {
   });
 
   const handleError = (value, name) => {
-    setErrors({
-      ...errors,
-      [name]: value,
-    });
+    setErrors((prevValues) => ({ ...prevValues, [name]: value }));
   };
 
   const handleChange = (name, value) => {
-    setData({
-      ...data,
-      [name]: value,
-    });
+    setData((prevValues) => ({ ...prevValues, [name]: value }));
   };
 
   const validate = async () => {
@@ -104,6 +98,8 @@ const Register = ({ navigation }) => {
 
     if (isValid) {
       handleSubmit();
+    } else {
+      setDisabled(false);
     }
   };
 

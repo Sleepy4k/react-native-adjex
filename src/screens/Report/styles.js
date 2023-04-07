@@ -31,6 +31,13 @@ const styles = StyleSheet.create({
     width: 260,
     backgroundColor: "none",
   },
+  error_teks: {
+    color: "red",
+    marginTop: 10,
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 12,
+  },
 });
 
 export default styles;

@@ -63,7 +63,7 @@ const Dashboard = ({ navigation }) => {
           </View>
           <View style={{ flexDirection: "row" }}>
             <Text style={{ marginLeft: 30 }}>{"Home Screen"}</Text>
-            <Text style={{ marginLeft: 85 }}>{"Tutorial"}</Text>
+            <Text style={{ marginLeft: 48 }}>{"Tutorial Video"}</Text>
           </View>
           {logged && (
             <>
@@ -85,7 +85,7 @@ const Dashboard = ({ navigation }) => {
               </View>
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ marginLeft: 55 }}>{"Quiz"}</Text>
-                <Text style={{ marginLeft: 110 }}>{"Certificate"}</Text>
+                <Text style={{ marginLeft: 105 }}>{"Certificate"}</Text>
               </View>
             </>
           )}

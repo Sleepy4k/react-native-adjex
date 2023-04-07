@@ -1,14 +1,14 @@
-import config from "@config";
 import styles from "./styles";
 import * as React from "react";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
 import { notification } from "@helpers";
-import { Text, View, Image, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Text, View, Alert, Image, TouchableOpacity } from "react-native";
 
 const Profile = ({ navigation }) => {
+  const [admin, setAdmin] = React.useState(true);
   const [name, setName] = React.useState("Guest");
   const [authUser, setAuthUser] = React.useState(false);
 
@@ -24,6 +24,11 @@ const Profile = ({ navigation }) => {
             setName(`${user.data.firstName} ${user.data.lastName}`);
             setAuthUser(true);
           }
+
+          if (user.data.role === "admin") {
+            notification("You are now an admin", "success");
+            setAdmin(true);
+          }
         }
       } catch (error) {
         console.log(error.message);
@@ -35,12 +40,72 @@ const Profile = ({ navigation }) => {
 
   const handleLogout = async () => {
     try {
-      await AsyncStorage.removeItem("authUser");
-      await AsyncStorage.removeItem("quizData");
-      await AsyncStorage.removeItem("guestSearch");
+      Alert.alert("Are you sure?", "You will be logged out", [
+        {
+          text: "Log Out",
+          onPress: async () => {
+            await AsyncStorage.removeItem("authUser");
+            await AsyncStorage.removeItem("quizData");
+            await AsyncStorage.removeItem("guestSearch");
 
-      navigation.navigate("Dashboard");
+            notification("You have been logged out", "success");
+            navigation.navigate("Dashboard");
+          },
+        },
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+      ]);
     } catch (error) {
+      notification("Something went wrong", "error");
+      console.log(error.message);
+    }
+  };
+
+  const handleClearStorage = async () => {
+    try {
+      Alert.alert("Are you sure?", "Local data will deleted permanent", [
+        {
+          text: "Delete",
+          onPress: async () => {
+            await AsyncStorage.removeItem("quizData");
+            await AsyncStorage.removeItem("certificate");
+            await AsyncStorage.removeItem("guestSearch");
+
+            notification("Local Storage Cleared", "Dev Mode");
+            navigation.replace("Profile");
+          },
+        },
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+      ]);
+    } catch (error) {
+      notification(error.message, "error");
+      console.log(error.message);
+    }
+  };
+
+  const handleConfirmations = (func) => {
+    try {
+      Alert.alert(
+        "Please login",
+        "You have exceeded the maximum search limit",
+        [
+          {
+            text: "Login",
+            onPress: func,
+          },
+          {
+            text: "Cancel",
+            style: "cancel",
+          },
+        ]
+      );
+    } catch (error) {
+      notification("Something went wrong", "error");
       console.log(error.message);
     }
   };
@@ -49,7 +114,7 @@ const Profile = ({ navigation }) => {
     <MainLayout navigation={navigation}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
-        <View style={styles.card}>
+        <View style={admin ? styles.card : styles.card2}>
           <View style={{ flexDirection: "row" }}>
             <Image
               style={{ width: 70, height: 70, marginLeft: 10, marginTop: 10 }}
@@ -63,7 +128,7 @@ const Profile = ({ navigation }) => {
                 fontWeight: "bold",
               }}
             >
-              {name}
+              {name} {admin ? "(Admin)" : ""}
             </Text>
           </View>
           <Text
@@ -76,7 +141,7 @@ const Profile = ({ navigation }) => {
           >
             {"Account"}
           </Text>
-          <View style={styles.card1}>
+          <View style={styles.card3}>
             <TouchableOpacity onPress={() => navigation.navigate("Language")}>
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}>
@@ -87,7 +152,7 @@ const Profile = ({ navigation }) => {
           </View>
           {authUser ? (
             <TouchableOpacity onPress={handleLogout}>
-              <View style={styles.card2}>
+              <View style={styles.card4}>
                 <View style={{ flexDirection: "row" }}>
                   <Text
                     style={{
@@ -104,7 +169,7 @@ const Profile = ({ navigation }) => {
             </TouchableOpacity>
           ) : (
             <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-              <View style={styles.card1}>
+              <View style={styles.card3}>
                 <View style={{ flexDirection: "row" }}>
                   <Text
                     style={{
@@ -131,7 +196,7 @@ const Profile = ({ navigation }) => {
           </Text>
           {authUser && (
             <TouchableOpacity onPress={() => navigation.navigate("Report")}>
-              <View style={styles.card1}>
+              <View style={styles.card3}>
                 <View style={{ flexDirection: "row" }}>
                   <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}>
                     {"Report Bug"}
@@ -141,7 +206,7 @@ const Profile = ({ navigation }) => {
             </TouchableOpacity>
           )}
           <TouchableOpacity onPress={() => navigation.navigate("About")}>
-            <View style={styles.card1}>
+            <View style={styles.card3}>
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}>
                   {"About Us"}
@@ -149,23 +214,52 @@ const Profile = ({ navigation }) => {
               </View>
             </View>
           </TouchableOpacity>
-          {config.expo.extra.env == "dev" && (
-            <TouchableOpacity
-              onPress={async () => {
-                await AsyncStorage.removeItem("quizData");
-                await AsyncStorage.removeItem("certificate");
-                await AsyncStorage.removeItem("guestSearch");
-                notification("Local Storage Cleared", "Dev Mode");
-              }}
-            >
-              <View style={styles.card1}>
-                <View style={{ flexDirection: "row" }}>
-                  <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}>
-                    {"Delete Local Storage"}
-                  </Text>
+          {authUser && admin && (
+            <>
+              <Text
+                style={{
+                  fontSize: 20,
+                  marginLeft: 20,
+                  marginTop: 40,
+                  fontWeight: "bold",
+                }}
+              >
+                {"Admin"}
+              </Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Adjective")}
+              >
+                <View
+                  style={{
+                    marginTop: 10,
+                    backgroundColor: "#FAC952",
+                    height: 45,
+                    width: 270,
+                    borderRadius: 10,
+                    alignSelf: "center",
+                  }}
+                >
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}
+                    >
+                      {"Adjective"}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleClearStorage}>
+                <View style={styles.card3}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}
+                    >
+                      {"Delete Local Storage"}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </>
           )}
         </View>
         <BottomTab navigation={navigation} />

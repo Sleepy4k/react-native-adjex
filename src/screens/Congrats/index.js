@@ -3,9 +3,31 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
+import { notification } from "@helpers";
 import { Text, View, Image, TouchableOpacity } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Congrats = ({ navigation }) => {
+  const [authUser, setAuthUser] = React.useState({});
+
+  React.useEffect(() => {
+    const initUser = async () => {
+      try {
+        const authUser = await AsyncStorage.getItem("authUser");
+
+        if (authUser) {
+          const user = JSON.parse(authUser);
+          setAuthUser(user.data);
+        }
+      } catch (error) {
+        notification("Something went wrong", "error");
+        console.log(error.message);
+      }
+    };
+
+    initUser();
+  }, []);
+
   return (
     <MainLayout navigation={navigation}>
       <View style={styles.container}>
@@ -20,7 +42,7 @@ const Congrats = ({ navigation }) => {
               color: "white",
             }}
           >
-            {"CONGRATS"}
+            {"Congratulations"}
           </Text>
         </View>
         <View style={styles.card}>
@@ -33,7 +55,7 @@ const Congrats = ({ navigation }) => {
                 marginLeft: 75,
               }}
             >
-              {"This is your Certificate"}
+              {`Hai ${authUser?.firstName} ${authUser?.lastName}, you have completed all the quizzes`}
             </Text>
           </View>
           <TouchableOpacity onPress={() => navigation.navigate("Certificate")}>
