@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "adjex",
+    "name": "Adjex",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
@@ -30,7 +30,6 @@
     },
     "description": "Bersama adjex membangun negeri",
     "extra": {
-      "env": "prod",
       "apiUrl": "https://benjamin4k.my.id/api",
       "eas": {
         "projectId": "4df67169-5b20-4f8f-9fba-fd58516cc5f5"
