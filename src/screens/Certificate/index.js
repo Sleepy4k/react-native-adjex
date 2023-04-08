@@ -3,22 +3,31 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
+import { useTranslation } from "react-i18next";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Certificate = ({ navigation }) => {
+  const { t } = useTranslation();
   const [data, setData] = React.useState(0);
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     const initData = async () => {
-      const certificate = await AsyncStorage.getItem("certificate");
+      try {
+        const certificate = await AsyncStorage.getItem("certificate");
 
-      if (certificate) {
-        const { total } = JSON.parse(certificate);
+        if (certificate) {
+          const { total } = JSON.parse(certificate);
 
-        setData(total);
-      } else {
-        setData(0);
+          setData(total);
+        } else {
+          setData(0);
+        }
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -48,14 +57,19 @@ const Certificate = ({ navigation }) => {
   };
 
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout navigation={navigation} loading={loading}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={styles.tombol}>
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
               <Image
-                style={{ width: 25, height: 25, marginLeft: 10, marginTop: 20 }}
+                style={{
+                  width: 25,
+                  height: 25,
+                  marginLeft: 10,
+                  marginTop: 20,
+                }}
                 source={require("@images/back-black-icon.png")}
               />
             </TouchableOpacity>
@@ -68,14 +82,10 @@ const Certificate = ({ navigation }) => {
                 fontWeight: "bold",
               }}
             >
-              {"Certificate"}
+              {t("certificate.title")}
             </Text>
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-            }}
-          >
+          <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
             {renderCertificate()}
           </View>
         </View>

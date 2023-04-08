@@ -5,10 +5,13 @@ import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
 import { notification } from "@helpers";
+import { useTranslation } from "react-i18next";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 
 const About = ({ navigation }) => {
+  const { t } = useTranslation();
   const [team, setTeam] = React.useState({});
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     const initTeam = async () => {
@@ -18,12 +21,17 @@ const About = ({ navigation }) => {
         if (response.data.status === 200) {
           setTeam(response.data.data);
         } else {
-          notification("Something went wrong", "error");
+          notification(
+            t("axios.unkown"),
+            t("axios.title", { context: "error" })
+          );
           console.log(response.message);
         }
       } catch (error) {
-        notification("Server cannot be reached", "error");
+        notification(t("axios.server"), t("axios.title", { context: "error" }));
         console.log(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -31,7 +39,7 @@ const About = ({ navigation }) => {
   }, []);
 
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout navigation={navigation} loading={loading}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={styles.header}>
@@ -41,21 +49,13 @@ const About = ({ navigation }) => {
               source={require("@images/back-white-icon.png")}
             />
           </TouchableOpacity>
-          <Text style={styles.title}>{"ABOUT US"}</Text>
+          <Text style={styles.title}>{t("about.title")}</Text>
         </View>
         <View style={styles.card}>
-          <Text style={styles.sub_title}>{"About"}</Text>
-          <Text style={styles.paragraph}>
-            {
-              "We are a service provider engaged in the field of education, by making this application, hopefully it can be useful to be able to learn adjectives anywhere and anytime"
-            }
-          </Text>
-          <Text style={styles.sub_title}>{"Team"}</Text>
-          <Text style={styles.paragraph}>
-            {
-              "In making this application, the hard work of our team, which consists of :"
-            }
-          </Text>
+          <Text style={styles.sub_title}>{t("about.about")}</Text>
+          <Text style={styles.paragraph}>{t("about.about_desc")}</Text>
+          <Text style={styles.sub_title}>{t("about.team")}</Text>
+          <Text style={styles.paragraph}>{t("about.team_desc")}</Text>
           {team && team.length > 0
             ? team.map((item, index) => (
                 <Text style={styles.list} key={index}>

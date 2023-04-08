@@ -1,0 +1,152 @@
+{
+  "translation": {
+    "axios": {
+      "title_error": "Gagal",
+      "title_success": "Berhasil",
+      "title_warning": "Peringatan",
+      "title_info": "Informasi",
+      "server": "Server Bermasalah",
+      "unknown": "Terjadi Kesalahan",
+      "success": "Berhasil {{action}}",
+      "network": "Koneksi Internet Bermasalah"
+    },
+    "validation": {
+      "required": "Harap masukkan {{name}}",
+      "min": "{{name}} harus minimal {{min}} karakter",
+      "max": "{{name}} tidak boleh melebihi {{max}} karakter",
+      "min_value": "{{name}} minimal {{min}}",
+      "max_value": "{{name}} maksimal {{max}}",
+      "confirmed": "Konfirmasi password tidak sama",
+      "unique": "{{name}} sudah terdaftar"
+    },
+    "dashboard": {
+      "title": "DASBOR",
+      "home": "Tampilan depan",
+      "tutorial": "Video Tutorial",
+      "quiz": "Kuis",
+      "certificate": "Sertifikat"
+    },
+    "about": {
+      "title": "TENTANG KAMI",
+      "about": "Tentang",
+      "about_desc": "Kami adalah penyedia jasa yang bergerak di bidang pendidikan, dengan dibuatnya aplikasi ini semoga bermanfaat untuk bisa belajar kata sifat dimana saja dan kapan saja",
+      "team": "Tim",
+      "team_desc": "Dalam pembuatan aplikasi ini, kerja keras tim kami yang terdiri dari :"
+    },
+    "add_word": {
+      "title": "TAMBAHKAN KATA SIFAT",
+      "adjective": "Kata Sifat",
+      "adjective_placeholder": "Masukan Kata Sifat",
+      "description": "Keterangan",
+      "description_placeholder": "Masukan Keterangan",
+      "example": "Contoh",
+      "example_placeholder": "Masukan Contoh",
+      "submit": "Kirim",
+      "added": "menambahkan kata sifat {{adjective}}"
+    },
+    "adjective": {
+      "title": "KATA SIFAT",
+      "add": "Tambah",
+      "edit": "Ubah",
+      "delete": "Hapus",
+      "added": "menghapus kata sifat {{adjective}}"
+    },
+    "alert": {
+      "title": "PERINGATAN",
+      "confirmation": "Jawaban Anda salah, coba lagi?",
+      "confirmation_yes": "Ya",
+      "confirmation_no": "Tidak"
+    },
+    "certificate": {
+      "title": "Sertifikat"
+    },
+    "congrats": {
+      "title": "Selamat",
+      "description": "Anda telah menyelesaikan semua kuis"
+    },
+    "detail_word": {
+      "error": "Error",
+      "error_text": "Kata sifat tidak ditemukan, coba lagi",
+      "description": "Deskripsi",
+      "example": "Contoh",
+      "example_text": "Berikut adalah beberapa contoh penggunaan kata dari kata"
+    },
+    "edit_word": {
+      "title": "UBAH KATA SIFAT",
+      "adjective": "Kata Sifat",
+      "adjective_placeholder": "Masukan Kata Sifat",
+      "description": "Keterangan",
+      "description_placeholder": "Masukan Keterangan",
+      "example": "Contoh",
+      "example_placeholder": "Masukan Contoh",
+      "submit": "Kirim",
+      "added": "mengubah kata sifat {{adjective}}"
+    },
+    "language": {
+      "title": "PILIH BAHASA",
+      "indonesia": "INDONESIA",
+      "english": "ENGLISH"
+    },
+    "login": {
+      "title": "MASUK",
+      "sub_title": "Masukan detail anda untuk masuk",
+      "username": "Nama Pengguna",
+      "password": "Kata Sandi",
+      "submit": "Masuk",
+      "dont_have_account": "Belum punya akun ?",
+      "register": "Daftar",
+      "back_to_dashboard": "Kembali ke Dashboard"
+    },
+    "profile": {
+      "guest": "Tamu",
+      "admin": "Admin",
+      "login": "Masuk",
+      "account": "Akun",
+      "logout": "Keluar",
+      "system": "Sistem",
+      "language": "Bahasa",
+      "about_us": "Tentang Kami",
+      "report_bug": "Laporkan Bug",
+      "adjective": "Kata Sifat",
+      "delete_local_storage": "Hapus Data Lokal"
+    },
+    "quiz": {
+      "title": "KUIS",
+      "category": "Kategory"
+    },
+    "register": {
+      "title": "Daftar",
+      "sub_title": "Masukan detail anda untuk daftar",
+      "name": "Nama",
+      "username": "Nama Pengguna",
+      "password": "Kata Sandi",
+      "password_confirmation": "Konfirmasi Kata Sandi",
+      "submit": "Daftar",
+      "dont_have_account": "Sudah punya akun ?",
+      "login": "Masuk",
+      "back_to_dashboard": "Kembali ke Dashboard"
+    },
+    "report": {
+      "title": "LAPORKAN BUG",
+      "problem": "Masalah Kamu",
+      "problem_placeholder": "Masukan Masalah",
+      "description": "Detail Masalah",
+      "description_placeholder": "Masukan Deskripsi",
+      "submit": "Kirim",
+      "added": "mengirim laporan bug"
+    },
+    "search": {
+      "placeholder": "Cari Kata Sifat",
+      "history": "Sejarah Pencarian"
+    },
+    "show_quiz": {
+      "title": "KUIS",
+      "correct_answer": "Jawaban Benar",
+      "wrong_answer": "Jawaban Salah",
+      "completed": "Anda telah menyelesaikan semua kuis"
+    },
+    "tutorial": {
+      "title": "VIDEO TUTORIAL"
+    }
+  }
+}

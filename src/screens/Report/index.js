@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { notification } from "@helpers";
 import { BottomTab } from "@components";
+import { useTranslation } from "react-i18next";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   Text,
@@ -16,6 +17,8 @@ import {
 } from "react-native";
 
 const Report = ({ navigation }) => {
+  const { t } = useTranslation();
+  const [loading, setLoading] = React.useState(false);
   const [disabled, setDisabled] = React.useState(false);
   const [data, setData] = React.useState({
     title: "",
@@ -37,29 +40,43 @@ const Report = ({ navigation }) => {
 
   const validate = () => {
     Keyboard.dismiss();
+    setLoading(true);
     setDisabled(true);
 
     let isValid = true;
 
     if (!data.title) {
-      handleError("Please input title", "title");
+      handleError(
+        t("validation.required", { name: t("report.title") }),
+        "title"
+      );
       isValid = false;
     } else if (data.title.length > 255) {
-      handleError("Title cannot exceed 255 characters", "title");
+      handleError(
+        t("validation.max", { name: t("report.title"), max: "255" }),
+        "title"
+      );
       isValid = false;
     }
 
     if (!data.description) {
-      handleError("Please input description", "description");
+      handleError(
+        t("validation.required", { name: t("report.description") }),
+        "description"
+      );
       isValid = false;
     } else if (data.description.length > 255) {
-      handleError("Description cannot exceed 255 characters", "description");
+      handleError(
+        t("validation.max", { name: t("report.description"), max: "255" }),
+        "description"
+      );
       isValid = false;
     }
 
     if (isValid) {
       handleSubmit();
     } else {
+      setLoading(false);
       setDisabled(false);
     }
   };
@@ -68,11 +85,6 @@ const Report = ({ navigation }) => {
     try {
       const authUser = await AsyncStorage.getItem("authUser");
 
-      if (!authUser) {
-        notification("Please login first", "error");
-        return;
-      }
-
       const response = await api.post("/report", data, {
         headers: {
           Authorization: `Bearer ${JSON.parse(authUser).token}`,
@@ -80,26 +92,32 @@ const Report = ({ navigation }) => {
       });
 
       if (response.data.status == "success") {
-        notification("Report has been sent", "success");
+        notification(
+          t("axios.success", {
+            action: t("report.added"),
+          }),
+          t("axios.title", { context: "success" })
+        );
 
         setData({
           title: "",
           description: "",
         });
       } else {
-        notification("something went wrong", "error");
+        notification(t("axios.unkown"), t("axios.title", { context: "error" }));
         console.log(response.message);
       }
     } catch (error) {
-      notification("something went wrong", "error");
+      notification(t("axios.server"), t("axios.title", { context: "error" }));
       console.log(error.message);
     } finally {
+      setLoading(false);
       setDisabled(false);
     }
   };
 
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout navigation={navigation} loading={loading}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row" }}>
@@ -125,7 +143,7 @@ const Report = ({ navigation }) => {
               fontWeight: "bold",
             }}
           >
-            {"REPORT BUG"}
+            {t("report.title")}
           </Text>
         </View>
         <View style={styles.card}>
@@ -138,7 +156,7 @@ const Report = ({ navigation }) => {
                 fontWeight: "bold",
               }}
             >
-              {"YOUR TROUBLE / PROBLEM"}
+              {t("report.problem")}
             </Text>
             <TextInput
               editable={!disabled}
@@ -154,7 +172,7 @@ const Report = ({ navigation }) => {
               }}
               onChangeText={(text) => handleChange("title", text)}
               value={data.title}
-              placeholder={"Type Here"}
+              placeholder={t("report.problem_placeholder")}
             />
             {errors.title && (
               <Text style={styles.error_teks}>{errors.title}</Text>
@@ -169,7 +187,7 @@ const Report = ({ navigation }) => {
                 fontWeight: "bold",
               }}
             >
-              {"DETAIL TROUBLE / PROBLEM"}
+              {t("report.description")}
             </Text>
             <TextInput
               editable={!disabled}
@@ -188,7 +206,7 @@ const Report = ({ navigation }) => {
               multiline={true}
               numberOfLines={4}
               value={data.description}
-              placeholder={"Type Here"}
+              placeholder={t("report.description_placeholder")}
               onChangeText={(text) => handleChange("description", text)}
             />
             {errors.description && (
@@ -200,8 +218,8 @@ const Report = ({ navigation }) => {
             onPress={validate}
             disabled={disabled}
           >
-            <Text style={{ color: "black", fontSize: 12, fontWeight: "bold" }}>
-              {"SUBMIT"}
+            <Text style={{ color: "black", fontSize: 15, fontWeight: "bold" }}>
+              {t("report.submit")}
             </Text>
           </TouchableOpacity>
         </View>

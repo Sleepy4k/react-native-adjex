@@ -4,11 +4,14 @@ import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
 import { notification } from "@helpers";
+import { useTranslation } from "react-i18next";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Congrats = ({ navigation }) => {
+  const { t } = useTranslation();
   const [authUser, setAuthUser] = React.useState({});
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     const initUser = async () => {
@@ -20,8 +23,10 @@ const Congrats = ({ navigation }) => {
           setAuthUser(user.data);
         }
       } catch (error) {
-        notification("Something went wrong", "error");
+        notification(t("axios.server"), t("axios.title", { context: "error" }));
         console.log(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -29,33 +34,33 @@ const Congrats = ({ navigation }) => {
   }, []);
 
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout navigation={navigation} loading={loading}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "row", justifyContent: "center" }}>
           <Text
             style={{
               fontSize: 25,
               marginTop: 10,
-              marginLeft: 55,
               fontWeight: "bold",
               color: "white",
             }}
           >
-            {"Congratulations"}
+            {t("congrats.title")}
           </Text>
         </View>
         <View style={styles.card}>
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: "row", justifyContent: "center" }}>
             <Text
               style={{
                 fontSize: 15,
                 marginTop: 25,
                 color: "black",
-                marginLeft: 75,
               }}
             >
-              {`Hai ${authUser?.firstName} ${authUser?.lastName}, you have completed all the quizzes`}
+              {`Hai ${authUser?.firstName} ${authUser?.lastName}, ${t(
+                "congrats.description"
+              )}`}
             </Text>
           </View>
           <TouchableOpacity onPress={() => navigation.navigate("Certificate")}>

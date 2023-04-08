@@ -5,10 +5,14 @@ import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
 import { notification } from "@helpers";
+import { useTranslation } from "react-i18next";
 import { Text, View, Image, Alert, TouchableOpacity } from "react-native";
 
 const Adjective = ({ navigation }) => {
+  const { t } = useTranslation();
   const [data, setData] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+  const [disabled, setDisabled] = React.useState(false);
 
   React.useEffect(() => {
     const initData = async () => {
@@ -22,6 +26,8 @@ const Adjective = ({ navigation }) => {
         }
       } catch (error) {
         console.log(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -29,23 +35,35 @@ const Adjective = ({ navigation }) => {
   }, []);
 
   const handleDelete = async (id) => {
+    setLoading(true);
+
     try {
       const response = await api.delete(`/adjective/${id}`);
 
       if (response.data.status == "success") {
-        notification("Successfully deleted", "success");
+        notification(
+          t("axios.success", {
+            action: t("add_word.added", { adjective: value.name }),
+          }),
+          t("axios.title", { context: "success" })
+        );
         setData(response.data.data);
       } else {
-        notification("Something went wrong", "error");
+        notification(t("axios.unkown"), t("axios.title", { context: "error" }));
         console.log(response.message);
       }
     } catch (error) {
-      notification("Something went wrong", "error");
+      notification(t("axios.server"), t("axios.title", { context: "error" }));
       console.log(error.message);
+    } finally {
+      setLoading(false);
+      setDisabled(false);
     }
   };
 
   const handleConfirmation = (id) => {
+    setDisabled(true);
+
     try {
       Alert.alert("Are you sure?", "Data will be deleted permanently", [
         {
@@ -58,13 +76,14 @@ const Adjective = ({ navigation }) => {
         },
       ]);
     } catch (error) {
-      notification("Something went wrong", "error");
+      notification(t("axios.unkown"), t("axios.title", { context: "error" }));
+      setDisabled(false);
       console.log(error.message);
     }
   };
 
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout navigation={navigation} loading={loading}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row" }}>
@@ -87,20 +106,27 @@ const Adjective = ({ navigation }) => {
               fontWeight: "bold",
             }}
           >
-            {"ADMIN"}
+            {t("adjective.title")}
           </Text>
           <TouchableOpacity
+            disabled={disabled}
+            onPress={() => navigation.navigate("AddWord")}
             style={{
-              width: 40,
+              width: 65,
               height: 25,
               borderRadius: 5,
-              marginLeft: 60,
+              marginLeft: 45,
               backgroundColor: "#FAC952",
             }}
-            onPress={() => navigation.navigate("AddWord")}
           >
-            <Text style={{ fontWeight: "bold", marginLeft: 5, marginTop: 2 }}>
-              {"Add"}
+            <Text
+              style={{
+                fontWeight: "bold",
+                marginLeft: 3,
+                marginTop: 2,
+              }}
+            >
+              {t("adjective.add")}
             </Text>
           </TouchableOpacity>
         </View>
@@ -132,6 +158,7 @@ const Adjective = ({ navigation }) => {
                         {item.name}
                       </Text>
                       <TouchableOpacity
+                        disabled={disabled}
                         onPress={() =>
                           navigation.navigate("EditWord", {
                             param: { letter: item.name },
@@ -139,8 +166,8 @@ const Adjective = ({ navigation }) => {
                         }
                         style={{
                           marginTop: 15,
-                          width: 40,
                           height: 25,
+                          width: 45,
                           borderRadius: 5,
                           marginLeft: 70,
                           backgroundColor: "lightgrey",
@@ -149,14 +176,16 @@ const Adjective = ({ navigation }) => {
                         <Text
                           style={{
                             fontWeight: "bold",
-                            marginLeft: 7,
+                            marginLeft: 4,
                             marginTop: 2,
+                            textAlign: "center",
                           }}
                         >
-                          {"Edit"}
+                          {t("adjective.edit")}
                         </Text>
                       </TouchableOpacity>
                       <TouchableOpacity
+                        disabled={disabled}
                         onPress={() => handleConfirmation(item.id)}
                         style={{
                           marginTop: 15,
@@ -172,9 +201,10 @@ const Adjective = ({ navigation }) => {
                             fontWeight: "bold",
                             marginLeft: 3,
                             marginTop: 2,
+                            textAlign: "center",
                           }}
                         >
-                          {"Delete"}
+                          {t("adjective.delete")}
                         </Text>
                       </TouchableOpacity>
                     </View>

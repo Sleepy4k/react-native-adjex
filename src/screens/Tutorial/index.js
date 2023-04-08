@@ -3,11 +3,14 @@ import * as React from "react";
 import { api } from "@services";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
-import { BottomTab } from "@components";
 import { notification } from "@helpers";
+import { BottomTab } from "@components";
+import { useTranslation } from "react-i18next";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 
 const Tutorial = ({ navigation }) => {
+  const { t } = useTranslation();
+  const [loading, setLoading] = React.useState(true);
   const [tutorial, setTutorial] = React.useState({});
 
   React.useEffect(() => {
@@ -18,12 +21,17 @@ const Tutorial = ({ navigation }) => {
         if (response.data.status == "success") {
           setTutorial(response.data.data);
         } else {
-          notification("Something went wrong", "error");
+          notification(
+            t("axios.unkown"),
+            t("axios.title", { context: "error" })
+          );
           console.log(response.message);
         }
       } catch (error) {
-        notification("Server cannot be reached", "error");
+        notification(t("axios.server"), t("axios.title", { context: "error" }));
         console.log(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -31,13 +39,18 @@ const Tutorial = ({ navigation }) => {
   }, []);
 
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout navigation={navigation} loading={loading}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
             <Image
-              style={{ width: 25, height: 25, marginLeft: -10, marginTop: 10 }}
+              style={{
+                width: 25,
+                height: 25,
+                marginLeft: -10,
+                marginTop: 10,
+              }}
               source={require("@images/back-white-icon.png")}
             />
           </TouchableOpacity>
@@ -50,18 +63,7 @@ const Tutorial = ({ navigation }) => {
               color: "white",
             }}
           >
-            {"Tutorial"}
-          </Text>
-          <Text
-            style={{
-              fontSize: 17,
-              marginTop: 10,
-              marginLeft: 10,
-              fontWeight: "bold",
-              color: "white",
-            }}
-          >
-            {"Video"}
+            {t("tutorial.title")}
           </Text>
         </View>
         <View style={styles.card}>
@@ -110,130 +112,6 @@ const Tutorial = ({ navigation }) => {
                 </View>
               ))
             : null}
-
-          {/* <View style={styles.card1}>
-            <View style={{ flexDirection: "row" }}>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("WebViewer", {
-                    param: {
-                      url: "https://www.youtube.com/embed/24clNOs1Q9c",
-                    },
-                  })
-                }
-                style={{
-                  width: 45,
-                  height: 45,
-                  backgroundColor: "darkblue",
-                  marginTop: 12,
-                  marginLeft: 10,
-                  borderRadius: 5,
-                }}
-              >
-                <Image
-                  style={{
-                    width: 25,
-                    height: 25,
-                    marginLeft: 12,
-                    marginTop: 10,
-                  }}
-                  source={require("@images/play-icon.png")}
-                />
-              </TouchableOpacity>
-              <Text
-                style={{
-                  fontSize: 17,
-                  marginTop: 20,
-                  marginLeft: 20,
-                  fontWeight: "bold",
-                }}
-              >
-                {"Understanding"}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.card1}>
-            <View style={{ flexDirection: "row" }}>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("WebViewer", {
-                    param: {
-                      url: "https://www.youtube.com/embed/5KTXCGVBrR4",
-                    },
-                  })
-                }
-                style={{
-                  width: 45,
-                  height: 45,
-                  backgroundColor: "darkblue",
-                  marginTop: 12,
-                  marginLeft: 10,
-                  borderRadius: 5,
-                }}
-              >
-                <Image
-                  style={{
-                    width: 25,
-                    height: 25,
-                    marginLeft: 12,
-                    marginTop: 10,
-                  }}
-                  source={require("@images/play-icon.png")}
-                />
-              </TouchableOpacity>
-              <Text
-                style={{
-                  fontSize: 17,
-                  marginTop: 20,
-                  marginLeft: 20,
-                  fontWeight: "bold",
-                }}
-              >
-                {"Usage"}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.card1}>
-            <View style={{ flexDirection: "row" }}>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("WebViewer", {
-                    param: {
-                      url: "https://www.youtube.com/embed/1tSJ1k2G4ik",
-                    },
-                  })
-                }
-                style={{
-                  width: 45,
-                  height: 45,
-                  backgroundColor: "darkblue",
-                  marginTop: 12,
-                  marginLeft: 10,
-                  borderRadius: 5,
-                }}
-              >
-                <Image
-                  style={{
-                    width: 25,
-                    height: 25,
-                    marginLeft: 12,
-                    marginTop: 10,
-                  }}
-                  source={require("@images/play-icon.png")}
-                />
-              </TouchableOpacity>
-              <Text
-                style={{
-                  fontSize: 17,
-                  marginTop: 20,
-                  marginLeft: 20,
-                  fontWeight: "bold",
-                }}
-              >
-                {"Word Example"}
-              </Text>
-            </View>
-          </View> */}
         </View>
         <BottomTab navigation={navigation} />
       </View>

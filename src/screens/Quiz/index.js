@@ -1,11 +1,15 @@
 import styles from "./styles";
 import * as React from "react";
 import PropTypes from "prop-types";
+import { MainLayout } from "@layouts";
 import { notification } from "@helpers";
+import { useTranslation } from "react-i18next";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
 
 const Quiz = ({ navigation }) => {
+  const { t } = useTranslation();
+  const [loading, setLoading] = React.useState(true);
   const [quizData, setQuizData] = React.useState({
     current: 0,
     total: 0,
@@ -23,6 +27,8 @@ const Quiz = ({ navigation }) => {
         }
       } catch (error) {
         console.log(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -64,7 +70,7 @@ const Quiz = ({ navigation }) => {
                   fontWeight: "bold",
                 }}
               >
-                {"Quiz"}
+                {t("quiz.category")}
               </Text>
               <Text
                 style={{
@@ -86,31 +92,33 @@ const Quiz = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Image style={styles.logo} source={require("@images/logo.png")} />
-      <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
-          <Image
-            style={{ width: 25, height: 25, marginLeft: -10, marginTop: 10 }}
-            source={require("@images/back-white-icon.png")}
-          />
-        </TouchableOpacity>
-        <Text
-          style={{
-            fontSize: 17,
-            marginTop: 10,
-            marginLeft: 50,
-            fontWeight: "bold",
-            color: "white",
-          }}
-        >
-          {"Quiz"}
-        </Text>
+    <MainLayout navigation={navigation} loading={loading} scroll={false}>
+      <View style={styles.container}>
+        <Image style={styles.logo} source={require("@images/logo.png")} />
+        <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
+            <Image
+              style={{ width: 25, height: 25, marginLeft: -10, marginTop: 10 }}
+              source={require("@images/back-white-icon.png")}
+            />
+          </TouchableOpacity>
+          <Text
+            style={{
+              fontSize: 17,
+              marginTop: 10,
+              marginLeft: 50,
+              fontWeight: "bold",
+              color: "white",
+            }}
+          >
+            {t("quiz.title")}
+          </Text>
+        </View>
+        <View style={styles.card}>
+          <ScrollView style={styles.container}>{renderQuiz()}</ScrollView>
+        </View>
       </View>
-      <View style={styles.card}>
-        <ScrollView style={styles.container}>{renderQuiz()}</ScrollView>
-      </View>
-    </View>
+    </MainLayout>
   );
 };
 
