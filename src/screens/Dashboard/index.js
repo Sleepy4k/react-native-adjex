@@ -3,11 +3,14 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
+import { useTranslation } from "react-i18next";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Dashboard = ({ navigation }) => {
+  const { t } = useTranslation();
   const [logged, setLogged] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     const initData = async () => {
@@ -25,6 +28,8 @@ const Dashboard = ({ navigation }) => {
         }
       } catch (error) {
         console.log(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -32,7 +37,7 @@ const Dashboard = ({ navigation }) => {
   }, []);
 
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout navigation={navigation} loading={loading}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <Text
@@ -41,10 +46,10 @@ const Dashboard = ({ navigation }) => {
             marginTop: 20,
             fontSize: 25,
             fontWeight: "bold",
-            marginLeft: -25,
+            marginLeft: 10,
           }}
         >
-          {"DASHBOARD"}
+          {t("dashboard.title")}
         </Text>
         <View style={styles.tombol}>
           <View style={{ flexDirection: "row" }}>
@@ -62,8 +67,8 @@ const Dashboard = ({ navigation }) => {
             </TouchableOpacity>
           </View>
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginLeft: 30 }}>{"Home Screen"}</Text>
-            <Text style={{ marginLeft: 48 }}>{"Tutorial Video"}</Text>
+            <Text style={{ marginLeft: 25 }}>{t("dashboard.home")}</Text>
+            <Text style={{ marginLeft: 45 }}>{t("dashboard.tutorial")}</Text>
           </View>
           {logged && (
             <>
@@ -84,8 +89,10 @@ const Dashboard = ({ navigation }) => {
                 </TouchableOpacity>
               </View>
               <View style={{ flexDirection: "row" }}>
-                <Text style={{ marginLeft: 55 }}>{"Quiz"}</Text>
-                <Text style={{ marginLeft: 105 }}>{"Certificate"}</Text>
+                <Text style={{ marginLeft: 55 }}>{t("dashboard.quiz")}</Text>
+                <Text style={{ marginLeft: 105 }}>
+                  {t("dashboard.certificate")}
+                </Text>
               </View>
             </>
           )}

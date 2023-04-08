@@ -2,14 +2,17 @@ import styles from "./styles";
 import * as React from "react";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
-import { BottomTab } from "@components";
 import { notification } from "@helpers";
+import { BottomTab } from "@components";
+import { useTranslation } from "react-i18next";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text, View, Alert, Image, TouchableOpacity } from "react-native";
 
 const Profile = ({ navigation }) => {
-  const [admin, setAdmin] = React.useState(true);
-  const [name, setName] = React.useState("Guest");
+  const { t } = useTranslation();
+  const [admin, setAdmin] = React.useState(false);
+  const [name, setName] = React.useState(t("profile.guest"));
+  const [loading, setLoading] = React.useState(true);
   const [authUser, setAuthUser] = React.useState(false);
 
   React.useEffect(() => {
@@ -32,6 +35,8 @@ const Profile = ({ navigation }) => {
         }
       } catch (error) {
         console.log(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -44,11 +49,14 @@ const Profile = ({ navigation }) => {
         {
           text: "Log Out",
           onPress: async () => {
+            setLoading(true);
             await AsyncStorage.removeItem("authUser");
             await AsyncStorage.removeItem("quizData");
+            await AsyncStorage.removeItem("language");
             await AsyncStorage.removeItem("guestSearch");
 
             notification("You have been logged out", "success");
+            setLoading(false);
             navigation.navigate("Dashboard");
           },
         },
@@ -69,11 +77,14 @@ const Profile = ({ navigation }) => {
         {
           text: "Delete",
           onPress: async () => {
+            setLoading(true);
             await AsyncStorage.removeItem("quizData");
+            await AsyncStorage.removeItem("language");
             await AsyncStorage.removeItem("certificate");
             await AsyncStorage.removeItem("guestSearch");
 
             notification("Local Storage Cleared", "Dev Mode");
+            setLoading(false);
             navigation.replace("Profile");
           },
         },
@@ -88,30 +99,8 @@ const Profile = ({ navigation }) => {
     }
   };
 
-  const handleConfirmations = (func) => {
-    try {
-      Alert.alert(
-        "Please login",
-        "You have exceeded the maximum search limit",
-        [
-          {
-            text: "Login",
-            onPress: func,
-          },
-          {
-            text: "Cancel",
-            style: "cancel",
-          },
-        ]
-      );
-    } catch (error) {
-      notification("Something went wrong", "error");
-      console.log(error.message);
-    }
-  };
-
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout navigation={navigation} loading={loading}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={admin ? styles.card : styles.card2}>
@@ -128,7 +117,7 @@ const Profile = ({ navigation }) => {
                 fontWeight: "bold",
               }}
             >
-              {name} {admin ? "(Admin)" : ""}
+              {name} {admin ? `(${t("profile.admin")})` : ""}
             </Text>
           </View>
           <Text
@@ -139,13 +128,13 @@ const Profile = ({ navigation }) => {
               fontWeight: "bold",
             }}
           >
-            {"Account"}
+            {t("profile.account")}
           </Text>
           <View style={styles.card3}>
             <TouchableOpacity onPress={() => navigation.navigate("Language")}>
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}>
-                  {"Language"}
+                  {t("profile.language")}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -162,7 +151,7 @@ const Profile = ({ navigation }) => {
                       color: "white",
                     }}
                   >
-                    {"Log Out"}
+                    {t("profile.logout")}
                   </Text>
                 </View>
               </View>
@@ -178,7 +167,7 @@ const Profile = ({ navigation }) => {
                       marginLeft: 10,
                     }}
                   >
-                    {"Log In"}
+                    {t("profile.login")}
                   </Text>
                 </View>
               </View>
@@ -192,14 +181,14 @@ const Profile = ({ navigation }) => {
               fontWeight: "bold",
             }}
           >
-            {"System"}
+            {t("profile.system")}
           </Text>
           {authUser && (
             <TouchableOpacity onPress={() => navigation.navigate("Report")}>
               <View style={styles.card3}>
                 <View style={{ flexDirection: "row" }}>
                   <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}>
-                    {"Report Bug"}
+                    {t("profile.report_bug")}
                   </Text>
                 </View>
               </View>
@@ -209,7 +198,7 @@ const Profile = ({ navigation }) => {
             <View style={styles.card3}>
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}>
-                  {"About Us"}
+                  {t("profile.about_us")}
                 </Text>
               </View>
             </View>
@@ -224,7 +213,7 @@ const Profile = ({ navigation }) => {
                   fontWeight: "bold",
                 }}
               >
-                {"Admin"}
+                {t("profile.admin")}
               </Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate("Adjective")}
@@ -243,7 +232,7 @@ const Profile = ({ navigation }) => {
                     <Text
                       style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}
                     >
-                      {"Adjective"}
+                      {t("profile.adjective")}
                     </Text>
                   </View>
                 </View>
@@ -254,7 +243,7 @@ const Profile = ({ navigation }) => {
                     <Text
                       style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}
                     >
-                      {"Delete Local Storage"}
+                      {t("profile.delete_local_storage")}
                     </Text>
                   </View>
                 </View>

@@ -8,6 +8,7 @@ import { Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
 
 const Home = ({ navigation }) => {
   const [data, setData] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     const initData = async () => {
@@ -21,6 +22,8 @@ const Home = ({ navigation }) => {
         }
       } catch (error) {
         console.log(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -28,7 +31,7 @@ const Home = ({ navigation }) => {
   }, []);
 
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout navigation={navigation} loading={loading}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={styles.card}>

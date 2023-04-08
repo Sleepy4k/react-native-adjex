@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
 import { notification } from "@helpers";
+import { useTranslation } from "react-i18next";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   Text,
@@ -16,8 +17,10 @@ import {
 } from "react-native";
 
 const EditWord = ({ route, navigation }) => {
+  const { t } = useTranslation();
   const { letter } = route.params.param;
   const [user, setUser] = React.useState({});
+  const [loading, setLoading] = React.useState(true);
   const [disabled, setDisabled] = React.useState(false);
   const [value, setValue] = React.useState({
     name: "",
@@ -33,14 +36,18 @@ const EditWord = ({ route, navigation }) => {
 
   React.useEffect(() => {
     const initUser = async () => {
-      const authUser = await AsyncStorage.getItem("authUser");
+      try {
+        const authUser = await AsyncStorage.getItem("authUser");
 
-      if (authUser) {
-        const user = JSON.parse(authUser);
+        if (authUser) {
+          const user = JSON.parse(authUser);
 
-        if (user) {
-          setUser(user);
+          if (user) {
+            setUser(user);
+          }
         }
+      } catch (error) {
+        console.log(error.message);
       }
     };
 
@@ -51,12 +58,17 @@ const EditWord = ({ route, navigation }) => {
         if (response.data.status == "success") {
           setValue(response.data.data);
         } else {
-          notification("Something went wrong", "error");
+          notification(
+            t("axios.unkown"),
+            t("axios.title", { context: "error" })
+          );
           console.log(response.message);
         }
       } catch (error) {
-        notification("Server cannot be reached", "error");
+        notification(t("axios.server"), t("axios.title", { context: "error" }));
         console.log(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -79,26 +91,44 @@ const EditWord = ({ route, navigation }) => {
     let isValid = true;
 
     if (!value.name) {
-      handleError("Please input adjective", "name");
+      handleError(
+        t("validation.required", { name: t("edit_word.adjective") }),
+        "name"
+      );
       isValid = false;
     } else if (value.name.length > 255) {
-      handleError("Adjective cannot exceed 255 characters", "name");
+      handleError(
+        t("validation.max", { name: t("edit_word.adjective"), max: "255" }),
+        "name"
+      );
       isValid = false;
     }
 
     if (!value.description) {
-      handleError("Please input description", "description");
+      handleError(
+        t("validation.required", { name: t("edit_word.description") }),
+        "description"
+      );
       isValid = false;
     } else if (value.description.length > 255) {
-      handleError("Description cannot exceed 255 characters", "description");
+      handleError(
+        t("validation.max", { name: t("edit_word.description"), max: "255" }),
+        "description"
+      );
       isValid = false;
     }
 
     if (!value.example) {
-      handleError("Please input example", "example");
+      handleError(
+        t("validation.required", { name: t("edit_word.example") }),
+        "example"
+      );
       isValid = false;
     } else if (value.example.length > 255) {
-      handleError("Example cannot exceed 255 characters", "example");
+      handleError(
+        t("validation.max", { name: t("edit_word.example"), max: "255" }),
+        "example"
+      );
       isValid = false;
     }
 
@@ -118,15 +148,20 @@ const EditWord = ({ route, navigation }) => {
       });
 
       if (response.data.status == "success") {
-        notification("Successfully added", "success");
+        notification(
+          t("axios.success", {
+            action: t("edit_word.edited", { adjective: value.name }),
+          }),
+          t("axios.title", { context: "success" })
+        );
         setDisabled(false);
         navigation.navigate("Adjective");
       } else {
-        notification("Something went wrong", "error");
+        notification(t("axios.unkown"), t("axios.title", { context: "error" }));
         console.log(response.message);
       }
     } catch (error) {
-      notification("Server cannot be reached", "error");
+      notification(t("axios.server"), t("axios.title", { context: "error" }));
       console.log(error.message);
     } finally {
       setDisabled(false);
@@ -134,7 +169,7 @@ const EditWord = ({ route, navigation }) => {
   };
 
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout navigation={navigation} loading={loading}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row" }}>
@@ -157,7 +192,7 @@ const EditWord = ({ route, navigation }) => {
               fontWeight: "bold",
             }}
           >
-            {"ADD ADJECTIVE"}
+            {t("edit_word.title")}
           </Text>
         </View>
         <View style={styles.card}>
@@ -170,7 +205,7 @@ const EditWord = ({ route, navigation }) => {
                 fontWeight: "bold",
               }}
             >
-              {"ADJECTIVE :"}
+              {`${t("edit_word.adjective")} :`}
             </Text>
             <TextInput
               style={{
@@ -183,7 +218,7 @@ const EditWord = ({ route, navigation }) => {
                 padding: 10,
                 borderColor: "#ccc",
               }}
-              placeholder="Type Here"
+              placeholder={t("edit_word.adjective_placeholder")}
               editable={!disabled}
               value={value.name}
               onChangeText={(text) => handleChange("name", text)}
@@ -201,7 +236,7 @@ const EditWord = ({ route, navigation }) => {
                 fontWeight: "bold",
               }}
             >
-              {"DESCRIPTION :"}
+              {`${t("edit_word.description")} :`}
             </Text>
             <TextInput
               style={{
@@ -216,7 +251,7 @@ const EditWord = ({ route, navigation }) => {
                 backgroundColor: "none",
                 padding: 10,
               }}
-              placeholder="Type Here"
+              placeholder={t("edit_word.description_placeholder")}
               multiline={true}
               numberOfLines={4}
               editable={!disabled}
@@ -236,7 +271,7 @@ const EditWord = ({ route, navigation }) => {
                 fontWeight: "bold",
               }}
             >
-              {"EXAMPLE :"}
+              {`${t("edit_word.example")} :`}
             </Text>
             <TextInput
               style={{
@@ -251,7 +286,7 @@ const EditWord = ({ route, navigation }) => {
                 backgroundColor: "none",
                 padding: 10,
               }}
-              placeholder="Type Here"
+              placeholder={t("edit_word.example_placeholder")}
               multiline={true}
               numberOfLines={4}
               editable={!disabled}
@@ -267,7 +302,7 @@ const EditWord = ({ route, navigation }) => {
             onPress={validate}
           >
             <Text style={{ color: "black", fontSize: 12, fontWeight: "bold" }}>
-              {"SUBMIT"}
+              {t("edit_word.submit")}
             </Text>
           </TouchableOpacity>
         </View>

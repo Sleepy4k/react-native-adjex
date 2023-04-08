@@ -5,11 +5,14 @@ import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
 import { notification } from "@helpers";
+import { useTranslation } from "react-i18next";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 
 const DetailWord = ({ route, navigation }) => {
+  const { t } = useTranslation();
   const { word } = route.params.param;
   const [data, setData] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     const initData = async () => {
@@ -19,12 +22,17 @@ const DetailWord = ({ route, navigation }) => {
         if (response.data.status == "success") {
           setData(response.data.data);
         } else {
-          notification("Something went wrong", "error");
+          notification(
+            t("axios.unkown"),
+            t("axios.title", { context: "error" })
+          );
           console.log(response.message);
         }
       } catch (error) {
-        notification("Server cannot be reached", "error");
+        notification(t("axios.server"), t("axios.title", { context: "error" }));
         console.log(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -32,13 +40,18 @@ const DetailWord = ({ route, navigation }) => {
   }, []);
 
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout navigation={navigation} loading={loading}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity onPress={() => navigation.navigate("Home")}>
             <Image
-              style={{ width: 25, height: 25, marginLeft: -10, marginTop: 10 }}
+              style={{
+                width: 25,
+                height: 25,
+                marginLeft: -10,
+                marginTop: 10,
+              }}
               source={require("@images/back-white-icon.png")}
             />
           </TouchableOpacity>
@@ -65,10 +78,10 @@ const DetailWord = ({ route, navigation }) => {
                   fontWeight: "bold",
                 }}
               >
-                {"Error"}
+                {t("detail_word.error")}
               </Text>
               <Text style={{ color: "black", margin: 10, padding: 10 }}>
-                {"Word not found, please try again"}
+                {t("detail_word.error_text")}
               </Text>
             </>
           )}
@@ -81,7 +94,7 @@ const DetailWord = ({ route, navigation }) => {
                 fontWeight: "bold",
               }}
             >
-              {"Description"}
+              {t("detail_word.description")}
             </Text>
           )}
           <Text style={{ color: "black", margin: 10, padding: 10 }}>
@@ -97,12 +110,10 @@ const DetailWord = ({ route, navigation }) => {
                   fontWeight: "bold",
                 }}
               >
-                {"Example"}
+                {t("detail_word.example")}
               </Text>
               <Text style={{ color: "black", margin: 10, padding: 10 }}>
-                {"Here are some examples of the use of the word from the word "}
-                {word}
-                {" :"}
+                {`${t("detail_word.example_text")} ${word} : `}
               </Text>
             </>
           )}

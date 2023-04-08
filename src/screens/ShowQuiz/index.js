@@ -4,12 +4,15 @@ import { api } from "@services";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { notification } from "@helpers";
+import { useTranslation } from "react-i18next";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ShowQuiz = ({ route, navigation }) => {
+  const { t } = useTranslation();
   const { index } = route.params.param;
   const [data, setData] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
   const [disabled, setDisabled] = React.useState(false);
 
   React.useEffect(() => {
@@ -24,6 +27,8 @@ const ShowQuiz = ({ route, navigation }) => {
         }
       } catch (error) {
         console.log(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -35,6 +40,7 @@ const ShowQuiz = ({ route, navigation }) => {
       return;
     }
 
+    setLoading(true);
     setDisabled(true);
 
     if (answer == data.answer) {
@@ -49,7 +55,11 @@ const ShowQuiz = ({ route, navigation }) => {
           })
         );
 
-        notification("Correct answer", "success");
+        notification(
+          t("show_quiz.correct_answer"),
+          t("axios.title", { context: "success" })
+        );
+        setLoading(false);
         setDisabled(false);
         navigation.navigate("ShowQuiz", { param: { index: index + 1 } });
 
@@ -67,7 +77,11 @@ const ShowQuiz = ({ route, navigation }) => {
           })
         );
 
-        notification("Correct answer", "success");
+        notification(
+          t("show_quiz.correct_answer"),
+          t("axios.title", { context: "success" })
+        );
+        setLoading(false);
         setDisabled(false);
         navigation.navigate("ShowQuiz", { param: { index: index + 1 } });
       } else {
@@ -79,7 +93,10 @@ const ShowQuiz = ({ route, navigation }) => {
           })
         );
 
-        notification("You have completed all the quiz", "success");
+        notification(
+          t("show_quiz.completed"),
+          t("axios.title", { context: "success" })
+        );
 
         const certificate = await AsyncStorage.getItem("certificate");
 
@@ -91,6 +108,7 @@ const ShowQuiz = ({ route, navigation }) => {
             })
           );
 
+          setLoading(false);
           setDisabled(false);
           navigation.navigate("Congrats");
 
@@ -106,24 +124,34 @@ const ShowQuiz = ({ route, navigation }) => {
           })
         );
 
+        setLoading(false);
         setDisabled(false);
         navigation.navigate("Congrats");
       }
     } else {
-      notification("Wrong answer", "error");
+      notification(
+        t("show_quiz.wrong_answer"),
+        t("axios.title", { context: "error" })
+      );
+      setLoading(false);
       setDisabled(false);
       navigation.navigate("Alert", { param: { index: index } });
     }
   };
 
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout navigation={navigation} loading={loading}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity onPress={() => navigation.replace("Quiz")}>
             <Image
-              style={{ width: 25, height: 25, marginLeft: -10, marginTop: 10 }}
+              style={{
+                width: 25,
+                height: 25,
+                marginLeft: -10,
+                marginTop: 10,
+              }}
               source={require("@images/back-white-icon.png")}
             />
           </TouchableOpacity>
@@ -136,7 +164,7 @@ const ShowQuiz = ({ route, navigation }) => {
               color: "white",
             }}
           >
-            {"Quiz "}
+            {`${t("show_quiz.title")} `}
             {index ? index : 1}
           </Text>
         </View>
