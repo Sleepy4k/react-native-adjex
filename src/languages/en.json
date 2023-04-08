@@ -1,0 +1,152 @@
+{
+  "translation": {
+    "axios": {
+      "title_error": "Error",
+      "title_success": "Success",
+      "title_warning": "Warning",
+      "title_info": "Information",
+      "unknown": "Something went wrong",
+      "success": "Successfuly {{action}}",
+      "server": "Server cannot be reached",
+      "network": "Troubled Internet Connection"
+    },
+    "validation": {
+      "required": "Please input {{name}}",
+      "min": "{{name}} must be at least {{min}} characters",
+      "max": "{{name}} cannot exceed {{max}} characters",
+      "min_value": "{{name}} minimum {{min}}",
+      "max_value": "{{name}} maximum {{max}}",
+      "confirmed": "Password confirmation is not the same",
+      "unique": "{{name}} already registered"
+    },
+    "dashboard": {
+      "title": "DASHBOARD",
+      "home": "Home Screen",
+      "tutorial": "Tutorial Video",
+      "quiz": "Quiz",
+      "certificate": "Certificate"
+    },
+    "about": {
+      "title": "ABOUT US",
+      "about": "About",
+      "about_desc": "We are a service provider engaged in the field of education, by making this application, hopefully it can be useful to be able to learn adjectives anywhere and anytime",
+      "team": "Team",
+      "team_desc": "In making this application, the hard work of our team, which consists of :"
+    },
+    "add_word": {
+      "title": "ADD ADJECTIVE",
+      "adjective": "Adjective",
+      "adjective_placeholder": "Input Adjective",
+      "description": "Description",
+      "description_placeholder": "Input Description",
+      "example": "Example",
+      "example_placeholder": "Input Example",
+      "submit": "Submit",
+      "added": "added adjective {{adjective}}"
+    },
+    "adjective": {
+      "title": "ADJECTIVE",
+      "add": "Add",
+      "edit": "Edit",
+      "delete": "Delete",
+      "added": "added adjective {{adjective}}"
+    },
+    "alert": {
+      "title": "ALERT",
+      "confirmation": "Your answer is wrong, try again?",
+      "confirmation_yes": "Yes",
+      "confirmation_no": "No"
+    },
+    "certificate": {
+      "title": "Certificate"
+    },
+    "congrats": {
+      "title": "Congratulations",
+      "description": "you have completed all the quizzes"
+    },
+    "detail_word": {
+      "error": "Error",
+      "error_text": "Adjective not found, please try again",
+      "description": "Description",
+      "example": "Example",
+      "example_text": "Here are some examples of the use of the word from the word"
+    },
+    "edit_word": {
+      "title": "EDIT ADJECTIVE",
+      "adjective": "Adjective",
+      "adjective_placeholder": "Input Adjective",
+      "description": "Description",
+      "description_placeholder": "Input Description",
+      "example": "Example",
+      "example_placeholder": "Input Example",
+      "submit": "Submit",
+      "added": "edited adjective {{adjective}}"
+    },
+    "language": {
+      "title": "CHOOSE LANGUAGE",
+      "indonesia": "INDONESIA",
+      "english": "ENGLISH"
+    },
+    "login": {
+      "title": "LOGIN",
+      "sub_title": "Enter your details to login",
+      "username": "Username",
+      "password": "Password",
+      "submit": "Log In",
+      "dont_have_account": "Dont have account ?",
+      "register": "Register",
+      "back_to_dashboard": "Back to Dashboard"
+    },
+    "profile": {
+      "guest": "Guest",
+      "admin": "Admin",
+      "login": "Log In",
+      "account": "Account",
+      "logout": "Log Out",
+      "system": "System",
+      "language": "Language",
+      "about_us": "Abous Us",
+      "report_bug": "Report Bug",
+      "adjective": "Adjective",
+      "delete_local_storage": "Delete Local Storage"
+    },
+    "quiz": {
+      "title": "QUIZ",
+      "category": "Category"
+    },
+    "register": {
+      "title": "REGISTER",
+      "sub_title": "Enter your details to register",
+      "name": "Name",
+      "username": "Username",
+      "password": "Password",
+      "password_confirmation": "Password Confirmation",
+      "submit": "Register",
+      "dont_have_account": "Already have account ?",
+      "login": "Log in",
+      "back_to_dashboard": "Back to Dashboard"
+    },
+    "report": {
+      "title": "REPORT BUG",
+      "problem": "Your Problem",
+      "problem_placeholder": "Input Problem",
+      "description": "Detail Problem",
+      "description_placeholder": "Input Deskripsi",
+      "submit": "Submit",
+      "added": "sent report bug"
+    },
+    "search": {
+      "placeholder": "Search Adjective",
+      "history": "Search History"
+    },
+    "show_quiz": {
+      "title": "QUIZ",
+      "correct_answer": "Correct answer",
+      "wrong_answer": "Wrong Answer",
+      "completed": "You have completed all the quiz"
+    },
+    "tutorial": {
+      "title": "TUTORIAL VIDEO"
+    }
+  }
+}
