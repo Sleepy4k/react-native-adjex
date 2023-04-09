@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { notification } from "@helpers";
 import { useTranslation } from "react-i18next";
+import { AuthContext } from "@context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   Text,
@@ -16,6 +17,7 @@ import {
 
 const Login = ({ navigation }) => {
   const { t } = useTranslation();
+  const { refresh } = React.useContext(AuthContext);
   const [loading, setLoading] = React.useState(false);
   const [disabled, setDisabled] = React.useState(false);
   const [data, setData] = React.useState({
@@ -106,12 +108,16 @@ const Login = ({ navigation }) => {
         );
         setLoading(false);
         setDisabled(false);
+        refresh();
         navigation.replace("Dashboard");
       } else {
         console.log(response.data.message);
         setLoading(false);
         setDisabled(false);
-        notification(t("axios.unkown"), t("axios.title", { context: "error" }));
+        notification(
+          t("axios.unknown"),
+          t("axios.title", { context: "error" })
+        );
       }
     } catch (error) {
       console.log(error.message);

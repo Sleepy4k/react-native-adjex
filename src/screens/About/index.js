@@ -18,11 +18,11 @@ const About = ({ navigation }) => {
       try {
         const response = await api.get("/team");
 
-        if (response.data.status === 200) {
+        if (response.data.status === "success") {
           setTeam(response.data.data);
         } else {
           notification(
-            t("axios.unkown"),
+            t("axios.unknown"),
             t("axios.title", { context: "error" })
           );
           console.log(response.message);

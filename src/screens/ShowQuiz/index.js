@@ -10,18 +10,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ShowQuiz = ({ route, navigation }) => {
   const { t } = useTranslation();
-  const { index } = route.params.param;
-  const [data, setData] = React.useState(null);
+  const { category } = route.params.param;
+  const [data, setData] = React.useState({});
   const [loading, setLoading] = React.useState(true);
   const [disabled, setDisabled] = React.useState(false);
 
   React.useEffect(() => {
     const initData = async () => {
       try {
-        const response = await api.get(`/quiz/${index}`);
+        const response = await api.get(`/quiz/category/${category}`);
 
         if (response.data.status == "success") {
-          setData(response.data.data);
+          setData(response.data.data[0]);
         } else {
           console.log(response.message);
         }
@@ -33,7 +33,7 @@ const ShowQuiz = ({ route, navigation }) => {
     };
 
     initData();
-  }, [index]);
+  }, [category]);
 
   const handleSubmit = async (answer) => {
     if (!answer) {
@@ -61,7 +61,7 @@ const ShowQuiz = ({ route, navigation }) => {
         );
         setLoading(false);
         setDisabled(false);
-        navigation.navigate("ShowQuiz", { param: { index: index + 1 } });
+        navigation.navigate("ShowQuiz", { param: { category: category + 1 } });
 
         return;
       }
@@ -83,7 +83,7 @@ const ShowQuiz = ({ route, navigation }) => {
         );
         setLoading(false);
         setDisabled(false);
-        navigation.navigate("ShowQuiz", { param: { index: index + 1 } });
+        navigation.navigate("ShowQuiz", { param: { category: category + 1 } });
       } else {
         await AsyncStorage.setItem(
           "quizData",
@@ -135,7 +135,7 @@ const ShowQuiz = ({ route, navigation }) => {
       );
       setLoading(false);
       setDisabled(false);
-      navigation.navigate("Alert", { param: { index: index } });
+      navigation.navigate("Alert", { param: { category: category } });
     }
   };
 
@@ -165,7 +165,7 @@ const ShowQuiz = ({ route, navigation }) => {
             }}
           >
             {`${t("show_quiz.title")} `}
-            {index ? index : 1}
+            {category ? category : 1}
           </Text>
         </View>
         <View style={styles.card}>
@@ -265,7 +265,7 @@ ShowQuiz.defaultProps = {
   route: {
     params: {
       param: {
-        index: 1,
+        category: 1,
       },
     },
   },

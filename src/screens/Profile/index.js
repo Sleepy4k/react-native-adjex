@@ -1,47 +1,20 @@
 import styles from "./styles";
 import * as React from "react";
+import { api } from "@services";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { notification } from "@helpers";
 import { BottomTab } from "@components";
 import { useTranslation } from "react-i18next";
+import { AuthContext } from "@context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text, View, Alert, Image, TouchableOpacity } from "react-native";
 
 const Profile = ({ navigation }) => {
   const { t } = useTranslation();
-  const [admin, setAdmin] = React.useState(false);
-  const [name, setName] = React.useState(t("profile.guest"));
-  const [loading, setLoading] = React.useState(true);
-  const [authUser, setAuthUser] = React.useState(false);
-
-  React.useEffect(() => {
-    const initUser = async () => {
-      try {
-        const authUser = await AsyncStorage.getItem("authUser");
-
-        if (authUser) {
-          const user = JSON.parse(authUser);
-
-          if (user.data.firstName || user.data.lastName) {
-            setName(`${user.data.firstName} ${user.data.lastName}`);
-            setAuthUser(true);
-          }
-
-          if (user.data.role === "admin") {
-            notification("You are now an admin", "success");
-            setAdmin(true);
-          }
-        }
-      } catch (error) {
-        console.log(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    initUser();
-  }, []);
+  const [loading, setLoading] = React.useState(false);
+  const { userInfo, admin, logged, refresh, dev } =
+    React.useContext(AuthContext);
 
   const handleLogout = async () => {
     try {
@@ -50,14 +23,27 @@ const Profile = ({ navigation }) => {
           text: "Log Out",
           onPress: async () => {
             setLoading(true);
-            await AsyncStorage.removeItem("authUser");
-            await AsyncStorage.removeItem("quizData");
-            await AsyncStorage.removeItem("language");
-            await AsyncStorage.removeItem("guestSearch");
+            const response = await api.post("/auth/logout");
 
-            notification("You have been logged out", "success");
+            if (response.data.status === "success") {
+              await AsyncStorage.removeItem("authUser");
+              await AsyncStorage.removeItem("quizData");
+              await AsyncStorage.removeItem("language");
+              await AsyncStorage.removeItem("guestSearch");
+              await AsyncStorage.removeItem("certificate");
+
+              notification("You have been logged out", "success");
+              refresh();
+              navigation.replace("Dashboard");
+            } else {
+              notification(
+                t("axios.unknown"),
+                t("axios.title", { context: "error" })
+              );
+              console.log(response.message);
+            }
+
             setLoading(false);
-            navigation.navigate("Dashboard");
           },
         },
         {
@@ -85,6 +71,7 @@ const Profile = ({ navigation }) => {
 
             notification("Local Storage Cleared", "Dev Mode");
             setLoading(false);
+            refresh();
             navigation.replace("Profile");
           },
         },
@@ -103,22 +90,38 @@ const Profile = ({ navigation }) => {
     <MainLayout navigation={navigation} loading={loading}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
-        <View style={admin ? styles.card : styles.card2}>
+        <View style={admin ? styles.card : dev ? styles.card2 : styles.card5}>
           <View style={{ flexDirection: "row" }}>
             <Image
               style={{ width: 70, height: 70, marginLeft: 10, marginTop: 10 }}
               source={require("@images/profile-border-icon.png")}
             />
-            <Text
-              style={{
-                fontSize: 20,
-                marginLeft: 10,
-                marginTop: 30,
-                fontWeight: "bold",
-              }}
-            >
-              {name} {admin ? `(${t("profile.admin")})` : ""}
-            </Text>
+            <View style={{ flexDirection: "column" }}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  marginLeft: 10,
+                  marginTop: 18,
+                  fontWeight: "bold",
+                }}
+              >
+                {userInfo.name ? userInfo.name : "Guest"}{" "}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 15,
+                  marginLeft: 10,
+                  marginTop: 3,
+                  fontWeight: "bold",
+                }}
+              >
+                {admin
+                  ? t("profile.admin")
+                  : dev
+                  ? t("profile.dev")
+                  : t("profile.user")}
+              </Text>
+            </View>
           </View>
           <Text
             style={{
@@ -139,7 +142,7 @@ const Profile = ({ navigation }) => {
               </View>
             </TouchableOpacity>
           </View>
-          {authUser ? (
+          {logged ? (
             <TouchableOpacity onPress={handleLogout}>
               <View style={styles.card4}>
                 <View style={{ flexDirection: "row" }}>
@@ -183,7 +186,7 @@ const Profile = ({ navigation }) => {
           >
             {t("profile.system")}
           </Text>
-          {authUser && (
+          {logged && (
             <TouchableOpacity onPress={() => navigation.navigate("Report")}>
               <View style={styles.card3}>
                 <View style={{ flexDirection: "row" }}>
@@ -203,7 +206,7 @@ const Profile = ({ navigation }) => {
               </View>
             </View>
           </TouchableOpacity>
-          {authUser && admin && (
+          {logged && (admin || dev) && (
             <>
               <Text
                 style={{
@@ -215,9 +218,27 @@ const Profile = ({ navigation }) => {
               >
                 {t("profile.admin")}
               </Text>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("Adjective")}
-              >
+              <TouchableOpacity onPress={() => navigation.replace("Question")}>
+                <View
+                  style={{
+                    marginTop: 10,
+                    backgroundColor: "#FAC952",
+                    height: 45,
+                    width: 270,
+                    borderRadius: 10,
+                    alignSelf: "center",
+                  }}
+                >
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}
+                    >
+                      {t("profile.quiz")}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.replace("Adjective")}>
                 <View
                   style={{
                     marginTop: 10,
@@ -237,6 +258,40 @@ const Profile = ({ navigation }) => {
                   </View>
                 </View>
               </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.replace("Category")}>
+                <View
+                  style={{
+                    marginTop: 10,
+                    backgroundColor: "#FAC952",
+                    height: 45,
+                    width: 270,
+                    borderRadius: 10,
+                    alignSelf: "center",
+                  }}
+                >
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{ fontSize: 17, marginTop: 10, marginLeft: 10 }}
+                    >
+                      {t("profile.category")}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </>
+          )}
+          {logged && dev && (
+            <>
+              <Text
+                style={{
+                  fontSize: 20,
+                  marginLeft: 20,
+                  marginTop: 40,
+                  fontWeight: "bold",
+                }}
+              >
+                {t("profile.dev")}
+              </Text>
               <TouchableOpacity onPress={handleClearStorage}>
                 <View style={styles.card3}>
                   <View style={{ flexDirection: "row" }}>

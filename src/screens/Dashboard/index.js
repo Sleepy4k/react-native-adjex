@@ -4,40 +4,15 @@ import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
 import { useTranslation } from "react-i18next";
+import { AuthContext } from "@context/AuthContext";
 import { Text, View, Image, TouchableOpacity } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Dashboard = ({ navigation }) => {
   const { t } = useTranslation();
-  const [logged, setLogged] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    const initData = async () => {
-      try {
-        const authUser = await AsyncStorage.getItem("authUser");
-
-        if (authUser) {
-          const auth = JSON.parse(authUser);
-
-          if (auth.token) {
-            setLogged(true);
-          }
-        } else {
-          setLogged(false);
-        }
-      } catch (error) {
-        console.log(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    initData();
-  }, []);
+  const { logged, busy } = React.useContext(AuthContext);
 
   return (
-    <MainLayout navigation={navigation} loading={loading}>
+    <MainLayout navigation={navigation} loading={busy}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <Text

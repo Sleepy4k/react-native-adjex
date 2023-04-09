@@ -10,20 +10,20 @@ import { Text, View, Image, TouchableOpacity } from "react-native";
 
 const DetailWord = ({ route, navigation }) => {
   const { t } = useTranslation();
-  const { word } = route.params.param;
+  const { id, word } = route.params.param;
   const [data, setData] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     const initData = async () => {
       try {
-        const response = await api.get(`/adjective/${word}`);
+        const response = await api.get(`/adjective/${id}`);
 
         if (response.data.status == "success") {
           setData(response.data.data);
         } else {
           notification(
-            t("axios.unkown"),
+            t("axios.unknown"),
             t("axios.title", { context: "error" })
           );
           console.log(response.message);
@@ -44,7 +44,7 @@ const DetailWord = ({ route, navigation }) => {
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image
               style={{
                 width: 25,

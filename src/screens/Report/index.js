@@ -6,7 +6,7 @@ import { MainLayout } from "@layouts";
 import { notification } from "@helpers";
 import { BottomTab } from "@components";
 import { useTranslation } from "react-i18next";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthContext } from "@context/AuthContext";
 import {
   Text,
   View,
@@ -18,6 +18,7 @@ import {
 
 const Report = ({ navigation }) => {
   const { t } = useTranslation();
+  const { token } = React.useContext(AuthContext);
   const [loading, setLoading] = React.useState(false);
   const [disabled, setDisabled] = React.useState(false);
   const [data, setData] = React.useState({
@@ -83,11 +84,9 @@ const Report = ({ navigation }) => {
 
   const handleSubmit = async () => {
     try {
-      const authUser = await AsyncStorage.getItem("authUser");
-
       const response = await api.post("/report", data, {
         headers: {
-          Authorization: `Bearer ${JSON.parse(authUser).token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -104,7 +103,10 @@ const Report = ({ navigation }) => {
           description: "",
         });
       } else {
-        notification(t("axios.unkown"), t("axios.title", { context: "error" }));
+        notification(
+          t("axios.unknown"),
+          t("axios.title", { context: "error" })
+        );
         console.log(response.message);
       }
     } catch (error) {

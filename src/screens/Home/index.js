@@ -3,10 +3,11 @@ import * as React from "react";
 import { api } from "@services";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
-import { BottomTab } from "@components";
+import { useTranslation } from "react-i18next";
 import { Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
 
 const Home = ({ navigation }) => {
+  const { t } = useTranslation();
   const [data, setData] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
 
@@ -34,6 +35,25 @@ const Home = ({ navigation }) => {
     <MainLayout navigation={navigation} loading={loading}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
+        <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
+            <Image
+              style={{ width: 25, height: 25, marginLeft: -10, marginTop: 10 }}
+              source={require("@images/back-white-icon.png")}
+            />
+          </TouchableOpacity>
+          <Text
+            style={{
+              fontSize: 17,
+              marginTop: 10,
+              marginLeft: 50,
+              fontWeight: "bold",
+              color: "white",
+            }}
+          >
+            {t("home.title")}
+          </Text>
+        </View>
         <View style={styles.card}>
           <ScrollView style={styles.container}>
             {data && data.length > 0
@@ -42,7 +62,7 @@ const Home = ({ navigation }) => {
                     key={index}
                     onPress={() =>
                       navigation.navigate("DetailWord", {
-                        param: { word: item.name },
+                        param: { id: item.id, word: item.name },
                       })
                     }
                   >
@@ -74,7 +94,6 @@ const Home = ({ navigation }) => {
               : null}
           </ScrollView>
         </View>
-        <BottomTab navigation={navigation} style={styles.tombol} />
       </View>
     </MainLayout>
   );

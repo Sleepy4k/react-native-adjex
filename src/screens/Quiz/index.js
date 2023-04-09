@@ -1,5 +1,6 @@
 import styles from "./styles";
 import * as React from "react";
+import { api } from "@services";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { notification } from "@helpers";
@@ -9,6 +10,7 @@ import { Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
 
 const Quiz = ({ navigation }) => {
   const { t } = useTranslation();
+  const [category, setCategory] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [quizData, setQuizData] = React.useState({
     current: 0,
@@ -27,68 +29,37 @@ const Quiz = ({ navigation }) => {
         }
       } catch (error) {
         console.log(error.message);
+      }
+    };
+
+    const initQuiz = async () => {
+      try {
+        const response = await api.get("/category");
+
+        if (response.data.status == "success") {
+          setCategory(response.data.data);
+        } else {
+          console.log(response.message);
+        }
+      } catch (error) {
+        console.log(error.message);
       } finally {
         setLoading(false);
       }
     };
 
     initData();
+    initQuiz();
   }, []);
 
   const handleButton = (index) => {
-    if (quizData.current == index) {
-      navigation.navigate("ShowQuiz", { param: { index: index + 1 } });
-    } else if (quizData.current > index) {
+    if (quizData.current == index - 1) {
+      navigation.navigate("ShowQuiz", { param: { category: index } });
+    } else if (quizData.current > index - 1) {
       notification("You have already completed this quiz", "error");
     } else {
       notification("Please complete previous quiz", "error");
     }
-  };
-
-  const renderQuiz = () => {
-    let quiz = [];
-
-    for (let index = 0; index < 5; index++) {
-      quiz.push(
-        <View key={index} style={index + 1 == 5 ? styles.card2 : styles.card1}>
-          <TouchableOpacity onPress={() => handleButton(index)}>
-            <View style={{ flexDirection: "row" }}>
-              <Image
-                style={{
-                  width: 35,
-                  height: 35,
-                  marginLeft: 12,
-                  marginTop: 16,
-                }}
-                source={require("@images/quiz-icon.png")}
-              />
-              <Text
-                style={{
-                  fontSize: 17,
-                  marginTop: 20,
-                  marginLeft: 20,
-                  fontWeight: "bold",
-                }}
-              >
-                {t("quiz.category")}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 17,
-                  marginTop: 20,
-                  marginLeft: 5,
-                  fontWeight: "bold",
-                }}
-              >
-                {index + 1}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      );
-    }
-
-    return quiz;
   };
 
   return (
@@ -115,7 +86,40 @@ const Quiz = ({ navigation }) => {
           </Text>
         </View>
         <View style={styles.card}>
-          <ScrollView style={styles.container}>{renderQuiz()}</ScrollView>
+          <ScrollView style={styles.container}>
+            {category &&
+              category.length > 0 &&
+              category.map((item, index) => (
+                <View
+                  key={index}
+                  style={index + 1 == 5 ? styles.card2 : styles.card1}
+                >
+                  <TouchableOpacity onPress={() => handleButton(item.id)}>
+                    <View style={{ flexDirection: "row" }}>
+                      <Image
+                        style={{
+                          width: 35,
+                          height: 35,
+                          marginLeft: 12,
+                          marginTop: 16,
+                        }}
+                        source={require("@images/quiz-icon.png")}
+                      />
+                      <Text
+                        style={{
+                          fontSize: 17,
+                          marginTop: 20,
+                          marginLeft: 20,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {item.name}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              ))}
+          </ScrollView>
         </View>
       </View>
     </MainLayout>

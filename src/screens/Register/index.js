@@ -149,7 +149,10 @@ const Register = ({ navigation }) => {
         setDisabled(false);
         navigation.navigate("Login");
       } else {
-        notification(t("axios.unkown"), t("axios.title", { context: "error" }));
+        notification(
+          t("axios.unknown"),
+          t("axios.title", { context: "error" })
+        );
         setLoading(false);
         setDisabled(false);
         console.log(response.data.message);
