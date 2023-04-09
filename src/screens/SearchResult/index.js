@@ -6,15 +6,16 @@ import { MainLayout } from "@layouts";
 import { useTranslation } from "react-i18next";
 import { Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
 
-const Home = ({ navigation }) => {
+const SearchResult = ({ route, navigation }) => {
   const { t } = useTranslation();
+  const { word } = route.params.param;
   const [data, setData] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     const initData = async () => {
       try {
-        const response = await api.get("/adjective");
+        const response = await api.get(`/adjective/search/${word}`);
 
         if (response.data.status == "success") {
           setData(response.data.data);
@@ -51,7 +52,7 @@ const Home = ({ navigation }) => {
               color: "white",
             }}
           >
-            {t("home.title")}
+            {t("search_result.title", { keyword: word })}
           </Text>
         </View>
         <View style={styles.card}>
@@ -99,16 +100,16 @@ const Home = ({ navigation }) => {
   );
 };
 
-Home.propTypes = {
+SearchResult.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-Home.defaultProps = {
+SearchResult.defaultProps = {
   navigation: {
     navigate: () => {},
   },
 };
 
-export default Home;
+export default SearchResult;
 
-// Path: src\screens\Home\index.js
+// Path: src\screens\SearchResult\index.js

@@ -6,7 +6,7 @@ import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
 import { notification } from "@helpers";
 import { useTranslation } from "react-i18next";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthContext } from "@context/AuthContext";
 import {
   Text,
   View,
@@ -18,9 +18,9 @@ import {
 
 const AddWord = ({ navigation }) => {
   const { t } = useTranslation();
-  const [user, setUser] = React.useState({});
+  const { token } = React.useContext(AuthContext);
+  const [loading, setLoading] = React.useState(false);
   const [disabled, setDisabled] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
   const [value, setValue] = React.useState({
     name: "",
     description: "",
@@ -32,28 +32,6 @@ const AddWord = ({ navigation }) => {
     description: "",
     example: "",
   });
-
-  React.useEffect(() => {
-    const initUser = async () => {
-      try {
-        const authUser = await AsyncStorage.getItem("authUser");
-
-        if (authUser) {
-          const user = JSON.parse(authUser);
-
-          if (user) {
-            setUser(user);
-          }
-        }
-      } catch (error) {
-        console.log(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    initUser();
-  }, []);
 
   const handleError = (value, name) => {
     setErrors((prevValues) => ({ ...prevValues, [name]: value }));
@@ -124,7 +102,7 @@ const AddWord = ({ navigation }) => {
     try {
       const response = await api.post("/adjective", value, {
         headers: {
-          Authorization: `Bearer ${user?.token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -137,9 +115,12 @@ const AddWord = ({ navigation }) => {
         );
         setLoading(false);
         setDisabled(false);
-        navigation.navigate("Adjective");
+        navigation.replace("Adjective");
       } else {
-        notification(t("axios.unkown"), t("axios.title", { context: "error" }));
+        notification(
+          t("axios.unknown"),
+          t("axios.title", { context: "error" })
+        );
         console.log(response.message);
       }
     } catch (error) {

@@ -3,38 +3,16 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { MainLayout } from "@layouts";
 import { BottomTab } from "@components";
-import { notification } from "@helpers";
 import { useTranslation } from "react-i18next";
+import { AuthContext } from "@context/AuthContext";
 import { Text, View, Image, TouchableOpacity } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Congrats = ({ navigation }) => {
   const { t } = useTranslation();
-  const [authUser, setAuthUser] = React.useState({});
-  const [loading, setLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    const initUser = async () => {
-      try {
-        const authUser = await AsyncStorage.getItem("authUser");
-
-        if (authUser) {
-          const user = JSON.parse(authUser);
-          setAuthUser(user.data);
-        }
-      } catch (error) {
-        notification(t("axios.server"), t("axios.title", { context: "error" }));
-        console.log(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    initUser();
-  }, []);
+  const { userInfo, busy } = React.useContext(AuthContext);
 
   return (
-    <MainLayout navigation={navigation} loading={loading}>
+    <MainLayout navigation={navigation} loading={busy}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
@@ -58,9 +36,7 @@ const Congrats = ({ navigation }) => {
                 color: "black",
               }}
             >
-              {`Hai ${authUser?.firstName} ${authUser?.lastName}, ${t(
-                "congrats.description"
-              )}`}
+              {`Hai ${userInfo?.name}, ${t("congrats.description")}`}
             </Text>
           </View>
           <TouchableOpacity onPress={() => navigation.navigate("Certificate")}>

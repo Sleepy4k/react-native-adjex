@@ -22,7 +22,7 @@ const Tutorial = ({ navigation }) => {
           setTutorial(response.data.data);
         } else {
           notification(
-            t("axios.unkown"),
+            t("axios.unknown"),
             t("axios.title", { context: "error" })
           );
           console.log(response.message);
@@ -75,7 +75,7 @@ const Tutorial = ({ navigation }) => {
                       onPress={() =>
                         navigation.navigate("WebViewer", {
                           param: {
-                            url: tutorial.url,
+                            url: item.url,
                           },
                         })
                       }
@@ -106,7 +106,7 @@ const Tutorial = ({ navigation }) => {
                         fontWeight: "bold",
                       }}
                     >
-                      {tutorial.name}
+                      {item.name}
                     </Text>
                   </View>
                 </View>

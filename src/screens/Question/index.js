@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import { AuthContext } from "@context/AuthContext";
 import { Text, View, Image, Alert, TouchableOpacity } from "react-native";
 
-const Adjective = ({ navigation }) => {
+const Question = ({ navigation }) => {
   const { t } = useTranslation();
   const [data, setData] = React.useState([]);
   const { token } = React.useContext(AuthContext);
@@ -228,16 +228,16 @@ const Adjective = ({ navigation }) => {
   );
 };
 
-Adjective.propTypes = {
+Question.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-Adjective.defaultProps = {
+Question.defaultProps = {
   navigation: {
     navigate: () => {},
   },
 };
 
-export default Adjective;
+export default Question;
 
-// Path: src\screens\Adjective\index.js
+// Path: src\screens\Question\index.js

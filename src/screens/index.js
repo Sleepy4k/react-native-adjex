@@ -12,12 +12,15 @@ import ShowQuiz from "./ShowQuiz";
 import Language from "./Language";
 import Tutorial from "./Tutorial";
 import Register from "./Register";
+import Category from "./Category";
 import Congrats from "./Congrats";
+import Question from "./Question";
 import Adjective from "./Adjective";
 import WebViewer from "./WebViewer";
 import Dashboard from "./Dashboard";
 import DetailWord from "./DetailWord";
 import Certificate from "./Certificate";
+import SearchResult from "./SearchResult";
 
 export {
   Home,
@@ -34,10 +37,13 @@ export {
   Language,
   Tutorial,
   Register,
+  Category,
   Congrats,
+  Question,
   Adjective,
   WebViewer,
   Dashboard,
   DetailWord,
   Certificate,
+  SearchResult,
 };

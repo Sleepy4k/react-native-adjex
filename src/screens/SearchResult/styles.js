@@ -39,4 +39,4 @@ const styles = StyleSheet.create({
 
 export default styles;
 
-// Path: src\screens\Home\styles.js
+// Path: src\screens\SearchResult\styles.js

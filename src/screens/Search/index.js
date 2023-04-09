@@ -73,7 +73,7 @@ const Search = ({ navigation }) => {
       if (guestSearch) {
         const guest = JSON.parse(guestSearch);
 
-        if (guest.total > 5 && !authUser) {
+        if (guest.total > 4 && !authUser) {
           Alert.alert(
             "Please login",
             "You have exceeded the maximum search limit",
@@ -99,7 +99,7 @@ const Search = ({ navigation }) => {
             })
           );
 
-          navigation.replace("DetailWord", { param: { word: search } });
+          navigation.replace("SearchResult", { param: { word: search } });
         }
       } else if (!guestSearch) {
         await AsyncStorage.setItem(
@@ -110,9 +110,9 @@ const Search = ({ navigation }) => {
           })
         );
 
-        navigation.replace("DetailWord", { param: { word: search } });
+        navigation.replace("SearchResult", { param: { word: search } });
       } else {
-        navigation.replace("DetailWord", { param: { word: search } });
+        navigation.replace("SearchResult", { param: { word: search } });
       }
     } catch (error) {
       notification("Something went wrong", "error");
@@ -176,7 +176,7 @@ const Search = ({ navigation }) => {
                 <TouchableOpacity
                   key={index}
                   onPress={() =>
-                    navigation.replace("DetailWord", {
+                    navigation.replace("SearchResult", {
                       param: { word: item },
                     })
                   }
