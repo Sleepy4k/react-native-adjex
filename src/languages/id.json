@@ -49,7 +49,7 @@
       "add": "Tambah",
       "edit": "Ubah",
       "delete": "Hapus",
-      "added": "menghapus kata sifat {{adjective}}"
+      "deleted": "menghapus kata sifat dengan id {{adjective}}"
     },
     "alert": {
       "title": "PERINGATAN",
@@ -82,6 +82,9 @@
       "submit": "Kirim",
       "added": "mengubah kata sifat {{adjective}}"
     },
+    "home": {
+      "title": "TAMPILAN UTAMA"
+    },
     "language": {
       "title": "PILIH BAHASA",
       "indonesia": "INDONESIA",
@@ -98,12 +101,16 @@
       "back_to_dashboard": "Kembali ke Dashboard"
     },
     "profile": {
+      "dev": "Dev",
+      "user": "Pengguna",
+      "quiz": "Kuis",
       "guest": "Tamu",
       "admin": "Admin",
       "login": "Masuk",
       "account": "Akun",
       "logout": "Keluar",
       "system": "Sistem",
+      "category": "Kategori",
       "language": "Bahasa",
       "about_us": "Tentang Kami",
       "report_bug": "Laporkan Bug",
@@ -138,6 +145,9 @@
     "search": {
       "placeholder": "Cari Kata Sifat",
       "history": "Sejarah Pencarian"
+    },
+    "search_result": {
+      "title": "HASIL PENCARIAN UNTUK {{keyword}}"
     },
     "show_quiz": {
       "title": "KUIS",
