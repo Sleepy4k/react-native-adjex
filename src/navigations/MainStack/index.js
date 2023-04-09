@@ -18,12 +18,15 @@ import {
   Language,
   Tutorial,
   Register,
+  Category,
   Congrats,
+  Question,
   Adjective,
   WebViewer,
   Dashboard,
   DetailWord,
   Certificate,
+  SearchResult,
 } from "@screens";
 
 const MainStack = () => {
@@ -97,12 +100,15 @@ const MainStack = () => {
       <Stack.Screen name="Language" component={Language} />
       <Stack.Screen name="Tutorial" component={Tutorial} />
       <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="Category" component={Category} />
       <Stack.Screen name="Congrats" component={Congrats} />
+      <Stack.Screen name="Question" component={Question} />
       <Stack.Screen name="Adjective" component={Adjective} />
       <Stack.Screen name="WebViewer" component={WebViewer} />
       <Stack.Screen name="Dashboard" component={Dashboard} />
       <Stack.Screen name="DetailWord" component={DetailWord} />
       <Stack.Screen name="Certificate" component={Certificate} />
+      <Stack.Screen name="SearchResult" component={SearchResult} />
     </Stack.Navigator>
   );
 };
