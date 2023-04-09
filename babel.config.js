@@ -12,6 +12,7 @@ module.exports = function (api) {
             "@config": "./app.json",
             "@assets": "./src/assets",
             "@images": "./src/assets/images",
+            "@context": "./src/context",
             "@helpers": "./src/helpers",
             "@layouts": "./src/layouts",
             "@screens": "./src/screens",
