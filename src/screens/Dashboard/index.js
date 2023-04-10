@@ -12,7 +12,7 @@ const Dashboard = ({ navigation }) => {
   const { logged, busy } = React.useContext(AuthContext);
 
   return (
-    <MainLayout navigation={navigation} loading={busy}>
+    <MainLayout navigation={navigation} loading={busy} style={null}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <Text

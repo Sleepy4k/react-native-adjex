@@ -26,7 +26,7 @@ const Language = ({ navigation }) => {
   };
 
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout navigation={navigation} style={null}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row" }}>

@@ -33,7 +33,7 @@ const Category = ({ navigation }) => {
   }, []);
 
   return (
-    <MainLayout navigation={navigation} loading={loading}>
+    <MainLayout navigation={navigation} loading={loading} style={null}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row" }}>
