@@ -189,7 +189,12 @@ const AddQuiz = ({ navigation }) => {
   };
 
   return (
-    <MainLayout navigation={navigation} loading={loading}>
+    <MainLayout
+      navigation={navigation}
+      loading={loading}
+      refresh={false}
+      style={null}
+    >
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row" }}>

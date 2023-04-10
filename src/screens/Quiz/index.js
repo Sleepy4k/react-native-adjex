@@ -63,7 +63,12 @@ const Quiz = ({ navigation }) => {
   };
 
   return (
-    <MainLayout navigation={navigation} loading={loading} scroll={false}>
+    <MainLayout
+      navigation={navigation}
+      loading={loading}
+      scroll={false}
+      style={null}
+    >
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row" }}>

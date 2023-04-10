@@ -39,7 +39,7 @@ const Tutorial = ({ navigation }) => {
   }, []);
 
   return (
-    <MainLayout navigation={navigation} loading={loading}>
+    <MainLayout navigation={navigation} loading={loading} style={null}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row" }}>
@@ -70,45 +70,49 @@ const Tutorial = ({ navigation }) => {
           {tutorial && tutorial.length > 0
             ? tutorial.map((item, index) => (
                 <View style={styles.card1} key={index}>
-                  <View style={{ flexDirection: "row" }}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate("WebViewer", {
-                          param: {
-                            url: item.url,
-                          },
-                        })
-                      }
-                      style={{
-                        width: 45,
-                        height: 45,
-                        backgroundColor: "darkblue",
-                        marginTop: 12,
-                        marginLeft: 10,
-                        borderRadius: 5,
-                      }}
-                    >
-                      <Image
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("WebViewer", {
+                        param: {
+                          url: item.url,
+                        },
+                      })
+                    }
+                  >
+                    <View style={{ flexDirection: "row" }}>
+                      <View
                         style={{
-                          width: 25,
-                          height: 25,
-                          marginLeft: 12,
-                          marginTop: 10,
+                          width: 45,
+                          height: 45,
+                          backgroundColor: "darkblue",
+                          marginTop: 12,
+                          marginLeft: 10,
+                          borderRadius: 5,
                         }}
-                        source={require("@images/play-icon.png")}
-                      />
-                    </TouchableOpacity>
-                    <Text
-                      style={{
-                        fontSize: 17,
-                        marginTop: 20,
-                        marginLeft: 20,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {item.name}
-                    </Text>
-                  </View>
+                      >
+                        <Image
+                          style={{
+                            width: 25,
+                            height: 25,
+                            marginLeft: 12,
+                            marginTop: 10,
+                          }}
+                          source={require("@images/play-icon.png")}
+                        />
+                      </View>
+
+                      <Text
+                        style={{
+                          fontSize: 17,
+                          marginTop: 20,
+                          marginLeft: 20,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {item.name}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
                 </View>
               ))
             : null}

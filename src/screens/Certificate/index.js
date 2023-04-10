@@ -39,7 +39,16 @@ const Certificate = ({ navigation }) => {
 
     for (let index = 0; index < data; index++) {
       certificate.push(
-        <TouchableOpacity key={index}>
+        <TouchableOpacity
+          key={index}
+          onPress={() =>
+            navigation.navigate("WebViewer", {
+              param: {
+                url: "https://drive.google.com/file/d/18NKx52IxcUrVK4NE655f6gaD3c8a5Pz-/view?usp=drivesdk",
+              },
+            })
+          }
+        >
           <Image
             style={{
               width: 120,
@@ -57,7 +66,7 @@ const Certificate = ({ navigation }) => {
   };
 
   return (
-    <MainLayout navigation={navigation} loading={loading}>
+    <MainLayout navigation={navigation} loading={loading} style={null}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={styles.tombol}>

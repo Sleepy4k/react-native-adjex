@@ -8,10 +8,10 @@ import { Text, View, Image, TouchableOpacity } from "react-native";
 
 const Alert = ({ route, navigation }) => {
   const { t } = useTranslation();
-  const { index } = route.params.param;
+  const { category } = route.params.param;
 
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout navigation={navigation} refresh={false} style={null}>
       <View style={styles.container}>
         <Image style={styles.logo} source={require("@images/logo.png")} />
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
@@ -41,7 +41,7 @@ const Alert = ({ route, navigation }) => {
           </View>
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate("ShowQuiz", { param: { index: index } })
+              navigation.replace("ShowQuiz", { param: { category: category } })
             }
           >
             <View style={styles.card1}>
