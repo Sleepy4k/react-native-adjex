@@ -33,6 +33,25 @@
       "team": "Tim",
       "team_desc": "Dalam pembuatan aplikasi ini, kerja keras tim kami yang terdiri dari :"
     },
+    "add_quiz": {
+      "title": "TAMBAHKAN KUIS",
+      "question": "Pertanyaan",
+      "question_placeholder": "Masukan Pertanyaan",
+      "a": "A",
+      "a_placeholder": "Masukan A",
+      "b": "B",
+      "b_placeholder": "Masukan B",
+      "c": "C",
+      "c_placeholder": "Masukan C",
+      "d": "D",
+      "d_placeholder": "Masukan D",
+      "answer": "Jawaban",
+      "answer_placeholder": "Masukan Jawaban",
+      "category": "Kategori ID",
+      "category_placeholder": "Masukan Kategori ID",
+      "submit": "Kirim",
+      "added": "menambahkan kuis dengan pertanyaan {{question}}"
+    },
     "add_word": {
       "title": "TAMBAHKAN KATA SIFAT",
       "adjective": "Kata Sifat",
@@ -57,6 +76,9 @@
       "confirmation_yes": "Ya",
       "confirmation_no": "Tidak"
     },
+    "category": {
+      "title": "KATEGORI"
+    },
     "certificate": {
       "title": "Sertifikat"
     },
@@ -70,6 +92,25 @@
       "description": "Deskripsi",
       "example": "Contoh",
       "example_text": "Berikut adalah beberapa contoh penggunaan kata dari kata"
+    },
+    "edit_quiz": {
+      "title": "UBAH KUIS",
+      "question": "Pertanyaan",
+      "question_placeholder": "Masukan Pertanyaan",
+      "a": "A",
+      "a_placeholder": "Masukan A",
+      "b": "B",
+      "b_placeholder": "Masukan B",
+      "c": "C",
+      "c_placeholder": "Masukan C",
+      "d": "D",
+      "d_placeholder": "Masukan D",
+      "answer": "Jawaban",
+      "answer_placeholder": "Masukan Jawaban",
+      "category": "Kategori ID",
+      "category_placeholder": "Masukan Kategori ID",
+      "submit": "Kirim",
+      "added": "mengubah kuis dengan pertanyaan {{question}}"
     },
     "edit_word": {
       "title": "UBAH KATA SIFAT",
@@ -116,6 +157,13 @@
       "report_bug": "Laporkan Bug",
       "adjective": "Kata Sifat",
       "delete_local_storage": "Hapus Data Lokal"
+    },
+    "question": {
+      "title": "PERTANYAAN",
+      "add": "Tambah",
+      "edit": "Ubah",
+      "delete": "Hapus",
+      "deleted": "menghapus pertanyaan dengan id {{id}}"
     },
     "quiz": {
       "title": "KUIS",

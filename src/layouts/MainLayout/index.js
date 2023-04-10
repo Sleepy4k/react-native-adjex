@@ -8,7 +8,7 @@ import { I18nextProvider } from "react-i18next";
 import { useRoute } from "@react-navigation/native";
 import { View, ScrollView, SafeAreaView, RefreshControl } from "react-native";
 
-const MainLayout = ({ navigation, scroll, loading, children }) => {
+const MainLayout = ({ navigation, scroll, loading, children, style }) => {
   const route = useRoute().name;
   const [refreshing, setRefreshing] = React.useState(false);
 
@@ -29,7 +29,7 @@ const MainLayout = ({ navigation, scroll, loading, children }) => {
 
   return (
     <I18nextProvider i18n={i18n}>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={style ? style : styles.container}>
         {scroll ? (
           <ScrollView
             showsVerticalScrollIndicator={!refreshing}
@@ -41,10 +41,10 @@ const MainLayout = ({ navigation, scroll, loading, children }) => {
             {children}
           </ScrollView>
         ) : (
-          <>
+          <View style={styles.container}>
             {loading && <Loader show={loading} size="large" />}
             {children}
-          </>
+          </View>
         )}
       </SafeAreaView>
     </I18nextProvider>
@@ -56,6 +56,7 @@ MainLayout.propTypes = {
   scroll: PropTypes.bool,
   loading: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
+  style: PropTypes.object,
 };
 
 MainLayout.defaultProps = {

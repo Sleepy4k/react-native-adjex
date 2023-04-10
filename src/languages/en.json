@@ -33,6 +33,25 @@
       "team": "Team",
       "team_desc": "In making this application, the hard work of our team, which consists of :"
     },
+    "add_quiz": {
+      "title": "ADD QUESTION",
+      "question": "Question",
+      "question_placeholder": "Input Question",
+      "a": "A",
+      "a_placeholder": "Input A",
+      "b": "B",
+      "b_placeholder": "Input B",
+      "c": "C",
+      "c_placeholder": "Input C",
+      "d": "D",
+      "d_placeholder": "Input D",
+      "answer": "Answer",
+      "answer_placeholder": "Input Answer",
+      "category": "Category ID",
+      "category_placeholder": "Input Category ID",
+      "submit": "Submit",
+      "added": "added question {{question}}"
+    },
     "add_word": {
       "title": "ADD ADJECTIVE",
       "adjective": "Adjective",
@@ -57,6 +76,9 @@
       "confirmation_yes": "Yes",
       "confirmation_no": "No"
     },
+    "category": {
+      "title": "CATEGORY"
+    },
     "certificate": {
       "title": "Certificate"
     },
@@ -70,6 +92,25 @@
       "description": "Description",
       "example": "Example",
       "example_text": "Here are some examples of the use of the word from the word"
+    },
+    "edit_quiz": {
+      "title": "EDIT QUESTION",
+      "question": "Question",
+      "question_placeholder": "Input Question",
+      "a": "A",
+      "a_placeholder": "Input A",
+      "b": "B",
+      "b_placeholder": "Input B",
+      "c": "C",
+      "c_placeholder": "Input C",
+      "d": "D",
+      "d_placeholder": "Input D",
+      "answer": "Answer",
+      "answer_placeholder": "Input Answer",
+      "category": "Category ID",
+      "category_placeholder": "Input Category ID",
+      "submit": "Submit",
+      "added": "edited question {{question}}"
     },
     "edit_word": {
       "title": "EDIT ADJECTIVE",
@@ -116,6 +157,13 @@
       "report_bug": "Report Bug",
       "adjective": "Adjective",
       "delete_local_storage": "Delete Local Storage"
+    },
+    "question": {
+      "title": "QUESTION",
+      "add": "Add",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleted": "deleted question with id {{id}}"
     },
     "quiz": {
       "title": "QUIZ",

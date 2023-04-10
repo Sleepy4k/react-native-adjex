@@ -5,8 +5,10 @@ import Login from "./Login";
 import About from "./About";
 import Report from "./Report";
 import Search from "./Search";
+import AddQuiz from "./AddQuiz";
 import AddWord from "./AddWord";
 import Profile from "./Profile";
+import EditQuiz from "./EditQuiz";
 import EditWord from "./EditWord";
 import ShowQuiz from "./ShowQuiz";
 import Language from "./Language";
@@ -30,8 +32,10 @@ export {
   About,
   Report,
   Search,
+  AddQuiz,
   AddWord,
   Profile,
+  EditQuiz,
   EditWord,
   ShowQuiz,
   Language,

@@ -18,7 +18,6 @@ import {
 
 const Search = ({ navigation }) => {
   const { t } = useTranslation();
-
   const [error, setError] = React.useState("");
   const [search, setSearch] = React.useState("");
   const [history, setHistory] = React.useState([]);
@@ -130,8 +129,8 @@ const Search = ({ navigation }) => {
               borderRadius: 10,
               borderWidth: 1,
               height: 40,
-              width: 280,
-              marginLeft: -20,
+              width: 235,
+              marginLeft: 20,
               padding: 10,
               backgroundColor: "white",
             }}

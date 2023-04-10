@@ -165,7 +165,9 @@ const Adjective = ({ navigation }) => {
                         color: "white",
                       }}
                     >
-                      {item.name}
+                      {item.name.length < 5
+                        ? item.name
+                        : item.name.substring(0, 5) + "..."}
                     </Text>
                     <TouchableOpacity
                       disabled={disabled}
