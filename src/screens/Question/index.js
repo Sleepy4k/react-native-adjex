@@ -19,7 +19,7 @@ const Question = ({ navigation }) => {
   React.useEffect(() => {
     const initData = async () => {
       try {
-        const response = await api.get("/adjective");
+        const response = await api.get("/quiz");
 
         if (response.data.status == "success") {
           setData(response.data.data);
@@ -40,7 +40,7 @@ const Question = ({ navigation }) => {
     setLoading(true);
 
     try {
-      const response = await api.delete(`/adjective/${id}`, {
+      const response = await api.delete(`/quiz/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -66,7 +66,7 @@ const Question = ({ navigation }) => {
     } finally {
       setLoading(false);
       setDisabled(false);
-      navigation.replace("Adjective");
+      navigation.replace("Question");
     }
   };
 
@@ -115,11 +115,11 @@ const Question = ({ navigation }) => {
               fontWeight: "bold",
             }}
           >
-            {t("adjective.title")}
+            {t("question.title")}
           </Text>
           <TouchableOpacity
             disabled={disabled}
-            onPress={() => navigation.navigate("AddWord")}
+            onPress={() => navigation.navigate("AddQuiz")}
             style={{
               width: 65,
               height: 25,
@@ -135,7 +135,7 @@ const Question = ({ navigation }) => {
                 marginTop: 2,
               }}
             >
-              {t("adjective.add")}
+              {t("question.add")}
             </Text>
           </TouchableOpacity>
         </View>
@@ -164,13 +164,16 @@ const Question = ({ navigation }) => {
                         fontWeight: "bold",
                         color: "white",
                       }}
+                      numberOfLines={1}
                     >
-                      {item.name}
+                      {item.question.length < 5
+                        ? item.question
+                        : item.question.substring(0, 5) + "..."}
                     </Text>
                     <TouchableOpacity
                       disabled={disabled}
                       onPress={() =>
-                        navigation.navigate("EditWord", {
+                        navigation.navigate("EditQuiz", {
                           param: { id: item.id },
                         })
                       }
@@ -191,7 +194,7 @@ const Question = ({ navigation }) => {
                           textAlign: "center",
                         }}
                       >
-                        {t("adjective.edit")}
+                        {t("question.edit")}
                       </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -214,7 +217,7 @@ const Question = ({ navigation }) => {
                           textAlign: "center",
                         }}
                       >
-                        {t("adjective.delete")}
+                        {t("question.delete")}
                       </Text>
                     </TouchableOpacity>
                   </View>

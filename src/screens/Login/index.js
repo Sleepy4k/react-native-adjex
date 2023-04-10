@@ -128,7 +128,7 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <MainLayout navigation={navigation} loading={loading}>
+    <MainLayout navigation={navigation} loading={loading} style={styles.layout}>
       <View style={styles.container}>
         <Text style={styles.paragraph}>{t("login.title")}</Text>
         <Text style={styles.paragraph2}>{t("login.sub_title")}</Text>
